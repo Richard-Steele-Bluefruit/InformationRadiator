@@ -42,7 +42,10 @@ namespace TeamCity.Views
         {
             foreach(string configuration in _presenter.Configurations)
             {
-                var grid = new Grid();
+                var grid = new Grid()
+                {
+                    AllowDrop = true
+                };
                 var holder = new Viewbox()
                 {
                     Margin = new Thickness(5.0)
@@ -50,7 +53,9 @@ namespace TeamCity.Views
 
                 var text = new TextBlock()
                 {
+                    AllowDrop = true,
                     FontFamily = new FontFamily("Comic Sans MS") //https://stackoverflow.com/questions/6993736/list-of-built-in-wpf-fonts
+                    
                 };
                 text.Text = configuration;
                 text.Foreground = Brushes.Black;

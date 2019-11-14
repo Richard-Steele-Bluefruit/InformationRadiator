@@ -5,7 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Name="mainGrid">
+    <Grid Name="mainGrid" Margin="0">
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
             <RowDefinition Height="13*" />
@@ -19,7 +22,10 @@
         </Grid.ColumnDefinitions>
 
         <Rectangle Grid.Row="1" Grid.Column="1"  Fill="#FF444444"/>
-        <Viewbox Grid.Row="1" Grid.Column="1">
+        <Viewbox Grid.Row="1" Grid.Column="1" OpacityMask="Black">
+            <Viewbox.Effect>
+                <DropShadowEffect/>
+            </Viewbox.Effect>
             <TextBlock Name="titleText" Foreground="White" FontFamily="Comic Sans MS" Margin="0,2">Title</TextBlock>
         </Viewbox>
     </Grid>
