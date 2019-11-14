@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<InformationRadiatorConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Items>
+
+     <InformationRadiatorItem ItemType="TeamCity" Width="250" Height="250" Left="0" Top="50">
+       <Title>Carina</Title>
+       <Configuration>
+         <Field ID="HostName">bib:8080</Field>
+         <Field ID="UserName">admin</Field>
+         <Field ID="Password">winkle</Field>
+         <Field ID="BuildConfiguration">Carina_Master</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+       <Configuration>
+         <Field ID="HostName">bib:8080</Field>
+         <Field ID="UserName">admin</Field>
+         <Field ID="Password">winkle</Field>
+         <Field ID="BuildConfiguration">Carina_Carina2test</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+     </InformationRadiatorItem>
+       <InformationRadiatorItem ItemType="TeamCity" Width="250" Height="250" Left="250" Top="50">
+         <Title>Raptor</Title>
+        <Configuration>
+          <Field ID="HostName">bib:8080</Field>
+          <Field ID="UserName">admin</Field>
+          <Field ID="Password">winkle</Field>
+          <Field ID="BuildConfiguration">Carina_RaptorMaster</Field>
+          <Field ID="OnlyDefaultBranch">false</Field>
+        </Configuration>
+       <Configuration>
+         <Field ID="HostName">bib:8080</Field>
+         <Field ID="UserName">admin</Field>
+         <Field ID="Password">winkle</Field>
+         <Field ID="BuildConfiguration">Carina_RaptorBuildTest</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+       </InformationRadiatorItem>
+       <InformationRadiatorItem ItemType="TeamCity" Width="250" Height="250" Left="500" Top="50">
+         <Title>Thalamus</Title>
+         <Configuration>
+           <Field ID="HostName">bob:8080</Field>
+           <Field ID="UserName">informationradiator</Field>
+           <Field ID="Password">Cornwall1#</Field>
+           <Field ID="BuildConfiguration">Thalamus_Master</Field>
+           <Field ID="OnlyDefaultBranch">false</Field>
+         </Configuration>
+         <Configuration>
+           <Field ID="HostName">bob:8080</Field>
+           <Field ID="UserName">informationradiator</Field>
+           <Field ID="Password">Cornwall1#</Field>
+           <Field ID="BuildConfiguration">Thalamus_ThalamusBuildTest</Field>
+           <Field ID="OnlyDefaultBranch">false</Field>
+         </Configuration>
+
+         <!--
+      <Title>Cooper Surgical IVF Workbench</Title>
+      <Configuration>
+        <Field ID="HostName">serenity:8080</Field>
+        <Field ID="UserName">builduser</Field>
+        <Field ID="Password">buildingisfun</Field>
+        <Field ID="BuildConfiguration">CooperWorkstation_Absw</Field>
+        <Field ID="OnlyDefaultBranch">false</Field>
+      </Configuration>
+      <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">CooperWorkstation_Pablo</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+       <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">CooperWorkstation_Lewi</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+     <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">CooperWorkstation_TeamRocket</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+    </InformationRadiatorItem>
+    <InformationRadiatorItem ItemType="TeamCity" Width="300" Height="600" Left="700" Top="100">
+      <Title>RAD eAssist</Title>
+      <Configuration>
+        <Field ID="HostName">serenity:8080</Field>
+        <Field ID="UserName">builduser</Field>
+        <Field ID="Password">buildingisfun</Field>
+        <Field ID="BuildConfiguration">RADeAssist_Absw</Field>
+        <Field ID="OnlyDefaultBranch">false</Field>
+      </Configuration>
+      <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">RADeAssist_Pablo</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+       <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">RADeAssist_Lewis</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+       <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">RADeAssist_Harvey</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+    </InformationRadiatorItem>
+    <InformationRadiatorItem ItemType="TeamCity" Width="300" Height="600" Left="700" Top="100">
+      <Title>Ampetronic</Title>
+      <Configuration>
+        <Field ID="HostName">serenity:8080</Field>
+        <Field ID="UserName">builduser</Field>
+        <Field ID="Password">buildingisfun</Field>
+        <Field ID="BuildConfiguration">Alp_Absw</Field>
+        <Field ID="OnlyDefaultBranch">false</Field>
+      </Configuration>
+      <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">Alp_Laurent</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+       <Configuration>
+         <Field ID="HostName">serenity:8080</Field>
+         <Field ID="UserName">builduser</Field>
+         <Field ID="Password">buildingisfun</Field>
+         <Field ID="BuildConfiguration">Alp_Pablo</Field>
+         <Field ID="OnlyDefaultBranch">false</Field>
+       </Configuration>
+       
+      -->
+    </InformationRadiatorItem>
+  </Items>
+</InformationRadiatorConfiguration>

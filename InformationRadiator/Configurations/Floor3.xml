@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<InformationRadiatorConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Items>
+    <InformationRadiatorItem ItemType="HolidayCalendar" Width="1920" Height="100" Left="0" Top="0"/>
+
+    <!-- ************************************************ Row 2 *********************************************** -->
+
+    <InformationRadiatorItem ItemType="LeanKitCumlativeFlow" Width="820" Height="415" Left="0" Top="100">
+      <Title>Watson Marlow Pims</Title>
+      <Configuration>
+        <Field ID="HostName">absw</Field>
+        <Field ID="UserName">informationradiator@bluefruit.co.uk</Field>
+        <Field ID="Password">Makinvvis1#</Field>
+        <Field ID="BoardID">265974214</Field>
+        <Field ID="NumberOfDays">28</Field>
+        <!-- Backlog -->
+        <Field ID="IgnoreLaneID">266060370</Field>
+        <!-- Archive -->
+        <Field ID="IgnoreLaneID">266060374</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+    <InformationRadiatorItem ItemType="TeamCity" Width="140" Height="415" Left="820" Top="100">
+      <Title>Watson Marlow Pims</Title>
+      <Configuration>
+        <Field ID="HostName">bertha:8080</Field>
+        <Field ID="UserName">InformationRadiator</Field>
+        <Field ID="Password">Cornwall1#</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPims_Absw</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPims_Ashlei</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPims_Josh</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPims_Yan</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPims_Dom</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPims_Harvey</Field>
+        <Field ID="OnlyDefaultBranch">false</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+  <InformationRadiatorItem ItemType="LeanKitCumlativeFlow" Width="820" Height="415" Left="960" Top="100">
+      <Title>Watson Marlow Pepsi</Title>
+      <Configuration>
+        <Field ID="HostName">absw</Field>
+        <Field ID="UserName">informationradiator@bluefruit.co.uk</Field>
+        <Field ID="Password">Makinvvis1#</Field>
+        <Field ID="BoardID">372261392</Field>
+        <Field ID="NumberOfDays">28</Field>
+        <!-- Backlog -->
+        <Field ID="IgnoreLaneID">372415354</Field>
+        <!-- Archive -->
+        <Field ID="IgnoreLaneID">372415358</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+    <InformationRadiatorItem ItemType="TeamCity" Width="140" Height="415" Left="1780" Top="100">
+      <Title>Watson Marlow Pepsi</Title>
+      <Configuration>
+        <Field ID="HostName">bertha:8080</Field>
+        <Field ID="UserName">InformationRadiator</Field>
+        <Field ID="Password">Cornwall1#</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPepsi_Absw</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPepsi_Denzil</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPepsi_Jeremy</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPepsi_Josh</Field>
+        <Field ID="BuildConfiguration">WatsonMarlowPepsi_Ross</Field>
+        <Field ID="OnlyDefaultBranch">false</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ************************************************ Row 3 *********************************************** -->
+
+    <InformationRadiatorItem ItemType="LeanKitCumlativeFlow" Width="1080" Height="415" Left="0" Top="515">
+      <Title>Cosimplex</Title>
+      <Configuration>
+        <Field ID="HostName">absw</Field>
+        <Field ID="UserName">informationradiator@bluefruit.co.uk</Field>
+        <Field ID="Password">Makinvvis1#</Field>
+        <Field ID="BoardID">385214214</Field>
+        <Field ID="NumberOfDays">28</Field>
+        <!-- Backlog -->
+        <Field ID="IgnoreLaneID">385280699</Field>
+        <!-- Archive -->
+        <Field ID="IgnoreLaneID">385280703</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+    <InformationRadiatorItem ItemType="TeamCity" Width="140" Height="415" Left="1080" Top="515">
+      <Title>CoSimplex</Title>
+      <Configuration>
+        <Field ID="HostName">bertha:8080</Field>
+        <Field ID="UserName">InformationRadiator</Field>
+        <Field ID="Password">Cornwall1#</Field>
+        <Field ID="BuildConfiguration">CoSimplex_Absw</Field>
+        <Field ID="BuildConfiguration">CoSimplex_Andi</Field>
+        <Field ID="BuildConfiguration">CoSimplex_James</Field>
+        <Field ID="BuildConfiguration">CoSimplex_Neil</Field>
+        <Field ID="BuildConfiguration">CoSimplex_Rich</Field>
+        <Field ID="BuildConfiguration">CoSimplex_Simon</Field>
+        <Field ID="OnlyDefaultBranch">false</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+    <InformationRadiatorItem ItemType="CoreQualityMetrics" Width="700" Height="415" Left="1220" Top="515">
+      <Title>Core Quality</Title>
+      <Configuration>
+        <Field ID="WebsiteURL">http://corequality.metrics/</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+    <InformationRadiatorItem ItemType="LeanKitTicker" Width="1820" Height="150" Left="0" Top="930">
+      <Configuration>
+        <Field ID="HostName">absw</Field>
+        <Field ID="UserName">informationradiator@bluefruit.co.uk</Field>
+        <Field ID="Password">Makinvvis1#</Field>
+        <Field ID="BoardID">170637725</Field>
+        <Field ID="LaneID">170818048</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+    <InformationRadiatorItem ItemType="TeamCity" Width="100" Height="150" Left="1820" Top="930">
+      <Configuration>
+        <Field ID="HostName">byran.buildserver:8080</Field>
+        <Field ID="UserName">InformationRadiator</Field>
+        <Field ID="Password">Cornwall1#</Field>
+        <Field ID="BuildConfiguration">AutomatedTasks_AutomatedTasks</Field>
+        <Field ID="BuildConfiguration">InformationRadiator_Blessed</Field>
+        <Field ID="BuildConfiguration">TestReportGenerator_Blessed</Field>
+        <Field ID="OnlyDefaultBranch">true</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <!-- ====================================================================================================== -->
+
+    <!-- InformationRadiatorItem ItemType="Decorations" Left="0" Top="100" / -->
+
+  </Items>
+</InformationRadiatorConfiguration>

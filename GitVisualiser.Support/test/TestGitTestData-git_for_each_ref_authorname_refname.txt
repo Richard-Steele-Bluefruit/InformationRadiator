@@ -1,0 +1,1130 @@
+Dominic Roberts refs/heads/AlcatrazArchipelago-merge-mdodkins
+Dominic Roberts refs/heads/DO-NOT-PUSH-OR-COMMIT-THIS-BRANCH
+mdodkins refs/heads/Development
+Dominic Roberts refs/heads/Hard_fault_on_new_property_subscription
+Dominic Roberts refs/heads/MIS-1007-zone-mode-property-size
+Dominic Roberts refs/heads/MIS-1079-mistatn-homescreen-decimal-point
+Dominic Roberts refs/heads/MIS-1092-mistatn-rtos-malloc-on-update-from-controller
+Dominic Roberts refs/heads/MIS-1194-getset-cli-all-properties
+Dominic Roberts refs/heads/MIS-1238-replace-req-act-properties-post-review
+Dominic Roberts refs/heads/MIS-1238-replace-requested-actual
+Dominic Roberts refs/heads/MIS-1241-EICExperimental
+Dominic Roberts refs/heads/MIS-1241-mistatn-sometimes-hardfault-home-press-minus
+Dominic-Roberts refs/heads/MIS-1289-mitime-rollback-firmware
+Dominic Roberts refs/heads/MIS-1327-mistatn-settings-properties-propagation
+Dominic Roberts refs/heads/MIS-1327-mistatn-startsubscribing-post-merge
+Dominic Roberts refs/heads/MIS-1328-zonesummary-homesetpoint-fix-merge-andi
+Dominic Roberts refs/heads/MIS-1328-zonesummary-not-updating-on-external-property-change
+Dominic-Roberts refs/heads/MIS-1357-fast-setpoints-cause-malloc
+Dominic Roberts refs/heads/MIS-1358-fix-nodeproxysettings-3-json-for-merge
+Dominic Roberts refs/heads/MIS-1365-remove-slime-from-property-adjuster
+Dominic Roberts refs/heads/MIS-1392-min-temp-setting-unable-to-lower
+Dominic Roberts refs/heads/MIS-1439-mistatn-missing-degreesc
+Dominic Roberts refs/heads/MIS-1441-mistatn-temp-measure-point-5-degrees
+Dominic Roberts refs/heads/MIS-1442-trade-show-slime-mistatn-disable-nav-to-settings
+Dominic Roberts refs/heads/MIS-1443-setpoints-should-wrap-to-off
+Dominic Roberts refs/heads/MIS-1536-DEBUG-BRANCH-with-debug-pin-toggling
+Dominic Roberts refs/heads/MIS-1536-mitime-rf-stack-tick-interval
+Dominic Roberts refs/heads/MIS-1632-mitime-mode-screen-empty
+JamesHollow refs/heads/MIS-1685-preliminary-mistatn-display-battery
+Dominic Roberts refs/heads/MIS-1694-test-timer-refactor
+Dominic-Roberts refs/heads/MIS-1696-remove-propertyadjuster-float
+Dominic Roberts refs/heads/MIS-1722-mican-multi-packet-messages
+Dominic Roberts refs/heads/MIS-1722-mitime-batch-fix
+Dominic Roberts refs/heads/MIS-1731-mitime-fix-editing-zone-2
+Dominic Roberts refs/heads/MIS-1772-mican-multi-packet-messages-untested
+Dominic Roberts refs/heads/MIS-1913-mistatn-to-mitime-multi-part-messages
+Dominic Roberts refs/heads/MIS-1928-WIP-refactoring-state-machine-to-property-adjuster
+Dominic Roberts refs/heads/MIS-1928-mistatn-holiday-and-always-off-indication
+Dominic Roberts refs/heads/MIS-1986-mistatn-rf-activity-icon
+Dominic Roberts refs/heads/MIS-2003-BatteryIconBootWithLowVoltage
+JamesHollow refs/heads/MIS-2080-backlight-dual-key-press
+Dominic Roberts refs/heads/MIS-2082-23v-filesystem-corruption-investigation
+Dominic Roberts refs/heads/MIS-2085-mistatn-advanced-settings-screen
+Dominic Roberts refs/heads/MIS-2103-mistatn-signal-level-advanced-setting
+Dominic Roberts refs/heads/MIS-2108-mistatn-spi-clock-lower-fix-for-file-corruption-at-low-voltage
+Dominic Roberts refs/heads/MIS-2172-mitime-screen-flicker-on-clock-format-screen
+Dominic Roberts refs/heads/MIS-2195-EXPERIMENTAL-remove-display-rf-spi-use
+Dominic Roberts refs/heads/MIS-2195-mitime-file-sending-packet-errors
+Dominic Roberts refs/heads/MIS-2327-mitime-binding-refactoring
+Dominic Roberts refs/heads/MIS-724-move-cli-tests-to-products
+Dominic Roberts refs/heads/MIS-858-zone-summary-setpoint-adjustment
+Dominic Roberts refs/heads/MIS-929-backlight-fix
+Dominic Roberts refs/heads/MIS-929-dualkeypress-sm-active
+Dominic Roberts refs/heads/MIS-929-keyboard-raise-event-not-timer-start-stop
+Dominic Roberts refs/heads/MIS-929-mistatn-nav-settings-menus
+Dominic Roberts refs/heads/MIS-930-and-936-post-review-comments
+Dominic Roberts refs/heads/MIS-930-mistatn-exit-settings-menu
+Dominic Roberts refs/heads/MIS-932-navigate-between-menu-screens
+Dominic Roberts refs/heads/MIS-933-transition-from-choice-to-edit
+Dominic Roberts refs/heads/MIS-935-mistatn-settings-reflect-controller
+Dominic Roberts refs/heads/MIS-936-mistatn-settings-edit-value-adjustment
+Dominic Roberts refs/heads/MIS-937-mistatn-setting-save-on-select
+Dominic Roberts refs/heads/MIS-939-mistatn-limit-temperature-settings
+Dominic Roberts refs/heads/MIS-939-setpoint-adjustment-with-merge-mrbob
+Dominic Roberts refs/heads/MIS-939-setpoint-max-min-limit-adjustment
+Dominic Roberts refs/heads/MIS-940-changing-limits-affects-settings
+Dominic Roberts refs/heads/MIS-958-sm_active-callback-issue
+Dominic Roberts refs/heads/MIS1761-Remove_generic_InitScreenEventArgs_params
+denzilpearce refs/heads/MIS2122-Unbinding_Screen_MiStatN
+JamesHollow refs/heads/MergePreview
+Dominic Roberts refs/heads/MiStatNHomeScreenBlitz
+Dominic Roberts refs/heads/MrBobArchipelago
+Dominic Roberts refs/heads/MrBobArchipelago-merge-alcatraz
+Dominic Roberts refs/heads/MrBobArchipelago-merge-andi
+yspeake refs/heads/MrBobArchipelago-merge-canary
+Dominic Roberts refs/heads/MrBobArchipelago-merge-mdodkins
+Dominic Roberts refs/heads/MrBobArchipelago-merge-mdodkins-post-review
+Dominic Roberts refs/heads/MrBobArchipelago-merge-naboombu
+Dominic Roberts refs/heads/local_only_getAllScheduleProperties
+Dominic Roberts refs/heads/mis-2315-mistatn-bind-verification
+Dominic Roberts refs/heads/mistatn-settings-screen-feature-file-update
+Dominic Roberts refs/heads/mitime-batch-file-fix
+Dominic Roberts refs/heads/new-features
+Dominic Roberts refs/heads/recurring-gpiohander-0-on-keypress
+Dominic Roberts refs/heads/tmp-bisect-working
+Dominic Roberts refs/heads/tmp-mdodkins
+richard.keast refs/heads/tmp-rich-add-new-feature-files
+Richard Keast refs/remotes/DenzilPearce/AddBuildServerCodeCoverage
+denzilpearce refs/remotes/DenzilPearce/AddBuildServerCodeCoverage_PullRequestComments
+DenzilPearce refs/remotes/DenzilPearce/BDDTraining
+DenzilPearce refs/remotes/DenzilPearce/BufferScreenDraw
+DenzilPearce refs/remotes/DenzilPearce/Development
+denzilpearce refs/remotes/DenzilPearce/FOTARemovalQuickFix
+DenzilPearce refs/remotes/DenzilPearce/Fix_Get_Help_Text_Warnings
+DenzilPearce refs/remotes/DenzilPearce/Fix_Internet_Gateway_test_project
+DenzilPearce refs/remotes/DenzilPearce/Fix_Screen_Flicker
+DenzilPearce refs/remotes/DenzilPearce/MI85_ShowProductNameOnSplashScreen
+Todd Dowty refs/remotes/DenzilPearce/MIS-1718-ProdInfoScreens
+denzilpearce refs/remotes/DenzilPearce/MIS-1992_displaying_signal_strength_on_internet_options_screen
+denzilpearce refs/remotes/DenzilPearce/MIS-1994_transition_to_IG_bind_screen
+denzilpearce refs/remotes/DenzilPearce/MIS-2050_EMC_Mitigation_Fix
+DenzilPearce refs/remotes/DenzilPearce/MIS1199-Git_Comments_and_Improvements_Scree_Refresh_Rate
+DenzilPearce refs/remotes/DenzilPearce/MIS1199-Pull_request_comments
+DenzilPearce refs/remotes/DenzilPearce/MIS1199-Screen_Refresh_Rate
+DenzilPearce refs/remotes/DenzilPearce/MIS154_Screen_Refresh_Too_Slow
+DenzilPearce refs/remotes/DenzilPearce/MIS1683-List_Control_Hard_Fault_Issue
+denzilpearce refs/remotes/DenzilPearce/MIS1694-Refactor_mock_timer
+denzilpearce refs/remotes/DenzilPearce/MIS1761-Remove_generic_InitScreenEventArgs_params
+DenzilPearce refs/remotes/DenzilPearce/MIS195_Consistent_unit_test_folders
+denzilpearce refs/remotes/DenzilPearce/MIS1991-Inernet_options_screen_options
+denzilpearce refs/remotes/DenzilPearce/MIS2011-Complete_missing_features
+DenzilPearce refs/remotes/DenzilPearce/MIS207-fixFileSystemIssue
+DenzilPearce refs/remotes/DenzilPearce/MIS209_MiTime_Dummy_Binging_Screen
+denzilpearce refs/remotes/DenzilPearce/MIS2122-Unbinding_Screen_MiStatN
+denzilpearce refs/remotes/DenzilPearce/MIS2153-Further_Screen_EMC_Mitigation
+denzilpearce refs/remotes/DenzilPearce/MIS2153-Pull_request_comments
+denzilpearce refs/remotes/DenzilPearce/MIS2182-Missing_pixels_on_MiTime
+denzilpearce refs/remotes/DenzilPearce/MIS2213-Further_SignalStrengthMonitor_improvements
+denzilpearce refs/remotes/DenzilPearce/MIS2213-LampVersion_Reduce_Subscription_Noise
+denzilpearce refs/remotes/DenzilPearce/MIS2213-Pull_Request_Comments
+denzilpearce refs/remotes/DenzilPearce/MIS2213-Reduce_subsription_unsubscription_noise
+denzilpearce refs/remotes/DenzilPearce/MIS2234-SystemResetPopup
+denzilpearce refs/remotes/DenzilPearce/MIS2261-Saving_Popup
+denzilpearce refs/remotes/DenzilPearce/MIS2261_On_Binding_busy_popup
+DenzilPearce refs/remotes/DenzilPearce/MIS24_GraphicalDisplayDriver
+DenzilPearce refs/remotes/DenzilPearce/MIS350_Refactor_Event_Manager
+DenzilPearce refs/remotes/DenzilPearce/MIS351_Bind_OK_Pououp_On_Binding_Screen
+DenzilPearce refs/remotes/DenzilPearce/MIS352_MiTime_Bind_Screen_Display_Bind_Failed
+DenzilPearce refs/remotes/DenzilPearce/MIS524-Control_renderer_refactoring
+DenzilPearce refs/remotes/DenzilPearce/MIS524-Control_renderer_refactoring_pull_request_comments
+DenzilPearce refs/remotes/DenzilPearce/MIS542-IG_informs_miTime_of_new_firmware_available
+Aditya Mandrekar refs/remotes/DenzilPearce/MIS66-85-Review
+DenzilPearce refs/remotes/DenzilPearce/MIS66_SplashScreenFlashingInitialising
+DenzilPearce refs/remotes/DenzilPearce/MIS751-Ramtex_Slow_Transition_From_Splash_Screen
+DenzilPearce refs/remotes/DenzilPearce/MIS769-Post_Build_CRC
+mdodkins refs/remotes/DenzilPearce/MIS769_Post_build_crc
+DenzilPearce refs/remotes/DenzilPearce/MIS847-Bootloader_checks_CRC
+DenzilPearce refs/remotes/DenzilPearce/MIS847-Pull_request_comments_refactoring
+DenzilPearce refs/remotes/DenzilPearce/MIS87_Show_Firmware_Version_On_Splash_Screen
+DenzilPearce refs/remotes/DenzilPearce/MIS924_flash_corruption_on_files_over_64k
+mdodkins refs/remotes/DenzilPearce/MMIS2213
+DenzilPearce refs/remotes/DenzilPearce/Merging_Fun
+DenzilPearce refs/remotes/DenzilPearce/Missing_Config_File_Pull_Request_Comments
+DenzilPearce refs/remotes/DenzilPearce/Missing_Product_Config_File
+denzilpearce refs/remotes/DenzilPearce/Neils_Screen_Object_changes
+mdodkins refs/remotes/DenzilPearce/Post_merge_fixes
+DenzilPearce refs/remotes/DenzilPearce/Reenable_disabled_screen_tests
+PabloMansanet refs/remotes/DenzilPearce/RelaySpiProtection
+DenzilPearce refs/remotes/DenzilPearce/RtosTimerForScreens
+DenzilPearce refs/remotes/DenzilPearce/SetUp_MiTime_Projects
+DenzilPearce refs/remotes/DenzilPearce/TuvaluArchipelago
+Yan Speake refs/remotes/DenzilPearce/dprintf
+DenzilPearce refs/remotes/DenzilPearce/fix_build_server_issues
+mdodkins refs/remotes/DenzilPearce/master
+denzilpearce refs/remotes/DenzilPearce/memory_leak_busting
+LucyPovey refs/remotes/DenzilPearce/piskie_merge_fun
+DenzilPearce refs/remotes/DenzilPearce/remotes
+DenzilPearce refs/remotes/DenzilPearce/temp_screen_flicker
+Matthew Dodkins refs/remotes/DenzilPearce/test1
+Richard Keast refs/remotes/DenzilPearce/tmp
+PabloMansanet refs/remotes/PabloMansanet/17-6-MeregNowhereMatthew
+mdodkins refs/remotes/PabloMansanet/BDDTraining
+PabloMansanet refs/remotes/PabloMansanet/BlueScope
+mdodkins refs/remotes/PabloMansanet/Builders
+mdodkins refs/remotes/PabloMansanet/Development
+mdodkins refs/remotes/PabloMansanet/FragmentationViewer
+mdodkins refs/remotes/PabloMansanet/FragmentationViewerFrontEnd
+mdodkins refs/remotes/PabloMansanet/GetFlashIDCommand
+mdodkins refs/remotes/PabloMansanet/Island
+PabloMansanet refs/remotes/PabloMansanet/MIS-1038-Smart-Rtos-Timer-Interrupt-Context
+PabloMansanet refs/remotes/PabloMansanet/MIS-1051-Sandbox-Projects-Removal
+PabloMansanet refs/remotes/PabloMansanet/MIS-1053-DIR-Command-long-listings
+PabloMansanet refs/remotes/PabloMansanet/MIS-1080-Event-Manager-Memory-Leak-Fix
+PabloMansanet refs/remotes/PabloMansanet/MIS-1080-Queue-Capacities-Wireless-Stack
+PabloMansanet refs/remotes/PabloMansanet/MIS-1081-No-Signal-After-2-Minutes
+PabloMansanet refs/remotes/PabloMansanet/MIS-1081-No-Signal-After-2-Minutes-Plus-Screen-Display
+PabloMansanet refs/remotes/PabloMansanet/MIS-1082-No-Signal-Prevent-Transition-From-Starting-Splash
+PabloMansanet refs/remotes/PabloMansanet/MIS-1083-MiCanPing
+PabloMansanet refs/remotes/PabloMansanet/MIS-1087-SmartRtosTimer-Reset-Method
+PabloMansanet refs/remotes/PabloMansanet/MIS-1187-NoSignal-to-Searching
+PabloMansanet refs/remotes/PabloMansanet/MIS-1190-Searching-Key-Ignore
+PabloMansanet refs/remotes/PabloMansanet/MIS-1236-MiStatNStepsSupport-Refactor
+PabloMansanet refs/remotes/PabloMansanet/MIS-1284-Packet-Trickling
+PabloMansanet refs/remotes/PabloMansanet/MIS-1284-Trickling-and-command
+PabloMansanet refs/remotes/PabloMansanet/MIS-1295-MiTimeStepsSupport-refactor
+PabloMansanet refs/remotes/PabloMansanet/MIS-1308-Settings-choice-cyclical-navigation
+PabloMansanet refs/remotes/PabloMansanet/MIS-1308-rebase-alcatraz
+PabloMansanet refs/remotes/PabloMansanet/MIS-1313-ProductInfo-Screen
+PabloMansanet refs/remotes/PabloMansanet/MIS-1316-ProductInfo-Screen-All-Info
+PabloMansanet refs/remotes/PabloMansanet/MIS-1317-settings-snap-to-max-min-values
+PabloMansanet refs/remotes/PabloMansanet/MIS-1338-Rtos-Mock-Duplication
+PabloMansanet refs/remotes/PabloMansanet/MIS-1410-MiStatNModeTransitions
+PabloMansanet refs/remotes/PabloMansanet/MIS-1626-SmartRtosTimer-Event-Queue-Dispatch
+PabloMansanet refs/remotes/PabloMansanet/MIS-1846-Change-In-Holiday-Fix
+PabloMansanet refs/remotes/PabloMansanet/MIS-1864-Setpoint-200-init
+PabloMansanet refs/remotes/PabloMansanet/MIS-1881-MiStatN-Extra-Digits
+PabloMansanet refs/remotes/PabloMansanet/MIS-1882-Reintroduction
+PabloMansanet refs/remotes/PabloMansanet/MIS-1882-Stack-Assert-Multiple-Node
+PabloMansanet refs/remotes/PabloMansanet/MIS-1924-Json-Corruption-Investigation
+PabloMansanet refs/remotes/PabloMansanet/MIS-1949-DMA-Back
+PabloMansanet refs/remotes/PabloMansanet/MIS-1949-RfSpiPortDriver-Rework
+PabloMansanet refs/remotes/PabloMansanet/MIS-2133-Closing-file-during-trickling
+PabloMansanet refs/remotes/PabloMansanet/MIS-2188-MiStatN-Resetting
+PabloMansanet refs/remotes/PabloMansanet/MIS-2199-plus-and-minus-min-temp
+PabloMansanet refs/remotes/PabloMansanet/MIS-668-ICMP-Packet-Loss-Fix
+mdodkins refs/remotes/PabloMansanet/MIS-696_Display_setpoint_on_home_screen
+PabloMansanet refs/remotes/PabloMansanet/MIS-736-SmartRtosTimer
+PabloMansanet refs/remotes/PabloMansanet/MIS-736-SmartRtosTimer-OldSplashScreen
+PabloMansanet refs/remotes/PabloMansanet/MIS-736-SmartRtosTimer-SplashScreen-Refactor
+PabloMansanet refs/remotes/PabloMansanet/MIS-747-Rtos-Class-Cleanup
+PabloMansanet refs/remotes/PabloMansanet/MIS-748-749-Testability-Deprecation
+PabloMansanet refs/remotes/PabloMansanet/MIS-748-SmartRtosTimers-Testability
+PabloMansanet refs/remotes/PabloMansanet/MIS-749-SmartRtosTimers-Deprecation-Warnings
+PabloMansanet refs/remotes/PabloMansanet/MIS-857-Update-Message-Refactor
+PabloMansanet refs/remotes/PabloMansanet/MIS-962-Boost-Relocation
+PabloMansanet refs/remotes/PabloMansanet/MIS-971-Temperature-Oversampling-Test-Branch
+PabloMansanet refs/remotes/PabloMansanet/MIS-971-Temperature-Readings
+mdodkins refs/remotes/PabloMansanet/MatthewArchipelago
+PabloMansanet refs/remotes/PabloMansanet/MergeNowhereMatthew_Final
+mdodkins refs/remotes/PabloMansanet/MergeWithJan
+mdodkins refs/remotes/PabloMansanet/Merge_Adi_MiStatN_binding
+DenzilPearce refs/remotes/PabloMansanet/Merge_with_Denzil
+mdodkins refs/remotes/PabloMansanet/Merge_with_Jan_development
+mdodkins refs/remotes/PabloMansanet/Merge_with_Yan_MiCan
+mdodkins refs/remotes/PabloMansanet/Merge_with_Yan_refactor_JSON
+mdodkins refs/remotes/PabloMansanet/Merge_with_yans_archipelago
+PabloMansanet refs/remotes/PabloMansanet/MiStatNHomeScreenBlitz
+PabloMansanet refs/remotes/PabloMansanet/MiStatNMemoryLeak
+mdodkins refs/remotes/PabloMansanet/MiTimeConfigFileError
+PabloMansanet refs/remotes/PabloMansanet/Misc-Refactors
+PabloMansanet refs/remotes/PabloMansanet/Multipacket-Memleak-Fix
+mdodkins refs/remotes/PabloMansanet/NaboombuArchipelago
+PabloMansanet refs/remotes/PabloMansanet/NoDmaSimpleSpiDriver
+PabloMansanet refs/remotes/PabloMansanet/NoDmaSimpleSpiDriver-AfterReview
+PabloMansanet refs/remotes/PabloMansanet/NoSignal-Feature-Changes
+PabloMansanet refs/remotes/PabloMansanet/NowhereAchipelago-merge-with-MiCanRetries
+mdodkins refs/remotes/PabloMansanet/NowhereArchipelago
+PabloMansanet refs/remotes/PabloMansanet/NowhereMergeMatthew28-7
+PabloMansanet refs/remotes/PabloMansanet/NowhereMergeMatthew31-7
+PabloMansanet refs/remotes/PabloMansanet/NowhereMergeMatthew692015
+PabloMansanet refs/remotes/PabloMansanet/NowhereMergeMatthewLast31-6
+PabloMansanet refs/remotes/PabloMansanet/NowherePropertyNamesFix
+PabloMansanet refs/remotes/PabloMansanet/Off-State-Fix
+PabloMansanet refs/remotes/PabloMansanet/ProductInfo-Fix
+PabloMansanet refs/remotes/PabloMansanet/ProductInfoMagic
+mdodkins refs/remotes/PabloMansanet/PullRequestSetPropertyCommand
+PabloMansanet refs/remotes/PabloMansanet/RelaySpiProtection
+mdodkins refs/remotes/PabloMansanet/Release8
+mdodkins refs/remotes/PabloMansanet/RemoveRamtexWrapperInterfaceFromGDD
+Jan Bunes refs/remotes/PabloMansanet/ScaleBackCalendarTests
+mdodkins refs/remotes/PabloMansanet/SetPropertyCommand
+mdodkins refs/remotes/PabloMansanet/SimonFeebackChanges
+PabloMansanet refs/remotes/PabloMansanet/SimpleSpiDriver
+PabloMansanet refs/remotes/PabloMansanet/SmartRtosTimer-ISR-Removal
+PabloMansanet refs/remotes/PabloMansanet/SpiFlagsFix
+PabloMansanet refs/remotes/PabloMansanet/Splash-Screen-Tests
+PabloMansanet refs/remotes/PabloMansanet/TestInterfaceChanges
+PabloMansanet refs/remotes/PabloMansanet/Trade-Show-Auto-State-Machine
+PabloMansanet refs/remotes/PabloMansanet/Trade-Show-No-Sliming-Node
+PabloMansanet refs/remotes/PabloMansanet/Trade-Show-State-Machines-Proper-Injection
+PabloMansanet refs/remotes/PabloMansanet/Trade-Show-Wrap-To-Off
+mdodkins refs/remotes/PabloMansanet/WIP_merge_with_Jan
+PabloMansanet refs/remotes/PabloMansanet/WinterMuteReviewChanges
+PabloMansanet refs/remotes/PabloMansanet/WintermuteArchipelago
+PabloMansanet refs/remotes/PabloMansanet/YanExperimentalMergeNowhere
+JamesHollow refs/remotes/PabloMansanet/alcatraz
+PabloMansanet refs/remotes/PabloMansanet/canary
+Andreas Karg refs/remotes/andreaskartg/3Amigos150409
+Andreas Karg refs/remotes/andreaskartg/3Amigos_150414#
+Andreas Karg refs/remotes/andreaskartg/3Amigos_Overbinding_150914
+Andreas Karg refs/remotes/andreaskartg/AndisPart2
+Andreas Karg refs/remotes/andreaskartg/BacklightChanges
+Andreas Karg refs/remotes/andreaskartg/BrokenBlueberryTests
+Andreas Karg refs/remotes/andreaskartg/ChangelogExtractor
+Andreas Karg refs/remotes/andreaskartg/Development
+Andreas Karg refs/remotes/andreaskartg/Drop2KickstarterArchipelago
+Andreas Karg refs/remotes/andreaskartg/DwayneTheRockJohnsonArchipelago
+Andreas Karg refs/remotes/andreaskartg/FeaturePlanning
+Andreas Karg refs/remotes/andreaskartg/FlameSymbol
+AndreasKarg refs/remotes/andreaskartg/Installer2015_SpecialRelease
+Andreas Karg refs/remotes/andreaskartg/LinearKeyboardDriverFix
+Andreas Karg refs/remotes/andreaskartg/MIG-609-TrickleInterval
+LucyPovey refs/remotes/andreaskartg/MIG-730_Cherry_pick_from_Main_Development
+Andreas Karg refs/remotes/andreaskartg/MIS-1528-RaiseRemoveNodeEvent
+Andreas Karg refs/remotes/andreaskartg/MIS-1532-MultizoneUnsliming
+Andreas Karg refs/remotes/andreaskartg/MIS-2318_CPPCheck_improvements
+Andreas Karg refs/remotes/andreaskartg/MIS-2325_HolidayFirstDayLastDayOnGateway
+Andreas Karg refs/remotes/andreaskartg/MIS-2325_PullRequestComments
+Andreas Karg refs/remotes/andreaskartg/MIS-698-Charge-Pump-PullRequest
+Andreas Karg refs/remotes/andreaskartg/MIS-698-ChargePump
+Andreas Karg refs/remotes/andreaskartg/MIS-898-HighlightOnBackKey
+Andreas Karg refs/remotes/andreaskartg/MIS-899-BackKeyOnHomeScreen
+Andreas Karg refs/remotes/andreaskartg/MIS654-TinyFS
+Andreas Karg refs/remotes/andreaskartg/MIS654-TinyFS-Minifix
+Andreas Karg refs/remotes/andreaskartg/MIS654-TinyFS-Testcode
+richard.keast refs/remotes/andreaskartg/MiSeries_Release16
+Andreas Karg refs/remotes/andreaskartg/MockTimerAPI_TDD
+Andreas Karg refs/remotes/andreaskartg/ScillyArchipelago
+Andreas Karg refs/remotes/andreaskartg/ScreenTransitionerAndBreadcrumbTrailPart2
+Andreas Karg refs/remotes/andreaskartg/SillyAmigos
+Andreas Karg refs/remotes/andreaskartg/TheWorldArchipelago
+Andreas Karg refs/remotes/andreaskartg/tem
+Andreas Karg refs/remotes/andreaskartg/tmp/Boostfix2
+Andreas Karg refs/remotes/andreaskartg/tmp/DenzilScreenCleen
+Andreas Karg refs/remotes/andreaskartg/tmp/JHollow/Alcatraz
+Andreas Karg refs/remotes/andreaskartg/tmp/JHollow/MIS-1483-MiStatNCallForHeat
+Andreas Karg refs/remotes/andreaskartg/tmp/JHollow/MIS-1820-AdcImprovements19
+Andreas Karg refs/remotes/andreaskartg/tmp/JamesIG
+Andreas Karg refs/remotes/andreaskartg/tmp/Lucy/MIS-1510_Cancelling_holiday_manually
+Andreas Karg refs/remotes/andreaskartg/tmp/MiTimeNo64PinDevKit
+Andreas Karg refs/remotes/andreaskartg/tmp/Nadwaynebu
+Andreas Karg refs/remotes/andreaskartg/tmp/NeilScreenLock
+Andreas Karg refs/remotes/andreaskartg/tmp/ToddBacklightContinued
+Andreas Karg refs/remotes/andreaskartg/tmp/ToddMerge1
+Andreas Karg refs/remotes/andreaskartg/tmp/ToddMerge2
+Andreas Karg refs/remotes/andreaskartg/tmp/YanIGFixes
+Andreas Karg refs/remotes/andreaskartg/tmp/Yanmerge
+Andreas Karg refs/remotes/andreaskartg/tmp/adi/MIS-1746-PlusMinusFromScheduledOff
+Andreas Karg refs/remotes/andreaskartg/tmp/andi/MIS-2325_PullRequestComments
+Andreas Karg refs/remotes/andreaskartg/tmp/ashlei/Development
+Andreas Karg refs/remotes/andreaskartg/tmp/ashlei/MIS-2018_Eco_Temperature_Outside_Of_Min/Max_Range
+Andreas Karg refs/remotes/andreaskartg/tmp/jbunes/ComoroArchipelago
+Andreas Karg refs/remotes/andreaskartg/tmp/jbunes/Development
+Andreas Karg refs/remotes/andreaskartg/tmp/jparker/MIG-737-UpgradeOnly-SecondFix
+Andreas Karg refs/remotes/andreaskartg/tmp/jparker/MIG-763_Mican_File_Transfer_robustify
+Andreas Karg refs/remotes/andreaskartg/tmp/lpowey/Add_device_wizard_screen
+Andreas Karg refs/remotes/andreaskartg/tmp/lpowey/MIS-1563_selecting_a_zone__for_child_screens
+Andreas Karg refs/remotes/andreaskartg/tmp/lpowey/PiskieArchipelago
+Andreas Karg refs/remotes/andreaskartg/tmp/lpowey/Remove_redundant_files
+Andreas Karg refs/remotes/andreaskartg/tmp/lpowey/piskie_Archipelago
+Andreas Karg refs/remotes/andreaskartg/tmp/lrabatel/Addressing_review_comments
+Laurent Rabatel refs/remotes/andreaskartg/tmp/lrabatel/FOTA_fixes
+Andreas Karg refs/remotes/andreaskartg/tmp/lrabatel/FactoryConfig_refactoring
+Andreas Karg refs/remotes/andreaskartg/tmp/lrabatel/IG_Assert_fixes
+Andreas Karg refs/remotes/andreaskartg/tmp/lrabatel/RAM_savings_and_refactoring
+Laurent Rabatel refs/remotes/andreaskartg/tmp/lrabatel/Reverting_FactoryConfig_refactoring
+Lucy Povey refs/remotes/andreaskartg/tmp/lucyAlarmDelay
+Andreas Karg refs/remotes/andreaskartg/tmp/mdodkins/NaboombuArchipelago
+Andreas Karg refs/remotes/andreaskartg/tmp/mdodkinsWatchdog
+Neil Dingley refs/remotes/andreaskartg/tmp/ndingley/IncreasedNodeCount
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-1419_Misc
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-1481-HomeScreenZoneDetailsAlignment
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-1511-SetDateTimeCliCommands
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-1564-CorrectAlphaNumericSpinControls
+Neil Dingley refs/remotes/andreaskartg/tmp/ndingley/MIS-1655-AlwaysOnOffMode
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-2302-ControllerPowerCycleMessageToGateway
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-2310-HolidayModeBug
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-2322-PleaseWaitPopupOnBinding
+Andreas Karg refs/remotes/andreaskartg/tmp/ndingley/MIS-2329-RefactorCalendarGetDate
+Andreas Karg refs/remotes/andreaskartg/tmp/pmansanet/MIS-1284-Packet-Trickling
+PabloMansanet refs/remotes/andreaskartg/tmp/pmansanet/WintermuteArchipelago
+Andreas Karg refs/remotes/andreaskartg/tmp/rkeast/MIS-2198-FixForNoSignalBinding4thMiStatN
+Andreas Karg refs/remotes/andreaskartg/tmp/rkeast/MIS-2324-ChangeOfDefaultHolidayStartEndDateTimes
+Andreas Karg refs/remotes/andreaskartg/tmp/rkeast/TheWorldArchipelago
+Andreas Karg refs/remotes/andreaskartg/tmp/tdowty/MIS-1517-DisplayAppropriateOptions
+Andreas Karg refs/remotes/andreaskartg/tmp/tdowty/MIS-1770-VersionCLICommand
+Andreas Karg refs/remotes/andreaskartg/tmp/tdowty/MIS-2328-ProdInfoScreenCorrectFirmwareV
+Andreas Karg refs/remotes/andreaskartg/tmp/tdowty/MiStatNBacklightOnBindFailBug
+Andreas Karg refs/remotes/andreaskartg/tmp/tdowty/MiStatNLockScreenPostReview
+Andreas Karg refs/remotes/andreaskartg/tmp/tyorke/Wiser_services_refactoring
+Andreas Karg refs/remotes/andreaskartg/tmp/yspeake/MIS-1857_SendScheduleToIG
+Andreas Karg refs/remotes/andreaskartg/tmp/yspeake/MIS-1978_RfCarrierChannel
+yspeake refs/remotes/andreaskartg/tmp/yspeake/PackBinding2
+Andreas Karg refs/remotes/andreaskartg/tmp2
+Neil Dingley refs/remotes/andreaskartg/worldMerge/MIS-1782-1754-ChannelSettingsTexts
+JamesHollow refs/remotes/jameshollow/1908-BlueberryImprovementsForLargeScenarioComprehension
+JamesHollow refs/remotes/jameshollow/2007-BatteryIconHysteresis
+JamesHollow refs/remotes/jameshollow/2008-BatteryIconForHealthyVoltage
+JamesHollow refs/remotes/jameshollow/AddFileComandsToTestInterface
+JamesHollow refs/remotes/jameshollow/Alcatraz-Pre2085
+JamesHollow refs/remotes/jameshollow/AlcatrazArchipelago
+Dominic Roberts refs/remotes/jameshollow/AlcatrazArchipelagoDomPostMerge
+JamesHollow refs/remotes/jameshollow/AlcatrazArchipelagoMergeMD
+JamesHollow refs/remotes/jameshollow/Alcatraz_AkargDev_MergePreview
+mdodkins refs/remotes/jameshollow/BDDTraining
+JamesHollow refs/remotes/jameshollow/BanditCompileProblem
+JamesHollow refs/remotes/jameshollow/BindingStabilityInvestigation
+JamesHollow refs/remotes/jameshollow/BlueBerryTableOrientation
+JamesHollow refs/remotes/jameshollow/BlueberryImprovements
+JamesHollow refs/remotes/jameshollow/BlueberryTableOrientation
+JamesHollow refs/remotes/jameshollow/BoostBindReplacementMiStatN
+JamesHollow refs/remotes/jameshollow/BootloaderIOMappingByHardware
+JamesHollow refs/remotes/jameshollow/BuildTimeImprovements
+JamesHollow refs/remotes/jameshollow/ChangeHardTempOffsetValue
+JamesHollow refs/remotes/jameshollow/CodeDojoBlueberry
+mdodkins refs/remotes/jameshollow/Development
+JamesHollow refs/remotes/jameshollow/FOTARemovalQuickFix
+JamesHollow refs/remotes/jameshollow/FileSystemLongFileNamesFix
+JamesHollow refs/remotes/jameshollow/IglooTemplate
+JamesHollow refs/remotes/jameshollow/IoMappingForTestTimetable
+JamesHollow refs/remotes/jameshollow/LampPreview
+JamesHollow refs/remotes/jameshollow/MDevMergePreview
+JamesHollow refs/remotes/jameshollow/MIG-611-MiTimeTempReadingMerged
+JamesHollow refs/remotes/jameshollow/MIG-611-MiTimeTemperatureReading
+JamesHollow refs/remotes/jameshollow/MIS-1091-Wireshark-Dissector-Update
+JamesHollow refs/remotes/jameshollow/MIS-1091-Wireshark-Fix
+JamesHollow refs/remotes/jameshollow/MIS-1306-ScreenNumbers
+JamesHollow refs/remotes/jameshollow/MIS-1306-ShowScreenNumbers
+JamesHollow refs/remotes/jameshollow/MIS-1307-NavigateFromSettingsChoiceScreen
+JamesHollow refs/remotes/jameshollow/MIS-1307-NavigateFromSettingsChoiceScreens
+JamesHollow refs/remotes/jameshollow/MIS-1309-SettingsEditTransitions
+JamesHollow refs/remotes/jameshollow/MIS-1309-TransitionFromSettingsEditScreen
+JamesHollow refs/remotes/jameshollow/MIS-1309-TransitionsFromSettingsEditScreen
+JamesHollow refs/remotes/jameshollow/MIS-1310-BacklightSettings
+JamesHollow refs/remotes/jameshollow/MIS-1311-ModifyBacklightSettings
+JamesHollow refs/remotes/jameshollow/MIS-1365-RemoveSlimeFromPropertyAdjuster
+JamesHollow refs/remotes/jameshollow/MIS-1402-SpecTestAssertionError
+JamesHollow refs/remotes/jameshollow/MIS-1438-HardAdjustTemperature
+JamesHollow refs/remotes/jameshollow/MIS-1548-ADC-Temperature
+JamesHollow refs/remotes/jameshollow/MIS-1548-ExperimentalAdcTemperature
+JamesHollow refs/remotes/jameshollow/MIS-1548-Update
+JamesHollow refs/remotes/jameshollow/MIS-1549-BatteryVoltageMeasurement
+JamesHollow refs/remotes/jameshollow/MIS-1549-ExperimentalBatteryVoltage
+JamesHollow refs/remotes/jameshollow/MIS-1682-ADC-PostReview
+JamesHollow refs/remotes/jameshollow/MIS-1682-MeasureTemperatureBugfix
+JamesHollow refs/remotes/jameshollow/MIS-1726-KeyRepeatMiStatN
+JamesHollow refs/remotes/jameshollow/MIS-1736-ConfigurationFilesRefactor
+JamesHollow refs/remotes/jameshollow/MIS-1736-TemperatureReadingLockup
+JamesHollow refs/remotes/jameshollow/MIS-1748-BugfixPropertySettings
+JamesHollow refs/remotes/jameshollow/MIS-1753-TemperatureSynchroniztion
+JamesHollow refs/remotes/jameshollow/MIS-1753-TemperatureUpdateDelay
+JamesHollow refs/remotes/jameshollow/MIS-1820-AdcImprovements
+JamesHollow refs/remotes/jameshollow/MIS-1820-AdcImprovements19
+JamesHollow refs/remotes/jameshollow/MIS-1829-MiStatNPropertySendingIsDelayed
+JamesHollow refs/remotes/jameshollow/MIS-1829-PropertySendingDelaying_20B
+JamesHollow refs/remotes/jameshollow/MIS-2001-BoostAndBacklightPropertySaving
+JamesHollow refs/remotes/jameshollow/MIS-2003-BatteryIconBootWithLowVoltage
+JamesHollow refs/remotes/jameshollow/MIS-2004-BatteryIconForLowVoltageNormalMeasurement
+JamesHollow refs/remotes/jameshollow/MIS-2005-BatteryIconForMarginalVoltage
+JamesHollow refs/remotes/jameshollow/MIS-2007-BatteryIconHysteresis
+JamesHollow refs/remotes/jameshollow/MIS-2085-MiStatN-Advanced-Settings-Screen
+JamesHollow refs/remotes/jameshollow/MIS-2100-WirelessSettingsScreenTransitions
+JamesHollow refs/remotes/jameshollow/MIS-2165-ThermostatInstallerMenuLockingUp
+JamesHollow refs/remotes/jameshollow/MIS-2201_connecting_four_thermostats
+JamesHollow refs/remotes/jameshollow/MIS-2305-BindingImprovements-PostMerge
+JamesHollow refs/remotes/jameshollow/MIS-2312-MiStatNBoundWithInvalidZoneProperties
+JamesHollow refs/remotes/jameshollow/MIS-2312-MiStatNBoundWithInvalidZonePropertiesAlcatraz
+JamesHollow refs/remotes/jameshollow/MIS-2314-BindingFlagReviewChanges
+JamesHollow refs/remotes/jameshollow/MIS-2314-MiTimeRebootBindInProgressFlag
+JamesHollow refs/remotes/jameshollow/MIS-2347-Boost-Bind-Replacement
+JamesHollow refs/remotes/jameshollow/MIS-2347-BoostBindReplacement
+JamesHollow refs/remotes/jameshollow/MIS-2347-MiStatN-Replaced-BoostBind
+JamesHollow refs/remotes/jameshollow/MIS-2347-MiTime-ReplacedBoostBind
+JamesHollow refs/remotes/jameshollow/MIS-2357-Blueberry-Table-Orientation
+JamesHollow refs/remotes/jameshollow/MIS-275-TinyFileSystem-Integration
+JamesHollow refs/remotes/jameshollow/MIS-281-PicoUARTNoise
+JamesHollow refs/remotes/jameshollow/MIS-300-EmbeddedBuildScriptCoverage
+JamesHollow refs/remotes/jameshollow/MIS-303-Connect4ButtonToXplained
+JamesHollow refs/remotes/jameshollow/MIS-309-TransitionFromSettingsEditScreen
+JamesHollow refs/remotes/jameshollow/MIS-355-BDDSignalStrengthToHome
+JamesHollow refs/remotes/jameshollow/MIS-376-BDD-Conversion-Scripts
+JamesHollow refs/remotes/jameshollow/MIS-408-TaskSwitchInstrumentation
+JamesHollow refs/remotes/jameshollow/MIS-431-MiSeriesConsoleSendFilesByProduct
+JamesHollow refs/remotes/jameshollow/MIS-466-BDD-MemoryLeakChecking
+JamesHollow refs/remotes/jameshollow/MIS-492-C-Implementation-Debugger-Pins
+JamesHollow refs/remotes/jameshollow/MIS-496-DecoupleRtosFinalMerge
+JamesHollow refs/remotes/jameshollow/MIS-556-ProductNamespaces
+JamesHollow refs/remotes/jameshollow/MIS-633-IntegrateBDDConversionScripts
+JamesHollow refs/remotes/jameshollow/MIS-665-SetpointChangesIGToMiTime
+JamesHollow refs/remotes/jameshollow/MIS-703-EnhanceUnitTestsMemoryLeaksFunctionality
+JamesHollow refs/remotes/jameshollow/MIS-738-RefactorTestInterfaceCommandRegistering
+JamesHollow refs/remotes/jameshollow/MIS-757-Auto-Generate-BuildFiles
+JamesHollow refs/remotes/jameshollow/MIS-758-Blueberry
+JamesHollow refs/remotes/jameshollow/MIS-758-GTest-Enable-Specification-Tests
+JamesHollow refs/remotes/jameshollow/MIS-812-Compiler-Warning
+JamesHollow refs/remotes/jameshollow/MIS-907-Namespace-for-Blueberry
+JamesHollow refs/remotes/jameshollow/MIS-908-Improve-Error-Reporting-For-BDD-Scripts
+JamesHollow refs/remotes/jameshollow/MIS-916-TableParser-Calculating-RowCount-Wrongly
+JamesHollow refs/remotes/jameshollow/MIS-932-Navigate-Between-Menu-Screens
+JamesHollow refs/remotes/jameshollow/MIS-935-MiStatN-Settings-Reflect-Controller-Fixes
+JamesHollow refs/remotes/jameshollow/MIS-938-Last-Edited-Settings-Value
+JamesHollow refs/remotes/jameshollow/MIS-970-BDD-Script-Improvements
+JamesHollow refs/remotes/jameshollow/MIS1483-MiStatNCallForHeat
+JamesHollow refs/remotes/jameshollow/MIS2109-ADC-Adjustments
+JamesHollow refs/remotes/jameshollow/MergePreview
+JamesHollow refs/remotes/jameshollow/MergePreview_TheLamp109
+JamesHollow refs/remotes/jameshollow/MergePreview_mis-2315-mistatn-bind-verification
+JamesHollow refs/remotes/jameshollow/MiTimePingInvestigation
+JamesHollow refs/remotes/jameshollow/SawhorseDemo
+JamesHollow refs/remotes/jameshollow/ScheiderBlueberryMob
+JamesHollow refs/remotes/jameshollow/TableParserFixForAngleBrackets
+Laurent Rabatel refs/remotes/laurent/Adding_zlib
+Laurent Rabatel refs/remotes/laurent/Addressing_review_comments
+Laurent Rabatel refs/remotes/laurent/Bypassing_IG_Bootloader
+Laurent Rabatel refs/remotes/laurent/CompressionLibrary
+Laurent Rabatel refs/remotes/laurent/Development
+Laurent Rabatel refs/remotes/laurent/Experiments_with_FreeRTOS_v8
+Laurent Rabatel refs/remotes/laurent/FOTA_disabled_on_MiStatN
+Laurent Rabatel refs/remotes/laurent/FOTA_fixes
+Laurent Rabatel refs/remotes/laurent/FactoryConfig_refactoring
+Laurent Rabatel refs/remotes/laurent/FirmwarePackGeneration
+Laurent Rabatel refs/remotes/laurent/Firmware_transfer_experiments
+Laurent Rabatel refs/remotes/laurent/Fix_IG_Cloud_SSL_connection_problem
+Laurent Rabatel refs/remotes/laurent/Fix_MiTime_reboot_when_keys_are_hit_repeatedly
+Laurent Rabatel refs/remotes/laurent/FreeRTOS8_with_temperature_measurement_fix
+Laurent Rabatel refs/remotes/laurent/IG_Assert_fixes
+Laurent Rabatel refs/remotes/laurent/IG_Binding
+Laurent Rabatel refs/remotes/laurent/IG_Binding_Fix
+Laurent Rabatel refs/remotes/laurent/IG_Binding_Post_Review
+Laurent Rabatel refs/remotes/laurent/IG_Bootloader_cleanup
+Laurent Rabatel refs/remotes/laurent/IG_Cloud_reconnection_workaround
+Laurent Rabatel refs/remotes/laurent/IG_LEDs
+Laurent Rabatel refs/remotes/laurent/IG_Post_build_step_fix
+Laurent Rabatel refs/remotes/laurent/IG_Registration_Timeout
+Laurent Rabatel refs/remotes/laurent/IG_not_recovering_when_internet_connection_is_lost
+Laurent Rabatel refs/remotes/laurent/JapanArchipelago
+Laurent Rabatel refs/remotes/laurent/MIG_605_Fix_MiTime_reboot_when_keys_are_hit_rapidly
+Laurent Rabatel refs/remotes/laurent/MIS-1718-InfoScreensPostReview
+Laurent Rabatel refs/remotes/laurent/MIS-1996_FileConveyor_Memory_corruption_investigation
+Laurent Rabatel refs/remotes/laurent/MIS1010_Schnapp_with_real_IG_UDP
+Laurent Rabatel refs/remotes/laurent/MIS1516_GPIO_Classes_refactoring
+Laurent Rabatel refs/remotes/laurent/MIS1516_GPIO_Refactoring_PostReview
+Laurent Rabatel refs/remotes/laurent/MIS1954_IG_120MHz_driver_changes
+Laurent Rabatel refs/remotes/laurent/MIS2218_CLI_recv_command
+Laurent Rabatel refs/remotes/laurent/Merge_with_Todd
+Laurent Rabatel refs/remotes/laurent/MiStatN_disable_backlight_when_battery_voltage_reaches_marginal_threshold
+Laurent Rabatel refs/remotes/laurent/More_GPIO_refactoring
+Laurent Rabatel refs/remotes/laurent/NaboombuArchipelago
+Laurent Rabatel refs/remotes/laurent/Post_review_refactoring
+Laurent Rabatel refs/remotes/laurent/ProductionImageGenerationRefactoring
+Laurent Rabatel refs/remotes/laurent/RAM_savings
+Laurent Rabatel refs/remotes/laurent/RAM_savings_and_refactoring
+Laurent Rabatel refs/remotes/laurent/Re_added_IG_post_build_step
+Laurent Rabatel refs/remotes/laurent/Refactorin_following_review
+Laurent Rabatel refs/remotes/laurent/Refactoring
+Laurent Rabatel refs/remotes/laurent/Reverting_FactoryConfig_refactoring
+Laurent Rabatel refs/remotes/laurent/RobBoardTest2PullDownMII
+Laurent Rabatel refs/remotes/laurent/Test_FOTA
+Laurent Rabatel refs/remotes/laurent/Test_external_crystal_with_PLL_Robsboard
+Laurent Rabatel refs/remotes/laurent/Test_external_crystal_with_PLL_SAM4E_EK
+Laurent Rabatel refs/remotes/laurent/Test_hypothesis
+Laurent Rabatel refs/remotes/laurent/Tickless_mode_fix_again
+Laurent Rabatel refs/remotes/laurent/Tickless_mode_fix_with_temperature_measurement_fix
+Laurent Rabatel refs/remotes/laurent/Upgrading_to_FreeRTOS_v8.1.2
+Laurent Rabatel refs/remotes/laurent/Write_Protected_Register_access
+Matthew refs/remotes/mdodkins/3Amigos_18_Jun_2015
+Matthew refs/remotes/mdodkins/3Amigos_23_Jun_2015
+Matthew refs/remotes/mdodkins/3Amigos_29_Jan_2015
+Matthew refs/remotes/mdodkins/3Amigos_2ndApril
+Matthew refs/remotes/mdodkins/3amigos_march_nosignal_part2
+Matthew refs/remotes/mdodkins/Andi_development_merge_with_TheLamp_18_August_2015
+mdodkins refs/remotes/mdodkins/BDDTraining
+Matthew refs/remotes/mdodkins/Blueberry_test_objects_fix
+mdodkins refs/remotes/mdodkins/Builders
+mdodkins refs/remotes/mdodkins/Development
+Matthew refs/remotes/mdodkins/Development_merge_with_MIS-2171
+Matthew refs/remotes/mdodkins/Event_raise_with_arguments_and_no_subscribers_memory_leak_fix
+Matthew Dodkins refs/remotes/mdodkins/FindArchies
+Matthew refs/remotes/mdodkins/Fix_string_concatenation_issue
+Matthew refs/remotes/mdodkins/Fix_tests_following_merge
+Matthew refs/remotes/mdodkins/Flash_power_set_bit_instead_of_reset_bit
+mdodkins refs/remotes/mdodkins/FragmentationViewer
+Matthew refs/remotes/mdodkins/FragmentationViewerFrontEnd
+mdodkins refs/remotes/mdodkins/GetFlashIDCommand
+Matthew refs/remotes/mdodkins/Improve_RecentArchies_a_little
+Matthew refs/remotes/mdodkins/Improve_exception_handling_in_IG
+mdodkins refs/remotes/mdodkins/Island
+Matthew refs/remotes/mdodkins/Jan_v0_21_3
+Matthew refs/remotes/mdodkins/LimitTransmitQueueSize
+Matthew refs/remotes/mdodkins/MIS-1260_FixMiTimeAndMiStatNBuildRace
+Matthew refs/remotes/mdodkins/MIS-1329_MiTime_crashes_on_startup_following_merge_with_the_big_one
+Matthew refs/remotes/mdodkins/MIS-1420-Add_top_level_exception_handlers
+Matthew refs/remotes/mdodkins/MIS-1424_MiTimeFiles_batch_tries_to_send_file_that_doesnt_exist
+Matthew refs/remotes/mdodkins/MIS-1673-IG_flash_spi_task_priority_correction
+Matthew refs/remotes/mdodkins/MIS-1744-IG_External_SRAM
+Matthew refs/remotes/mdodkins/MIS-1944_Fix_exception_handling_to_not_copy_base_exception
+Matthew refs/remotes/mdodkins/MIS-1970_Resolve_erroneously_implemented_exception_handling
+Matthew refs/remotes/mdodkins/MIS-2208-MIG-569-BoostNotApplied
+Matthew refs/remotes/mdodkins/MIS-2217_Robustify_file_system_writes
+Jan Bunes refs/remotes/mdodkins/MIS-2254-MIG-625-FrostProtectionNotWorking
+Matthew refs/remotes/mdodkins/MIS-2278_Zone_rf_signal_errors
+Matthew refs/remotes/mdodkins/MIS-2285_IG_signal_timeout_increase_to_1_minute
+mdodkins refs/remotes/mdodkins/MIS-696_Display_setpoint_on_home_screen
+Matthew refs/remotes/mdodkins/MIS769-Post_Build_CRC
+Matthew refs/remotes/mdodkins/Make_me_green_by_removing_weird_throws
+Matthew refs/remotes/mdodkins/Matt_SEH_error
+mdodkins refs/remotes/mdodkins/MatthewArchipelago
+Matthew refs/remotes/mdodkins/Matthew_v0_21_4
+PabloMansanet refs/remotes/mdodkins/MergeNowhereMatthew_Final
+mdodkins refs/remotes/mdodkins/MergeWithJan
+Matthew refs/remotes/mdodkins/Merge_2_with_Naboombu_31_July
+mdodkins refs/remotes/mdodkins/Merge_Adi_MiStatN_binding
+Matthew refs/remotes/mdodkins/Merge_Naboombu_with_Development_11_aug_2015
+Matthew refs/remotes/mdodkins/Merge_Naboombu_with_Development_31_July_2015
+Matthew refs/remotes/mdodkins/Merge_Naboombu_with_Rich_Development_23_oct_2015
+Matthew refs/remotes/mdodkins/Merge_terra_with_Nowhere
+Matthew refs/remotes/mdodkins/Merge_with_1744_external_IG_RAM
+Matthew refs/remotes/mdodkins/Merge_with_Andi_Scilly_29_april
+DenzilPearce refs/remotes/mdodkins/Merge_with_Denzil
+mdodkins refs/remotes/mdodkins/Merge_with_Jan_development
+mdodkins refs/remotes/mdodkins/Merge_with_Jans_Archipelago
+Matthew refs/remotes/mdodkins/Merge_with_Naboombu_22_june_2015
+Matthew refs/remotes/mdodkins/Merge_with_Nowhere_19_June_2015
+Matthew refs/remotes/mdodkins/Merge_with_TheWorldArchipelago_19_june_2015
+mdodkins refs/remotes/mdodkins/Merge_with_Yan_MiCan
+mdodkins refs/remotes/mdodkins/Merge_with_Yan_refactor_JSON
+Matthew refs/remotes/mdodkins/Merge_with_Yans_PropertyStoreRefactor_additions_with_rtos_trace_and_new_task_priorities
+Matthew refs/remotes/mdodkins/Merge_with_comoro
+Matthew refs/remotes/mdodkins/Merge_with_comoro_1st_june_2015
+Matthew refs/remotes/mdodkins/Merge_with_comoro_28_april
+Matthew refs/remotes/mdodkins/Merge_with_comoro_2nd_march
+Matthew refs/remotes/mdodkins/Merge_with_comoro_feb4
+Matthew refs/remotes/mdodkins/Merge_with_jans_archipelago
+Matthew refs/remotes/mdodkins/Merge_with_laurent_file_transfer_stability_11_june_2015
+Matthew refs/remotes/mdodkins/Merge_with_laurent_mistatn_refactor
+Matthew refs/remotes/mdodkins/Merge_with_laurent_real_Schnapp
+Matthew refs/remotes/mdodkins/Merge_with_march_no_signal
+Matthew refs/remotes/mdodkins/Merge_with_scilly_troublesome
+mdodkins refs/remotes/mdodkins/Merge_with_yans_archipelago
+mdodkins refs/remotes/mdodkins/MiTimeConfigFileError
+Matthew refs/remotes/mdodkins/MinusKeyProblemInvestigation
+Matthew refs/remotes/mdodkins/MockTimerAPI_TDD
+mdodkins refs/remotes/mdodkins/NaboombuArchipelago
+Matthew refs/remotes/mdodkins/NaboombuArchipelago_merge_with_Development
+Matthew refs/remotes/mdodkins/Naboombu_merge_with_Keith_GPL_remove
+Matthew refs/remotes/mdodkins/Naboombu_merged_with_development
+Matthew refs/remotes/mdodkins/NoSignalThreeAmigos
+Matthew refs/remotes/mdodkins/PRTest
+Matthew refs/remotes/mdodkins/PabloSmartRtos
+Matthew refs/remotes/mdodkins/Pack_binding_and_multi_packet_message_planning
+Matthew refs/remotes/mdodkins/PropertyStoreRefactor
+mdodkins refs/remotes/mdodkins/PropertyStoreRefactor_merge_with_Development
+Matthew refs/remotes/mdodkins/PropertyStoreRefactor_review_changes
+mdodkins refs/remotes/mdodkins/PullRequestSetPropertyCommand
+Matthew refs/remotes/mdodkins/Release13
+mdodkins refs/remotes/mdodkins/Release8
+mdodkins refs/remotes/mdodkins/RemoveRamtexWrapperInterfaceFromGDD
+Matthew refs/remotes/mdodkins/Remove_xplained
+Matthew refs/remotes/mdodkins/Reset_reason_test
+Matthew refs/remotes/mdodkins/Reset_reason_test_(doesnt_disable_user_reset)
+Matthew refs/remotes/mdodkins/Resolve_DNS_for_bluefruit
+Matthew refs/remotes/mdodkins/SAM4L_and_SAM4E_watchdogs
+Jan Bunes refs/remotes/mdodkins/ScaleBackCalendarTests
+mdodkins refs/remotes/mdodkins/SetPropertyCommand
+mdodkins refs/remotes/mdodkins/SimonFeebackChanges
+mdodkins refs/remotes/mdodkins/TheLampA
+mdodkins refs/remotes/mdodkins/TheLampArchipelago
+Matthew refs/remotes/mdodkins/TheLamp_merged_with_Rich_Development
+Matthew refs/remotes/mdodkins/TicklessSleepTest
+Tim Yorke refs/remotes/mdodkins/TimsDevelopment
+mdodkins refs/remotes/mdodkins/WIP_merge_with_Jan
+Jan Bunes refs/remotes/mdodkins/revert-774-MIS-2290_Campaign_management
+Dominic Roberts refs/remotes/origin/AlcatrazArchipelago-fix-IG-build
+Dominic Roberts refs/remotes/origin/AlcatrazArchipelago-merge-mdodkins
+mdodkins refs/remotes/origin/BlessedDevelopment
+mdodkins refs/remotes/origin/Development
+mdodkins refs/remotes/origin/HEAD
+Dominic Roberts refs/remotes/origin/MIS-1006-newing-in-keyboard-interrupt
+Dominic Roberts refs/remotes/origin/MIS-1007-zone-mode-property-size
+Dominic Roberts refs/remotes/origin/MIS-1036-zone-summary-refresh-slow
+Dominic Roberts refs/remotes/origin/MIS-1075-mistatn-keyboard-fix
+Dominic Roberts refs/remotes/origin/MIS-1079-mistatn-homescreen-decimal-point
+Dominic Roberts refs/remotes/origin/MIS-1194-getset-cli-all-properties
+Dominic Roberts refs/remotes/origin/MIS-1194-getset-cli-all-with-domain-names
+Dominic Roberts refs/remotes/origin/MIS-1238-replace-req-act-properties-post-review
+Dominic Roberts refs/remotes/origin/MIS-1238-replace-requested-actual
+Dominic Roberts refs/remotes/origin/MIS-1241-mistatn-sometimes-hardfault-home-press-minus
+Dominic Roberts refs/remotes/origin/MIS-1327-mistatn-settings-properties-propagation
+Dominic Roberts refs/remotes/origin/MIS-1327-mistatn-startsubscribing-post-merge
+Dominic Roberts refs/remotes/origin/MIS-1328-zonesummary-homesetpoint-fix-merge-andi
+Dominic Roberts refs/remotes/origin/MIS-1328-zonesummary-not-updating-on-external-property-change
+Dominic Roberts refs/remotes/origin/MIS-1358-fix-nodeproxysettings-3-json-for-merge
+Dominic Roberts refs/remotes/origin/MIS-1365-remove-slime-from-property-adjuster
+Dominic Roberts refs/remotes/origin/MIS-1392-min-temp-setting-unable-to-lower
+Dominic Roberts refs/remotes/origin/MIS-1439-mistatn-missing-degreesc
+Dominic Roberts refs/remotes/origin/MIS-1441-mistatn-temp-measure-point-5-degrees
+Dominic Roberts refs/remotes/origin/MIS-1442-trade-show-slime-mistatn-disable-nav-to-settings
+Dominic Roberts refs/remotes/origin/MIS-1443-setpoints-should-wrap-to-off
+Dominic Roberts refs/remotes/origin/MIS-1536-mitime-rf-stack-tick-interval
+Dominic Roberts refs/remotes/origin/MIS-1632-mitime-mode-screen-empty
+Dominic Roberts refs/remotes/origin/MIS-1694-refactor-mock-timer-post-merge-comments
+Dominic Roberts refs/remotes/origin/MIS-1694-test-timer-refactor
+Dominic Roberts refs/remotes/origin/MIS-1722-mican-multi-packet-messages
+Dominic Roberts refs/remotes/origin/MIS-1722-mican-multi-packet-messages-untested
+Dominic Roberts refs/remotes/origin/MIS-1722-mitime-batch-fix
+Dominic Roberts refs/remotes/origin/MIS-1731-mitime-fix-editing-zone-2
+Dominic Roberts refs/remotes/origin/MIS-1772-mican-multi-packet-messages-untested
+Dominic Roberts refs/remotes/origin/MIS-1913-mistatn-to-mitime-multi-part-messages
+Dominic Roberts refs/remotes/origin/MIS-1928-mistatn-holiday-and-always-off-indication
+Dominic Roberts refs/remotes/origin/MIS-1941-mocktimerapihelper-multiple-timers-in-multiple-stages
+Dominic Roberts refs/remotes/origin/MIS-1986-mistatn-rf-activity-icon
+Dominic Roberts refs/remotes/origin/MIS-2003-BatteryIconBootWithLowVoltage
+Dominic Roberts refs/remotes/origin/MIS-2085-mistatn-advanced-settings-screen
+Dominic Roberts refs/remotes/origin/MIS-2089-mistatn-override-causes-manual-mode
+Dominic Roberts refs/remotes/origin/MIS-2089-mistatn-override-causes-manual-mode--rebased
+Dominic Roberts refs/remotes/origin/MIS-2103-mistatn-signal-level-advanced-setting
+Dominic Roberts refs/remotes/origin/MIS-2108-mistatn-spi-clock-lower-fix-for-file-corruption-at-low-voltage
+Dominic Roberts refs/remotes/origin/MIS-2172-mitime-screen-flicker-on-clock-format-screen
+Dominic Roberts refs/remotes/origin/MIS-2195-EXPERIMENTAL-remove-display-rf-spi-use
+Dominic Roberts refs/remotes/origin/MIS-2327-mitime-binding-refactoring
+Dominic Roberts refs/remotes/origin/MIS-2327-mitime-binding-refactoring-merge-alcatraz
+Yan Speake refs/remotes/origin/MIS-274-MiStatNSubscription
+Dominic Roberts refs/remotes/origin/MIS-372-cli-refactor
+Dominic Roberts refs/remotes/origin/MIS-414-debug-print-command
+Dominic Roberts refs/remotes/origin/MIS-463-debug-area-save
+Dominic Roberts refs/remotes/origin/MIS-463-debug-command-save
+Dominic Roberts refs/remotes/origin/MIS-465-cli-refactor-refactor-and-debrittle-tests
+Dominic Roberts refs/remotes/origin/MIS-491-taskstack-clipping
+Dominic Roberts refs/remotes/origin/MIS-496-decouple-rtos-and-cli
+Dominic Roberts refs/remotes/origin/MIS-496-review-changes-decouple-rtos-and-cli
+Dominic Roberts refs/remotes/origin/MIS-695-fix-spec-tests
+Dominic Roberts refs/remotes/origin/MIS-695-mistatn-change-home-setpoint
+Dominic Roberts refs/remotes/origin/MIS-696-display-setpoint-on-home-screen
+Dominic Roberts refs/remotes/origin/MIS-709-fixing-event-command
+Dominic Roberts refs/remotes/origin/MIS-724-move-cli-tests-to-products
+Dominic Roberts refs/remotes/origin/MIS-738-add-default-assert
+Dominic Roberts refs/remotes/origin/MIS-768-test-interface-parser
+Dominic Roberts refs/remotes/origin/MIS-791-homesetpoint-limits
+Dominic Roberts refs/remotes/origin/MIS-792-keyboard-keys-incorrect
+Dominic Roberts refs/remotes/origin/MIS-820-add-mutex
+Dominic Roberts refs/remotes/origin/MIS-830-assert-mitime-factory
+Dominic Roberts refs/remotes/origin/MIS-833-mitime-commandfactory-test
+Dominic Roberts refs/remotes/origin/MIS-858-zone-summary-setpoint-adjustment
+Dominic Roberts refs/remotes/origin/MIS-929-backlight-fix
+Dominic Roberts refs/remotes/origin/MIS-929-dualkeypress-sm-active
+Dominic Roberts refs/remotes/origin/MIS-929-keyboard-raise-event-not-timer-start-stop
+Dominic Roberts refs/remotes/origin/MIS-929-mistatn-nav-settings-menus
+Dominic Roberts refs/remotes/origin/MIS-930-and-936-post-review-comments
+Dominic Roberts refs/remotes/origin/MIS-930-mistatn-exit-settings-menu
+Dominic Roberts refs/remotes/origin/MIS-930-mistatn-exit-settings-menu-post-review
+Dominic Roberts refs/remotes/origin/MIS-932-navigate-between-menu-screens
+Dominic Roberts refs/remotes/origin/MIS-933-transition-from-choice-to-edit
+Dominic Roberts refs/remotes/origin/MIS-935-mistatn-settings-reflect-controller
+Dominic Roberts refs/remotes/origin/MIS-936-mistatn-settings-edit-value-adjustment
+Dominic Roberts refs/remotes/origin/MIS-937-mistatn-setting-save-on-select
+Dominic Roberts refs/remotes/origin/MIS-939-mistatn-limit-temperature-settings
+Dominic Roberts refs/remotes/origin/MIS-939-setpoint-adjustment-with-merge-mrbob
+Dominic-Roberts refs/remotes/origin/MIS-939-setpoint-max-min-limit-adjustment
+Dominic Roberts refs/remotes/origin/MIS-940-changing-limits-affects-settings
+Dominic Roberts refs/remotes/origin/MIS-958-sm_active-callback-issue
+Dominic Roberts refs/remotes/origin/MIS1761-Remove_generic_InitScreenEventArgs_params
+Dominic Roberts refs/remotes/origin/MiStatNHomeScreenBlitz
+Dominic-Roberts refs/remotes/origin/MrBobArchipelago
+Dominic Roberts refs/remotes/origin/MrBobArchipelago-merge-alcatraz
+Dominic Roberts refs/remotes/origin/MrBobArchipelago-merge-andi
+yspeake refs/remotes/origin/MrBobArchipelago-merge-canary
+Dominic Roberts refs/remotes/origin/MrBobArchipelago-merge-mdodkins
+Dominic Roberts refs/remotes/origin/MrBobArchipelago-merge-mdodkins-post-review
+Dominic Roberts refs/remotes/origin/MrBobArchipelago-merge-naboombu
+Dominic Roberts refs/remotes/origin/MrBobArchipelago-merge-smart-rtos-timers
+Dominic Roberts refs/remotes/origin/add-mutex
+Dominic Roberts refs/remotes/origin/cli-refactor
+Yan Speake refs/remotes/origin/dprintf
+mdodkins refs/remotes/origin/master
+Dominic Roberts refs/remotes/origin/mdodkins-devel-tickless-mode-fix
+Dominic Roberts refs/remotes/origin/mis-2315-mistatn-bind-verification
+Dominic Roberts refs/remotes/origin/mistatn-settings-screen-feature-file-update
+Dominic Roberts refs/remotes/origin/mitime-batch-file-fix
+Dominic Roberts refs/remotes/origin/remove-free-rtos-tests
+Dominic Roberts refs/remotes/origin/remove-non-deterministic-test
+Dominic-Roberts refs/remotes/origin/revert-14-MrBobArchipelago-merge-smart-rtos-timers
+Dominic-Roberts refs/remotes/origin/revert-15-revert-14-MrBobArchipelago-merge-smart-rtos-timers
+Dominic-Roberts refs/remotes/origin/revert-46-MIS-940-changing-limits-affects-settings
+Dominic Roberts refs/remotes/origin/rich-new-features
+Dominic Roberts refs/remotes/origin/tiny-fs-cluster-size-warn-suppress
+richard.keast refs/remotes/rich/3Amigos
+richard.keast refs/remotes/rich/AddNewFeatureFiles
+richard.keast refs/remotes/rich/AlarmClassFix
+Richard Keast refs/remotes/rich/AndisPart2
+richard.keast refs/remotes/rich/AndisWorld
+Richard Keast refs/remotes/rich/AtlantisArchipelago
+richard.keast refs/remotes/rich/BDDDisplayedScreenRefactoring
+Richard Keast refs/remotes/rich/BDDTraining
+Richard Keast refs/remotes/rich/BindingFixesForTheLamp
+Richard Keast refs/remotes/rich/BishopRock
+Richard Keast refs/remotes/rich/ChangelogExtractor
+richard.keast refs/remotes/rich/CollidingArchipelagoes
+Richard Keast refs/remotes/rich/ConvertToGTests
+Richard Keast refs/remotes/rich/Development
+Richard Keast refs/remotes/rich/FeaturePlanning
+richard.keast refs/remotes/rich/FixScilly
+richard.keast refs/remotes/rich/FixScillyAfterMerge
+Richard Keast refs/remotes/rich/GoogleTests
+Richard Keast refs/remotes/rich/GraphicalLCD
+richard.keast refs/remotes/rich/HolidayEnableZoneProperty
+Richard Keast refs/remotes/rich/ILoveLamp
+Richard Keast refs/remotes/rich/KeyEvaluationScreen
+richard.keast refs/remotes/rich/LucyMerge
+Richard Keast refs/remotes/rich/MI85_ShowProductNameOnSplashScreen
+richard.keast refs/remotes/rich/MIS-1065-TransitionToOffOnMinusKey
+richard.keast refs/remotes/rich/MIS-1127-HolidayActivation
+richard.keast refs/remotes/rich/MIS-1129-HolidaySymbolInTitleBar
+richard.keast refs/remotes/rich/MIS-1131-HolidayModeDeactivation
+richard.keast refs/remotes/rich/MIS-1153-TimeoutFromZoneSummaryChildScreens
+richard.keast refs/remotes/rich/MIS-1154-BlueberryNotImplemented
+richard.keast refs/remotes/rich/MIS-1218-ChangingFocusOnSpinEditControls
+richard.keast refs/remotes/rich/MIS-1276-AddHelpTextToChannelSettingsScreen
+richard.keast refs/remotes/rich/MIS-133_Re-order_of_mode_selection_screen
+Richard Keast refs/remotes/rich/MIS-136-LanguageParsing
+Richard Keast refs/remotes/rich/MIS-136-LanguageSelectionScreen
+richard.keast refs/remotes/rich/MIS-1364-MultiZone
+richard.keast refs/remotes/rich/MIS-1364-Temp
+richard.keast refs/remotes/rich/MIS-1366-AutomaticHolidaySymbolZoneSummary
+richard.keast refs/remotes/rich/MIS-1416-FixBoostEndDateTimeWithinDSTtransition
+richard.keast refs/remotes/rich/MIS-1494-UpdateNonFocussedItemsOnHomeScreen
+richard.keast refs/remotes/rich/MIS-1494-WithoutThermostatPullRequestCommentChanges
+richard.keast refs/remotes/rich/MIS-1532-MultizoneUnsliming
+richard.keast refs/remotes/rich/MIS-1666-TemperatureRoundingOnZoneSummary
+richard.keast refs/remotes/rich/MIS-1766-ListControlSetFocusBug
+Richard Keast refs/remotes/rich/MIS-205-SpecificationTests
+Richard Keast refs/remotes/rich/MIS-207-BindMiStatNToMiTime
+Aditya Mandrekar refs/remotes/rich/MIS-208-MiStatNBindScreen
+Richard Keast refs/remotes/rich/MIS-2198-FixForNoSignalBinding4thMiStatN
+Richard Keast refs/remotes/rich/MIS-2324-ChangeOfDefaultHolidayStartEndDateTimes
+Richard Keast refs/remotes/rich/MIS-2336-HolidayZoneSelectionScreenSettingFocusToInvisibleControl
+richard.keast refs/remotes/rich/MIS-353-MiTimeTransitionFromBindOK
+richard.keast refs/remotes/rich/MIS-354-MiTimeTransitionFromSignalStrengthScreen
+richard.keast refs/remotes/rich/MIS-354-ReviewChanges
+Richard Keast refs/remotes/rich/MIS-375__OrInBDDSteps
+Richard Keast refs/remotes/rich/MIS-507-MiTimeSpecTestsToBandit
+Richard Keast refs/remotes/rich/MIS-556-AddNamespacesToProducts
+Richard Keast refs/remotes/rich/MIS-556-AddNamespacesToProducts_PullRequestCommentChanges
+Richard Keast refs/remotes/rich/MIS-665-SetpointChangesIGToMiTime
+Richard Keast refs/remotes/rich/MIS-86__Product_Code_On_Splash_Screen
+Neil Dingley refs/remotes/rich/MIS-896-BackKeyTransitionToPreviousScreen
+richard.keast refs/remotes/rich/MIS-899-BackKeyOnHomeScreen
+Richard Keast refs/remotes/rich/MIS154_Screen_Refresh_Too_Slow
+DenzilPearce refs/remotes/rich/MIS209_MiTime_Dummy_Binging_Screen
+richard.keast refs/remotes/rich/ManuallyDisableScenarios
+richard.keast refs/remotes/rich/MatthewDevMerge
+richard.keast refs/remotes/rich/MatthewScilly
+Richard Keast refs/remotes/rich/Missing_Product_Config_File
+richard.keast refs/remotes/rich/MrWorld
+richard.keast refs/remotes/rich/PabloScilly
+Matthew refs/remotes/rich/Release14
+richard.keast refs/remotes/rich/ScillyArchipelago
+richard.keast refs/remotes/rich/ScillyMatthew
+richard.keast refs/remotes/rich/ScillyMatthewMerge
+richard.keast refs/remotes/rich/ScreenCleanup
+Richard Keast refs/remotes/rich/ScreenTransitioner
+Richard Keast refs/remotes/rich/ScreenTransitionerAndBreadcrumbTrail
+Richard Keast refs/remotes/rich/ScreenTransitionerAndBreadcrumbTrailPart1ReviewComments
+Richard Keast refs/remotes/rich/ScreenTransitionerAndBreadcrumbTrailPart1ReviewCommentsReviewComments
+Richard Keast refs/remotes/rich/ScreenTransitionerAndBreadcrumbTrailPart2
+Richard Keast refs/remotes/rich/ScreenTransitionerMergeWithAndisDevelopment
+richard.keast refs/remotes/rich/ScreensCleanup
+Richard Keast refs/remotes/rich/SetPropertyCommand
+Richard Keast refs/remotes/rich/SetPropertyCommandPullRequestChanges
+richard.keast refs/remotes/rich/SillyPiskie
+richard.keast refs/remotes/rich/SillyScilly
+richard.keast refs/remotes/rich/TableParserPreventAngleBracketTextParsing
+Richard Keast refs/remotes/rich/TheAndiWorld
+Richard Keast refs/remotes/rich/TheWorldArchipelago
+richard.keast refs/remotes/rich/TheWorldLucyMerge
+richard.keast refs/remotes/rich/TheWorldToddMerge
+Richard Keast refs/remotes/rich/TraceRtosTasks
+richard.keast refs/remotes/rich/WorldNaboombu
+Richard Keast refs/remotes/rich/ZanzibarArchipelago
+Lucy Povey refs/remotes/rich/boost_override_setpoint_selector_and_home_screen_behaviour
+Yan Speake refs/remotes/rich/dprintf
+Lucy Povey refs/remotes/rich/lucy
+Yan Speake refs/remotes/rich/master
+Richard Keast refs/remotes/rich/mis-2290merge
+richard.keast refs/remotes/rich/tempmerge
+richard.keast refs/remotes/rich/tmp/mdodkins/Development
+Richard Keast refs/remotes/rich/tmpAtLampMerge
+Richard Keast refs/remotes/rich/tmpAtNeilMerge
+Todd Dowty refs/remotes/rich/tmpAtToddMerge
+Todd Dowty refs/remotes/rich/tmpAtToddMerge2
+Richard Keast refs/remotes/rich/updateoryx
+yspeake refs/remotes/yspeake/1258_TinyFSTestSuite
+yspeake refs/remotes/yspeake/3Amigos_24_June_2015
+yspeake refs/remotes/yspeake/AT45D161_Flash
+yspeake refs/remotes/yspeake/AddIsOrphanToNodeProxy
+yspeake refs/remotes/yspeake/AdjustTaskPriorities
+Ashlei refs/remotes/yspeake/AndiDevelopment
+yspeake refs/remotes/yspeake/AshleysProductionJsonFix
+yspeake refs/remotes/yspeake/BlockingRfDriverWithCorrectIsrCallback
+yspeake refs/remotes/yspeake/BlockingRfSpiDriver
+yspeake refs/remotes/yspeake/BootloaderShouldBeQuiet
+yspeake refs/remotes/yspeake/CanaryArchipelago
+yspeake refs/remotes/yspeake/CanaryArchipelago_WithoutJobRunnerTests
+yspeake refs/remotes/yspeake/CanaryMergedWithPisky
+yspeake refs/remotes/yspeake/Debugging
+yspeake refs/remotes/yspeake/DebuggingMergedWithNowhere
+Yan Speake refs/remotes/yspeake/Development
+yspeake refs/remotes/yspeake/DoggerArchipelago
+yspeake refs/remotes/yspeake/DomsFix
+yspeake refs/remotes/yspeake/FixFileAccessors
+yspeake refs/remotes/yspeake/FixGiveFromISR
+yspeake refs/remotes/yspeake/FreeRTOS+Trace
+yspeake refs/remotes/yspeake/Installer2015_SpecialRelease
+Yan Speake refs/remotes/yspeake/JanDevelopment
+yspeake refs/remotes/yspeake/KeithsLowPowerFix
+yspeake refs/remotes/yspeake/LaurentsBuilderFix
+yspeake refs/remotes/yspeake/MIS-1173_CommonDecoupling
+yspeake refs/remotes/yspeake/MIS-1185_PropertyNames
+yspeake refs/remotes/yspeake/MIS-1186_JsonFilesUseStrings
+yspeake refs/remotes/yspeake/MIS-1195_WiresharkNode
+yspeake refs/remotes/yspeake/MIS-1197_TinyV38
+yspeake refs/remotes/yspeake/MIS-1234_GatewayPropertyStore
+yspeake refs/remotes/yspeake/MIS-1235_RfSettingsFiles
+yspeake refs/remotes/yspeake/MIS-1239_MiStatNBinding
+yspeake refs/remotes/yspeake/MIS-1355_SecondMiStatN
+yspeake refs/remotes/yspeake/MIS-1363_SystemBuilder
+yspeake refs/remotes/yspeake/MIS-1374_MiCanMemoryLeak
+yspeake refs/remotes/yspeake/MIS-1379_SaveProperties
+yspeake refs/remotes/yspeake/MIS-1394_HasAmbientSensorFix
+yspeake refs/remotes/yspeake/MIS-1405_MiCanUpdatePropertySave
+yspeake refs/remotes/yspeake/MIS-1405_PropertySave
+yspeake refs/remotes/yspeake/MIS-1423_MiCanPdu_DataConfirmTimeout
+yspeake refs/remotes/yspeake/MIS-1458_IGMultiZone
+yspeake refs/remotes/yspeake/MIS-1475_MiTimePinger
+yspeake refs/remotes/yspeake/MIS-1528-RaiseRemoveNodeEvent
+yspeake refs/remotes/yspeake/MIS-1547_RobustifyIGPSBuilder
+yspeake refs/remotes/yspeake/MIS-1615_NodePropertySettings
+yspeake refs/remotes/yspeake/MIS-1617-IntegrateFotaBusinessLogic
+yspeake refs/remotes/yspeake/MIS-1670_FotaWireshark
+yspeake refs/remotes/yspeake/MIS-1672_RfStackRtosRemoval
+Eduard Gruber refs/remotes/yspeake/MIS-1678_implement_boost_feature_for_MiStatN
+yspeake refs/remotes/yspeake/MIS-1689_RichUiSubscription
+Matthew refs/remotes/yspeake/MIS-1689_RichUiSubscription_Matthew_IG_Fix
+yspeake refs/remotes/yspeake/MIS-1792_SignalStrength
+yspeake refs/remotes/yspeake/MIS-1825_SuperNode
+yspeake refs/remotes/yspeake/MIS-1834_IG_SignalLost
+yspeake refs/remotes/yspeake/MIS-1855_MiTime_SignalLost
+yspeake refs/remotes/yspeake/MIS-1856_MiStatN_SignalLost
+yspeake refs/remotes/yspeake/MIS-1857_SendScheduleToIG
+yspeake refs/remotes/yspeake/MIS-1873_TestInterface
+yspeake refs/remotes/yspeake/MIS-1928-mistatn-holiday-and-always-off-indication
+yspeake refs/remotes/yspeake/MIS-1932_GetEthernetOperation
+yspeake refs/remotes/yspeake/MIS-1932_Get_Ethernet_Operation_Command
+yspeake refs/remotes/yspeake/MIS-1963_SetCloudServerWithPassword
+yspeake refs/remotes/yspeake/MIS-1969_MiStatNAppliesOffset
+yspeake refs/remotes/yspeake/MIS-1975_BindingRevisited
+yspeake refs/remotes/yspeake/MIS-1978_RfCarrierChannel
+yspeake refs/remotes/yspeake/MIS-1986-mistatn-rf-activity-icon
+yspeake refs/remotes/yspeake/MIS-2047_StringPropertyProblems
+yspeake refs/remotes/yspeake/MIS-2072_NodePropertySendRetry
+Yan Speake refs/remotes/yspeake/MIS-444_NodeProxies2
+yspeake refs/remotes/yspeake/MIS-525_NodeProxiesPhase2
+Yan Speake refs/remotes/yspeake/MIS-525_NodeProxiesPhase2Review
+Yan Speake refs/remotes/yspeake/MIS-526_FactoryConfig
+Yan Speake refs/remotes/yspeake/MIS-564_FactoryConfig.JSON
+Yan Speake refs/remotes/yspeake/MIS-578_WirelessSettings.json
+Yan Speake refs/remotes/yspeake/MIS-582-RfCarrierCommand
+Yan Speake refs/remotes/yspeake/MIS-592_ControllerNodeProxySettings.json
+Yan Speake refs/remotes/yspeake/MIS-593_MiCanRefactor
+Yan Speake refs/remotes/yspeake/MIS-622_MiStatNHangsOnFactoryConfigNotPresent
+Yan Speake refs/remotes/yspeake/MIS-659_MiCanRequest
+Yan Speake refs/remotes/yspeake/MIS-762_MiStatNHardFault
+Yan Speake refs/remotes/yspeake/MIS-789_LowRfPower
+yspeake refs/remotes/yspeake/MIS-844_PropertyStoreBuilder_Reviewed
+Yan Speake refs/remotes/yspeake/MIS-857_MiCanRefactor
+yspeake refs/remotes/yspeake/MIS-884_PropertyStoreBuilder
+yspeake refs/remotes/yspeake/MIS-998-HolidayZonesScreen
+yspeake refs/remotes/yspeake/MIS_1433-MiTimeStopsReceiving
+Yan Speake refs/remotes/yspeake/MIS_526_FactoryConfig_PduExpectReply
+Yan Speake refs/remotes/yspeake/MIS_526_dprintf
+Yan Speake refs/remotes/yspeake/MIS_659_MiStatNPolling
+Yan Speake refs/remotes/yspeake/MattDevelopmentMergedWithNewProtobuf
+yspeake refs/remotes/yspeake/MergeCanaryWithDevelopment
+Yan Speake refs/remotes/yspeake/MergeLaurentIGWithJsonBinding
+Yan Speake refs/remotes/yspeake/MergePB_CodeChanges
+Yan Speake refs/remotes/yspeake/MergePB_Development
+Yan Speake refs/remotes/yspeake/MergePB_LibChanges
+Yan Speake refs/remotes/yspeake/MergePB_PreCodeChanges
+Yan Speake refs/remotes/yspeake/MiCanRefactor_Merged_With_Json
+yspeake refs/remotes/yspeake/MiStatNBinding
+James Parker refs/remotes/yspeake/MigrateFileSchemaToNewProtobuf
+Yan Speake refs/remotes/yspeake/NodeProxySettings
+yspeake refs/remotes/yspeake/PackBinding
+yspeake refs/remotes/yspeake/PackBinding2
+yspeake refs/remotes/yspeake/PropertyStoreRefactor
+yspeake refs/remotes/yspeake/PropertyStoreRefactor_mergeWithAdjustTaskPriorities
+Yan Speake refs/remotes/yspeake/RefactorJson
+yspeake refs/remotes/yspeake/Release17AHotFix
+Jan Bunes refs/remotes/yspeake/RemoveBinaries
+yspeake refs/remotes/yspeake/RfCarrier
+yspeake refs/remotes/yspeake/RobustifyMergedWithNowhere
+yspeake refs/remotes/yspeake/Sam4sGpioDynamicCallbacks
+yspeake refs/remotes/yspeake/ScillyArchipelago
+yspeake refs/remotes/yspeake/ShowFixes
+yspeake refs/remotes/yspeake/SignalLostRevisited
+yspeake refs/remotes/yspeake/TestBinding
+mdodkins refs/remotes/yspeake/TheLampArchipelago
+yspeake refs/remotes/yspeake/ToddMerge
+yspeake refs/remotes/yspeake/UpdateConfigFiles
+Matthew refs/remotes/yspeake/YanSchneiderFSTests
+Yan Speake refs/remotes/yspeake/YansArchipelago
+yspeake refs/remotes/yspeake/testfs
+yspeake refs/remotes/yspeake/tmp/CanaryMerge
+yspeake refs/remotes/yspeake/tmp/RfFixRebase
+Dominic Roberts refs/stash
+Matthew refs/tags/0.0.2
+ refs/tags/0.0.3
+Jan Bunes refs/tags/0.17.0
+ refs/tags/0.17.1
+ refs/tags/0.17.2
+ refs/tags/0.17.3
+ refs/tags/0.17.4
+ refs/tags/0.17.5
+ refs/tags/0.18.1
+ refs/tags/0.18.2
+ refs/tags/0.18.3
+MatthewDennis refs/tags/0.19.0
+Jan Bunes refs/tags/0.19.1
+MatthewDennis refs/tags/0.19.2
+Jan Bunes refs/tags/0.20.0
+ refs/tags/0.20.1
+ refs/tags/0.20.2
+ refs/tags/0.20.3
+ refs/tags/0.21.5
+ refs/tags/0.21.6
+ refs/tags/0.21.7
+ refs/tags/0.22.0
+ refs/tags/0.22.1
+MatthewDennis refs/tags/0.23.0
+Jan Bunes refs/tags/0.23.1
+ refs/tags/0.23.100
+ refs/tags/0.23.101
+ refs/tags/0.23.102
+ refs/tags/0.23.103
+ refs/tags/0.23.104
+Matthew refs/tags/0.23.200
+Jan Bunes refs/tags/0.24.0
+mdodkins refs/tags/0.24.1
+ refs/tags/0.24.100
+ refs/tags/0.24.101
+ refs/tags/0.24.102
+ refs/tags/0.24.103
+mdodkins refs/tags/0.24.2
+ refs/tags/0.24.200
+mdodkins refs/tags/0.24.3
+ refs/tags/0.24.300
+mdodkins refs/tags/0.24.4
+ refs/tags/0.24.400
+mdodkins refs/tags/1.0.0
+mdodkins refs/tags/1.0.1
+Andreas Karg refs/tags/1.0.10
+mdodkins refs/tags/1.0.11
+mdodkins refs/tags/1.0.2
+Jan Bunes refs/tags/1.0.3
+mdodkins refs/tags/1.0.4
+mdodkins refs/tags/1.0.5
+mdodkins refs/tags/1.0.6
+Jan Bunes refs/tags/1.0.7
+ refs/tags/1.0.8
+mdodkins refs/tags/1.0.9
+Andreas Karg refs/tags/1.1.0
+MatthewDennis refs/tags/1.1.1
+Jan Bunes refs/tags/1.2.0
+mdodkins refs/tags/1.2.1
+mdodkins refs/tags/1.2.2
+abunoomally refs/tags/BSP_ARM_PORT_Iteration_1
+abunoomally refs/tags/BSP_ARM_PORT_Iteration_2
+abunoomally refs/tags/BSP_ARM_PORT_Iteration_3
+abunoomally refs/tags/BSP_ARM_PORT_Iteration_4
+MatthewDennis refs/tags/CalendarMk1
+mdodkins refs/tags/DMA-CONT-Richard
+mdodkins refs/tags/DayZero_PreRelease
+ refs/tags/FOTATEST-12
+ refs/tags/FOTATEST-13
+ refs/tags/FOTATEST-14
+ refs/tags/FOTATEST-15
+ refs/tags/FOTA_TEST_1
+ refs/tags/FOTA_TEST_2
+ refs/tags/FOTA_TEST_3
+ refs/tags/FOTA_TEST_4
+ refs/tags/FOTA_TEST_5
+ refs/tags/FOTA_TEST_6
+ refs/tags/FOTA_TEST_7
+ refs/tags/FOTA_TEST_8
+ refs/tags/FOTA_TEST_9
+mdodkins refs/tags/FileSystemSendToHCC
+Andreas Karg refs/tags/Installer2015_RevA
+Andreas Karg refs/tags/Installer2015_RevB
+yspeake refs/tags/Installer2015_RevC
+mdodkins refs/tags/KeyEvaluationScreen
+mdodkins refs/tags/MiGenie_PreRelease_24
+mdodkins refs/tags/MiGenie_Release17_A
+mdodkins refs/tags/MiGenie_Release17_B
+Andreas Karg refs/tags/MiGenie_Release20A
+Matthew refs/tags/MiGenie_Release_17C
+mdodkins refs/tags/MiGenie_Release_18A
+Matthew refs/tags/MiGenie_Release_18B
+Andreas Karg refs/tags/MiGenie_Release_19A
+yspeake refs/tags/MiGenie_Release_20B
+Ashlei refs/tags/MiGenie_Release_20C
+Jan Bunes refs/tags/MiGenie_Release_21A
+mdodkins refs/tags/MiGenie_Release_21B
+mdodkins refs/tags/MiGenie_Release_21C
+mdodkins refs/tags/MiGenie_Release_21D
+mdodkins refs/tags/MiGenie_Release_21E
+mdodkins refs/tags/MiGenie_Release_23A
+mdodkins refs/tags/MiGenie_Release_24A
+Andreas Karg refs/tags/MiGenie_Release_25
+mdodkins refs/tags/MiGenie_Release_26
+Andreas Karg refs/tags/MiGenie_Release_27
+Richard Keast refs/tags/MiGenie_Release_28
+mdodkins refs/tags/MiSeries_PreRelease_17
+mdodkins refs/tags/MiSeries_Release1
+mdodkins refs/tags/MiSeries_Release10
+mdodkins refs/tags/MiSeries_Release10_Untested
+mdodkins refs/tags/MiSeries_Release11
+mdodkins refs/tags/MiSeries_Release11_candidate
+mdodkins refs/tags/MiSeries_Release12
+Matthew refs/tags/MiSeries_Release12_IncreasedMiTimeMemory
+Matthew refs/tags/MiSeries_Release12_TicklessDisabled
+mdodkins refs/tags/MiSeries_Release13
+mdodkins refs/tags/MiSeries_Release13_MiStatNKeyboardFixes
+AndreasKarg refs/tags/MiSeries_Release14
+Matthew refs/tags/MiSeries_Release14_StringFix
+AndreasKarg refs/tags/MiSeries_Release15_BoostFix
+Andreas Karg refs/tags/MiSeries_Release16_RevA
+AndreasKarg refs/tags/MiSeries_Release16_RevB
+mdodkins refs/tags/MiSeries_Release2
+mdodkins refs/tags/MiSeries_Release2B
+mdodkins refs/tags/MiSeries_Release3
+mdodkins refs/tags/MiSeries_Release3_BindingEvent
+mdodkins refs/tags/MiSeries_Release3_Binding_b
+mdodkins refs/tags/MiSeries_Release4
+mdodkins refs/tags/MiSeries_Release5
+mdodkins refs/tags/MiSeries_Release6
+mdodkins refs/tags/MiSeries_Release7
+mdodkins refs/tags/MiSeries_Release8
+mdodkins refs/tags/MiSeries_Release9
+mdodkins refs/tags/MiSeries_Release9b
+mdodkins refs/tags/Nimbus_Release15
+mdodkins refs/tags/R13
+mdodkins refs/tags/V1.0
+ refs/tags/Version_0.0.1
+ refs/tags/Working_4_zone_system_for_1-2-4
+ refs/tags/v0.20.4
+ refs/tags/v0.20.5
+ refs/tags/v0.21.0
+ refs/tags/v0.21.1
+ refs/tags/v0.21.2
+ refs/tags/v0.21.3
+Matthew refs/tags/v0.21.4

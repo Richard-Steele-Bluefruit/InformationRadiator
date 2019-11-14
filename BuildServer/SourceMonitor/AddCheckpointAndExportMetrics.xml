@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sourcemonitor_commands>
+  <write_log>true</write_log>
+  <command>
+    <project_file>Metrics.smproj</project_file>
+    <include_subdirectories>true</include_subdirectories>
+    <export>
+      <export_file>Metrics.xml</export_file>
+      <!-- export_type>2 (checkpoint details as XML)</export_type -->
+      <export_type>1 (Export project summary in XML format)</export_type>
+    </export>
+  </command>
+
+</sourcemonitor_commands>

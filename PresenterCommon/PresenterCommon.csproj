@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B74D2DD4-34B8-4318-943D-DAE10FECAAB3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PresenterCommon</RootNamespace>
+    <AssemblyName>PresenterCommon</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>VersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Configuration\InformationRadiatorConfiguration.cs" />
+    <Compile Include="Configuration\InformationRadiatorItem.cs" />
+    <Compile Include="Configuration\InformationRadiatorItemConfiguration.cs" />
+    <Compile Include="Configuration\InformationRadiatorItemConfigurationField.cs" />
+    <Compile Include="DayUpdateMonitor.cs" />
+    <Compile Include="DotNet.cs" />
+    <Compile Include="DotNetTimer.cs" />
+    <Compile Include="FileSystem\IFileSystem.cs" />
+    <Compile Include="IDayUpdateMonitor.cs" />
+    <Compile Include="IDotNetWrapper.cs" />
+    <Compile Include="ItemFactory\Factory.cs" />
+    <Compile Include="ItemFactory\IItemFactory.cs" />
+    <Compile Include="ItemFactory\ItemFactoryConstructorAttribute.cs" />
+    <Compile Include="ItemFactory\UnableToDetermineConstructorException.cs" />
+    <Compile Include="ItemFactory\UnknownItemTypeException.cs" />
+    <Compile Include="ItemFactory\UnknownParameterTypeException.cs" />
+    <Compile Include="ITimer.cs" />
+    <Compile Include="Plugin\IInformationRadiatorItemPlugin.cs" />
+    <Compile Include="Plugin\PluginFinder.cs" />
+    <Compile Include="PresenterCommonFactory.cs" />
+    <Compile Include="PresenterResources.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

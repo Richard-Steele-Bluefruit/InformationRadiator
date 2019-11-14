@@ -1,0 +1,21 @@
+githubUsername Dominic-Roberts
+repositoryName SchneiderMiSeries
+amountOfTimeInDaysBeforeBranchIsTooOldToBeConsideredRecent 1000 # three weeks should be good
+releaseArchipelago andreaskartg/Development
+longTimeSinceMergeWithArchipelagoModifier 100
+branchIsNotUpToDateInHoursWithArchipelagoModifier 1
+forEveryConflictModifier 2
+forEveryContributorModifier 10
+touchedWithAHighPercentageThreshold 60   # in percent
+forEveryDirectoryThatHasBeenTouchedWithAHighPercentageModifier 10
+textSize 24
+maxSizeOfDrawableToStopCollidingWithCentre 100
+maxDistanceFromCentreForScreenSize 400
+minDistanceFromCentreForScreenSize 20
+minSizeOfDrawableToBeVisible 10
+windowName Archipelagoerisermatron
+screenWidth 1920
+screenHeight 1080
+automaticallyUpdateRepository true
+blackList [TheLampArchipelago]    # example: [TheLampArchipelago,MrBobArchipelago]    # The archipelago(s) which are never merged into anything and we :. can't rely on when they have been merged into the release archipelago. 
+minimumPullRequestNumberFontSizePixels 40

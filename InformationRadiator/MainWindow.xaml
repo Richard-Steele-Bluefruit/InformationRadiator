@@ -1,0 +1,85 @@
+﻿<Window x:Class="InformationRadiator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Information Radiator" Height="1080" Width="1920" WindowStyle="None" Icon="Application.ico" Topmost="True" Background="Black" Cursor="None" Closed="Window_Closed">
+    <Window.Foreground>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="#FFFFA200" Offset="0.575"/>
+        </LinearGradientBrush>
+    </Window.Foreground>
+    <Grid>
+        <WrapPanel Name="layout"/>
+        <Canvas Name="absoluteLayout" Width="1920" Height="1080">
+            <Canvas.Background>
+                <ImageBrush ImageSource="C:\Users\Richard\Downloads\Nineties1.jpg"/>
+            </Canvas.Background>
+            <Calendar Canvas.Left="1346" Canvas.Top="374" HorizontalAlignment="Right" VerticalAlignment="Top" Height="165" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" FontFamily="Comic Sans MS">
+                <Calendar.Effect>
+                    <DropShadowEffect/>
+                </Calendar.Effect>
+                <Calendar.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="5" ScaleX="5"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Calendar.RenderTransform>
+            </Calendar>
+            <Rectangle Fill="#FFFF7400" Height="295" Stroke="Black" Canvas.Top="29" Width="775" StrokeThickness="3">
+                <Rectangle.Effect>
+                    <DropShadowEffect ShadowDepth="10" BlurRadius="20"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Rectangle Fill="#FFFF7400" Height="881" Stroke="Black" Canvas.Top="29" Width="962" Canvas.Left="958" StrokeThickness="3">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="10"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Label x:Name="TO_DO" Content="To Do:" Canvas.Left="164" Canvas.Top="384" Height="217" Width="479" RenderTransformOrigin="0.5,0.5" FontFamily="Comic Sans MS" FontSize="140" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black" BorderThickness="5">
+                <Label.Foreground>
+                    <LinearGradientBrush EndPoint="1.2,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0" SpreadMethod="Reflect">
+                        <GradientStop Color="#FFE8FF00" Offset="0.158"/>
+                        <GradientStop Color="Red"/>
+                        <GradientStop Color="#FF2EFF00" Offset="0.286"/>
+                        <GradientStop Color="#FF00FFDC" Offset="0.455"/>
+                        <GradientStop Color="Blue" Offset="0.598"/>
+                        <GradientStop Color="Magenta" Offset="0.739"/>
+                        <GradientStop Color="Red" Offset="0.869"/>
+                    </LinearGradientBrush>
+                </Label.Foreground>
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-11.414"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+                <Label.Background>
+                    <ImageBrush ImageSource="C:\Users\Richard\Downloads\Nineties2.jpg"/>
+                </Label.Background>
+            </Label>
+            <Label x:Name="label" Content="Build Server Stats!" Canvas.Left="558" Canvas.Top="13" Height="59" Width="427" BorderBrush="#FF00FF5D" BorderThickness="5" FontFamily="SketchFlow Print" FontSize="40" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="7.715"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFFF00D1" Offset="0"/>
+                        <GradientStop Color="#FF00DCFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+        </Canvas>
+    </Grid>
+</Window>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<InformationRadiatorConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Items>
+
+    <InformationRadiatorItem ItemType="TeamCity" Width="1280" Height="1024">
+      <Title>Meredith Build Server</Title>
+      <Configuration>
+        <Field ID="HostName">bluefruit-meredith.duckdns.org:8080</Field>
+        <Field ID="UserName">InformationRadiator</Field>
+        <Field ID="Password">Cornwall1#</Field>
+        <Field ID="BuildConfiguration">Jan</Field>
+        <Field ID="BuildConfiguration">Tim</Field>
+        <Field ID="BuildConfiguration">Matthew</Field>
+        <Field ID="BuildConfiguration">Andi</Field>
+        <Field ID="OnlyDefaultBranch">false</Field>"
+      </Configuration>
+    </InformationRadiatorItem>
+  </Items>
+</InformationRadiatorConfiguration>

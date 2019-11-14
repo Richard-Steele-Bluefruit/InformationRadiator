@@ -1,0 +1,5719 @@
+merged
+  result 100644 dd2cf8350e50caf0a3c41478666a384b15ac9883 COMPONENTS/Calendar/Include/Calendar.h
+  our    100644 fa9be906644872f2e86c1758b4e0ef85d49a9b5a COMPONENTS/Calendar/Include/Calendar.h
+@@ -23,10 +23,10 @@
+    Calendar(ControllerPropertyStoreInterface &propertyStore, Date unixDate);
+    Calendar(ControllerPropertyStoreInterface &propertyStore, u32 unixTime, s8 timeZoneOffset);
+    
+-   TimeOfDay GetTimeOfDay();
++   TimeOfDay GetTimeOfDay() const;
+    bool SetTimeOfDay(TimeOfDay timeOfDay);
+ 
+-   Date GetDate();
++   Date GetDate() const;
+    bool SetDate(Date date);
+ 
+    void Update(u16 updatePeriod = DefaultUpdatePeriod);
+@@ -37,9 +37,10 @@
+    TimeZoneInterface& GetTimeZone();
+    TimeOfTheWeek GetTimeOfTheWeek();
+    void SetTimeOfTheWeek(TimeOfTheWeek timeOfTheWeek);
+-   DateTime GetLocalDateTime();
++   DateTime GetLocalDateTime() const;
+    void ApplyDSTAndTimeZoneIfApplicable(DateTime& dateTime);
+ private:
++   bool SetLocalDateTime(DateTime dateTime);
+    void ChangeUnixTimeByNumberOfDays(s8 numberOfDays);
+    u32 m_unixTime;
+    DaylightSaving m_daylightSaving;
+merged
+  result 100644 8e045e2ab5c17f2e16c8d6e2d9c88bd95f3f7f18 COMPONENTS/Calendar/Include/CalendarInterface.h
+  our    100644 fb6e204cf66fc6b4529fee314fff08dcafb8fc88 COMPONENTS/Calendar/Include/CalendarInterface.h
+@@ -16,10 +16,10 @@
+    static const time_t MaximumU32UnixTime = 2147483647; // 19 January 2038, 03:14:07 (Unix)
+    static const u8 DefaultUpdatePeriod = 60;
+ 
+-   virtual TimeOfDay GetTimeOfDay() = 0;
++   virtual TimeOfDay GetTimeOfDay() const = 0;
+    virtual bool SetTimeOfDay(TimeOfDay timeOfDay) = 0;
+ 
+-   virtual Date GetDate() = 0;
++   virtual Date GetDate() const = 0;
+    virtual bool SetDate(Date date) = 0;
+ 
+    virtual void Update(u16 updatePeriod = DefaultUpdatePeriod) = 0;
+@@ -30,7 +30,7 @@
+    virtual TimeZoneInterface& GetTimeZone() = 0;
+    virtual TimeOfTheWeek GetTimeOfTheWeek() = 0;
+    virtual void SetTimeOfTheWeek(TimeOfTheWeek timeOfTheWeek) = 0;
+-   virtual DateTime GetLocalDateTime() = 0;
++   virtual DateTime GetLocalDateTime() const = 0;
+    virtual void ApplyDSTAndTimeZoneIfApplicable(DateTime& dateTime) = 0;
+ 
+    virtual ~CalendarInterface() {};
+merged
+  result 100644 1bce5fa90002409282299ab5b1b5fd8e17b06337 COMPONENTS/Calendar/Include/DateTime.h
+  our    100644 27813e114eefdc28a43edf457bfd4316957fac62 COMPONENTS/Calendar/Include/DateTime.h
+@@ -33,7 +33,7 @@
+    TimeOfDay &GetTimeOfDay();
+    void SetTimeOfDay(TimeOfDay timeOfDay);
+ 
+-   TimeOfTheWeek GetTimeOfTheWeeK();
++   TimeOfTheWeek GetTimeOfTheWeek();
+ 
+    void AddOneHour();
+    void SubtractOneHour();
+merged
+  result 100644 e5e18e16bf36ad15378ab8a10130c06e9221da38 COMPONENTS/Calendar/Include/DaylightSaving.h
+  our    100644 dd7b2bec7e48fbcd8c0cce5689f7de48b2f58986 COMPONENTS/Calendar/Include/DaylightSaving.h
+@@ -19,15 +19,15 @@
+    // Autumn Retreat: Last Sunday in October at 1 am UTC the clock shall retreat 1 hour
+    DaylightSaving(ControllerPropertyStoreInterface &propertyStore);
+    virtual bool IsDaylightSavingEnabled() const;
+-   DateTime GetLocalTime(DateTime localTime);
+-   DateTime RemoveDaylightSavingOffset(DateTime dateTime);
+-   DateTime GetSpringThreshold(DateTime unixTime);
+-   DateTime GetAutumnThreshold(DateTime unixTime);
+-   u8 CalculateSpringDaylightSavingSwitchDay(u16 year);
+-   u8 CalculateAutumnDaylightSavingSwitchDay(u16 year);
+-   bool IsSummerTime(DateTime unixTime);
+-   u8 CalculateDaylightSavingSwitchDay(u16 year, DaylightSavingSeason::Value daylightSavingSeason);
+-   bool IsAutumnSwitchBackHour(DateTime localTime);
++   DateTime GetLocalTime(DateTime localTime) const;
++   DateTime RemoveDaylightSavingOffset(DateTime dateTime) const;
++   DateTime GetSpringThreshold(DateTime unixTime) const;
++   DateTime GetAutumnThreshold(DateTime unixTime) const;
++   u8 CalculateSpringDaylightSavingSwitchDay(u16 year) const;
++   u8 CalculateAutumnDaylightSavingSwitchDay(u16 year) const;
++   bool IsSummerTime(DateTime unixTime) const;
++   u8 CalculateDaylightSavingSwitchDay(u16 year, DaylightSavingSeason::Value daylightSavingSeason) const;
++   bool IsAutumnSwitchBackHour(DateTime localTime) const;
+ protected:
+    virtual void OnPropertyChanged(PropertyAddress*, u16 shortAddress);
+    virtual void OnPropertyTouched(PropertyAddress*, u16 shortAddress){}
+merged
+  result 100644 d7259d2375819ad3dea2494324437fd41fc6600c COMPONENTS/Calendar/Include/TimeZone.h
+  our    100644 26678facb69e5380c4fec818e01e6efee5df713a COMPONENTS/Calendar/Include/TimeZone.h
+@@ -14,8 +14,8 @@
+    s8 GetTimeZoneOffset() const;
+    bool SetTimeZoneOffset(s8 timeZoneOffset);
+ 
+-   DateTime ApplyTimeZoneOffset(DateTime dateTime);
+-   DateTime UnapplyTimeZoneOffset(DateTime dateTime);
++   DateTime ApplyTimeZoneOffset(DateTime dateTime) const;
++   DateTime UnapplyTimeZoneOffset(DateTime dateTime) const;
+ 
+ private:        
+    s8 m_timeZoneOffset;
+merged
+  result 100644 e237ef133884d69cd6424f78baaa4d24d691864d COMPONENTS/Calendar/Include/TimeZoneInterface.h
+  our    100644 45a85cb0f688393206cbb8b37a84575cf91220ed COMPONENTS/Calendar/Include/TimeZoneInterface.h
+@@ -13,7 +13,7 @@
+    virtual s8 GetTimeZoneOffset() const = 0;
+    virtual bool SetTimeZoneOffset(s8 timeZoneOffset) = 0;
+ 
+-   virtual DateTime ApplyTimeZoneOffset(DateTime dateTime) = 0;
++   virtual DateTime ApplyTimeZoneOffset(DateTime dateTime) const = 0;
+ };
+ 
+ #endif
+merged
+  result 100644 4683bb8e461f5cf7322b5e2fd529412da02ebfa1 COMPONENTS/Calendar/Source/Calendar.cpp
+  our    100644 bbd9b60a0e5018b765a342e9f21901cefeb0fde1 COMPONENTS/Calendar/Source/Calendar.cpp
+@@ -25,14 +25,9 @@
+    m_timeZone.SetTimeZoneOffset(timeZoneOffset);
+ }
+ 
+-TimeOfDay Calendar::GetTimeOfDay()
++TimeOfDay Calendar::GetTimeOfDay() const
+ {
+-   Date date = GetDate();
+-   TimeOfDay timeOfDay = m_daylightSaving.GetLocalTime(m_unixTime).GetTimeOfDay();
+-   DateTime dateTime(date, timeOfDay);
+-   dateTime = m_timeZone.ApplyTimeZoneOffset(dateTime);
+-   timeOfDay = dateTime.GetTimeOfDay();
+-   return timeOfDay;
++   return GetLocalDateTime().GetTimeOfDay();
+ }
+ 
+ bool Calendar::SetTimeOfDay(const TimeOfDay timeOfDay)
+@@ -40,24 +35,15 @@
+    if((timeOfDay.GetHours() > MaximumHour) || (timeOfDay.GetMinutes() > MaximumMinute))
+       return false;
+ 
+-   DateTime dateTime;
+-   dateTime.SetDate(GetDate());
++   DateTime dateTime = GetLocalDateTime();
+    dateTime.SetTimeOfDay(timeOfDay);
+ 
+-   dateTime = m_timeZone.UnapplyTimeZoneOffset(dateTime);
+-   dateTime = m_daylightSaving.RemoveDaylightSavingOffset(dateTime);
+-   m_unixTime = dateTime.GetAsUnixTime();
+-   return true;
++   return SetLocalDateTime(dateTime);
+ }
+ 
+-Date Calendar::GetDate()
++Date Calendar::GetDate() const
+ {
+-   Date date = m_daylightSaving.GetLocalTime(m_unixTime).GetDate();
+-   TimeOfDay timeOfDay = m_daylightSaving.GetLocalTime(m_unixTime).GetTimeOfDay();
+-   DateTime dateTime(date, timeOfDay);
+-   dateTime = m_timeZone.ApplyTimeZoneOffset(dateTime);
+-   date = dateTime.GetDate();
+-   return date;
++   return GetLocalDateTime().GetDate();
+ }
+ 
+ bool Calendar::SetDate(const Date date)
+@@ -68,16 +54,14 @@
+        (date.GetMonth() > Month::December) ||
+        (date.GetDay() > TimeHelpers::GetMaximumDayOfMonth(date)) ||
+        (date.GetDay() == 0))
+-       return false;
++   {
++      return false;
++   }
+ 
+-   DateTime dateTime;
++   DateTime dateTime = GetLocalDateTime();
+    dateTime.SetDate(date);
+-   dateTime.SetTimeOfDay(GetTimeOfDay());
+-   
+-   dateTime = m_timeZone.UnapplyTimeZoneOffset(dateTime);
+-   dateTime = m_daylightSaving.RemoveDaylightSavingOffset(dateTime);
+-   m_unixTime = dateTime.GetAsUnixTime();
+-   return true;
++
++   return SetLocalDateTime(dateTime);
+ }
+ 
+ DaylightSavingInterface& Calendar::GetDaylightSaving()
+@@ -111,11 +95,7 @@
+ 
+ TimeOfTheWeek Calendar::GetTimeOfTheWeek()
+ {
+-   Date date = GetDate();
+-   TimeOfDay timeOfDay = GetTimeOfDay();
+-   Days::Value dayOfWeek = TimeHelpers::GetDayOfWeek(date);
+-   TimeOfTheWeek timeOfWeek(dayOfWeek, timeOfDay.GetMinutesSinceMidnight());
+-   return timeOfWeek;
++   return GetLocalDateTime().GetTimeOfTheWeek();
+ }
+ 
+ void Calendar::SetTimeOfTheWeek(TimeOfTheWeek timeOfTheWeek)
+@@ -152,9 +132,16 @@
+    }
+ }
+ 
+-DateTime Calendar::GetLocalDateTime()
++DateTime Calendar::GetLocalDateTime() const
+ {
+-   return DateTime(GetDate(), GetTimeOfDay());
++   return m_timeZone.ApplyTimeZoneOffset(m_daylightSaving.GetLocalTime(m_unixTime));
++}
++
++bool Calendar::SetLocalDateTime(DateTime dateTime)
++{
++   dateTime = m_timeZone.UnapplyTimeZoneOffset(dateTime);
++   dateTime = m_daylightSaving.RemoveDaylightSavingOffset(dateTime);
++   return SetUnixTime(dateTime.GetAsUnixTime());
+ }
+ 
+ void Calendar::ApplyDSTAndTimeZoneIfApplicable(DateTime& dateTime)
+merged
+  result 100644 cb6c89d9c6ecd48b2825b2fd95613e2044162ead COMPONENTS/Calendar/Source/DateTime.cpp
+  our    100644 ac1210e82811f1ca60a1d75f351efbe72a93882c COMPONENTS/Calendar/Source/DateTime.cpp
+@@ -104,7 +104,7 @@
+    TimeHelpers::UnixTimeToDateAndTimeOfDay(unixTime, m_date, m_timeOfDay);
+ }
+ 
+-TimeOfTheWeek DateTime::GetTimeOfTheWeeK()
++TimeOfTheWeek DateTime::GetTimeOfTheWeek()
+ {
+    Date date = GetDate();
+    Days::Value dayOfTheWeek = TimeHelpers::GetDayOfWeek(date);
+merged
+  result 100644 0a20ffb80a5c9936ad07aaeec7afa68ffe2723e1 COMPONENTS/Calendar/Source/DaylightSaving.cpp
+  our    100644 88d27b7a1aa1df4c2c3304e719fce94fb4b910ff COMPONENTS/Calendar/Source/DaylightSaving.cpp
+@@ -15,7 +15,7 @@
+    return dayLightSaving;
+ }
+ 
+-DateTime DaylightSaving::GetLocalTime(const DateTime unixTime)
++DateTime DaylightSaving::GetLocalTime(const DateTime unixTime) const
+ {
+    if (IsDaylightSavingEnabled() == false)
+    {
+@@ -31,7 +31,7 @@
+    return daylightSaving;
+ }
+ 
+-DateTime DaylightSaving::RemoveDaylightSavingOffset(DateTime dateTime)
++DateTime DaylightSaving::RemoveDaylightSavingOffset(DateTime dateTime) const
+ {
+    if (IsDaylightSavingEnabled() == false)
+       return dateTime;
+@@ -42,7 +42,7 @@
+    return dateTime;
+ }
+ 
+-DateTime DaylightSaving::GetSpringThreshold(DateTime unixTime)
++DateTime DaylightSaving::GetSpringThreshold(DateTime unixTime) const
+ {
+    unixTime.GetTimeOfDay().SetHours(1);
+    unixTime.GetDate().SetMonth(SpringDaylightSavingMonth);
+@@ -50,7 +50,7 @@
+    return unixTime;
+ }
+ 
+-DateTime DaylightSaving::GetAutumnThreshold(DateTime unixTime)
++DateTime DaylightSaving::GetAutumnThreshold(DateTime unixTime) const
+ {
+    unixTime.GetTimeOfDay().SetHours(1);
+    unixTime.GetDate().SetMonth(AutumnDaylightSavingMonth);
+@@ -58,23 +58,23 @@
+    return unixTime;
+ }
+ 
+-u8 DaylightSaving::CalculateSpringDaylightSavingSwitchDay(const u16 year)
++u8 DaylightSaving::CalculateSpringDaylightSavingSwitchDay(const u16 year) const
+ {
+    return CalculateDaylightSavingSwitchDay(year, DaylightSavingSeason::Spring);
+ }
+ 
+-u8 DaylightSaving::CalculateAutumnDaylightSavingSwitchDay(const u16 year)
++u8 DaylightSaving::CalculateAutumnDaylightSavingSwitchDay(const u16 year) const
+ {
+    return CalculateDaylightSavingSwitchDay(year, DaylightSavingSeason::Autumn);
+ }
+ 
+ // Calculates daylight saving switch day using formulae from http://en.wikipedia.org/wiki/Summer_Time_in_Europe
+-u8 DaylightSaving::CalculateDaylightSavingSwitchDay(const u16 year, const DaylightSavingSeason::Value daylightSavingSeason)
++u8 DaylightSaving::CalculateDaylightSavingSwitchDay(const u16 year, const DaylightSavingSeason::Value daylightSavingSeason) const
+ {
+    return 31U - ((((5U * year) / 4U) + daylightSavingSeason) % 7U);
+ }
+ 
+-bool DaylightSaving::IsSummerTime(DateTime unixTime)
++bool DaylightSaving::IsSummerTime(DateTime unixTime) const
+ {
+    bool ret = false;
+    unixTime.GetTimeOfDay().SetMinutes(0);
+@@ -89,7 +89,7 @@
+    return ret;
+ }
+ 
+-bool DaylightSaving::IsAutumnSwitchBackHour(DateTime localTime)
++bool DaylightSaving::IsAutumnSwitchBackHour(DateTime localTime) const
+ {
+    u16 yearIn = localTime.GetDate().GetYear();
+    u8 monthIn = localTime.GetDate().GetMonth();
+merged
+  result 100644 27b458a18ae2e225e71ef9f670e426fbbf321366 COMPONENTS/Calendar/Source/TimeZone.cpp
+  our    100644 f239d6908f44ca27f958dd2c7e1a191d9c824df1 COMPONENTS/Calendar/Source/TimeZone.cpp
+@@ -25,12 +25,12 @@
+    return true;
+ }
+ 
+-DateTime TimeZone::ApplyTimeZoneOffset(DateTime dateTime)
++DateTime TimeZone::ApplyTimeZoneOffset(DateTime dateTime) const
+ {
+    return dateTime += m_timeZoneOffset;
+ }
+ 
+-DateTime TimeZone::UnapplyTimeZoneOffset(DateTime dateTime)
++DateTime TimeZone::UnapplyTimeZoneOffset(DateTime dateTime) const
+ {
+    return dateTime -= m_timeZoneOffset;
+ }
+merged
+  result 100644 dcd7eb63b1a1090099eb0c1a6fcec5e1c2c4c88f COMPONENTS/Calendar/Tests/tests.DateTime.cpp
+  our    100644 3580c13b703c258b3e77c12eedaee828c5a632af COMPONENTS/Calendar/Tests/tests.DateTime.cpp
+@@ -151,7 +151,7 @@
+       DateTime dateTime(date, timeOfDay);
+ 
+       // When
+-      TimeOfTheWeek actualTimeOfTheWeek = dateTime.GetTimeOfTheWeeK();
++      TimeOfTheWeek actualTimeOfTheWeek = dateTime.GetTimeOfTheWeek();
+ 
+       // Then
+       TimeOfTheWeek expectedTimeOfTheWeek(Days::Sunday, minutesSinceMidnight);
+merged
+  result 100644 0852e41b8e05d3f0424de9b6404ae3f349ca05db COMPONENTS/CloudMessageSchema/Build/GCC.VS/gcc_Debug.h
+  our    100644 84116f5e1766986884624568917bd7bb0a03aa3f COMPONENTS/CloudMessageSchema/Build/GCC.VS/gcc_Debug.h
+@@ -4,384 +4,1128 @@
+ 	This file lists the preprocessor macros extracted from your GCC.
+ 	It is needed for IntelliSense to parse other header files correctly.
+ */
+-#ifdef _MSC_VER
++#if defined(_MSC_VER) || defined (__SYSPROGS_CODESENSE__)
++#ifndef __DBL_MIN_EXP__
+ #define __DBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __HQ_FBIT__
+ #define __HQ_FBIT__ 15
++#endif
++#ifndef __cpp_attributes
+ #define __cpp_attributes 200809
++#endif
++#ifndef __UINT_LEAST16_MAX__
+ #define __UINT_LEAST16_MAX__ 65535
++#endif
++#ifndef __ARM_SIZEOF_WCHAR_T
+ #define __ARM_SIZEOF_WCHAR_T 32
++#endif
++#ifndef __ATOMIC_ACQUIRE
+ #define __ATOMIC_ACQUIRE 2
++#endif
++#ifndef __SFRACT_IBIT__
+ #define __SFRACT_IBIT__ 0
++#endif
++#ifndef __FLT_MIN__
+ #define __FLT_MIN__ 1.1754943508222875e-38F
++#endif
++#ifndef __GCC_IEC_559_COMPLEX
+ #define __GCC_IEC_559_COMPLEX 0
++#endif
++#ifndef __UFRACT_MAX__
+ #define __UFRACT_MAX__ 0XFFFFP-16UR
++#endif
++#ifndef __UINT_LEAST8_TYPE__
+ #define __UINT_LEAST8_TYPE__ unsigned char
++#endif
++#ifndef __DQ_FBIT__
+ #define __DQ_FBIT__ 63
++#endif
++#ifndef __ARM_FEATURE_SAT
+ #define __ARM_FEATURE_SAT 1
++#endif
++#ifndef __ULFRACT_FBIT__
+ #define __ULFRACT_FBIT__ 32
++#endif
++#ifndef __SACCUM_EPSILON__
+ #define __SACCUM_EPSILON__ 0x1P-7HK
++#endif
++#ifndef __CHAR_BIT__
+ #define __CHAR_BIT__ 8
++#endif
++#ifndef __USQ_IBIT__
+ #define __USQ_IBIT__ 0
++#endif
++#ifndef __UINT8_MAX__
+ #define __UINT8_MAX__ 255
++#endif
++#ifndef __ACCUM_FBIT__
+ #define __ACCUM_FBIT__ 15
++#endif
++#ifndef __WINT_MAX__
+ #define __WINT_MAX__ 4294967295U
++#endif
++#ifndef __cpp_static_assert
+ #define __cpp_static_assert 200410
++#endif
++#ifndef __USFRACT_FBIT__
+ #define __USFRACT_FBIT__ 8
++#endif
++#ifndef __ORDER_LITTLE_ENDIAN__
+ #define __ORDER_LITTLE_ENDIAN__ 1234
++#endif
++#ifndef __SIZE_MAX__
+ #define __SIZE_MAX__ 4294967295U
++#endif
++#ifndef __WCHAR_MAX__
+ #define __WCHAR_MAX__ 4294967295U
++#endif
++#ifndef __LACCUM_IBIT__
+ #define __LACCUM_IBIT__ 32
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
++#endif
++#ifndef __DBL_DENORM_MIN__
+ #define __DBL_DENORM_MIN__ double(4.9406564584124654e-324L)
++#endif
++#ifndef __GCC_ATOMIC_CHAR_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR_LOCK_FREE 2
++#endif
++#ifndef __GCC_IEC_559
+ #define __GCC_IEC_559 0
++#endif
++#ifndef __FLT_EVAL_METHOD__
+ #define __FLT_EVAL_METHOD__ 0
++#endif
++#ifndef __cpp_binary_literals
+ #define __cpp_binary_literals 201304
++#endif
++#ifndef __LLACCUM_MAX__
+ #define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
++#endif
++#ifndef __GCC_ATOMIC_CHAR32_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
++#endif
++#ifndef __FRACT_FBIT__
+ #define __FRACT_FBIT__ 15
++#endif
++#ifndef __cpp_variadic_templates
+ #define __cpp_variadic_templates 200704
++#endif
++#ifndef __UINT_FAST64_MAX__
+ #define __UINT_FAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SIG_ATOMIC_TYPE__
+ #define __SIG_ATOMIC_TYPE__ int
++#endif
++#ifndef __UACCUM_FBIT__
+ #define __UACCUM_FBIT__ 16
++#endif
++#ifndef __DBL_MIN_10_EXP__
+ #define __DBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __FINITE_MATH_ONLY__
+ #define __FINITE_MATH_ONLY__ 0
++#endif
++#ifndef __ARMEL__
+ #define __ARMEL__ 1
++#endif
++#ifndef __ARM_FEATURE_UNALIGNED
+ #define __ARM_FEATURE_UNALIGNED 1
++#endif
++#ifndef __LFRACT_IBIT__
+ #define __LFRACT_IBIT__ 0
++#endif
++#ifndef __GNUC_PATCHLEVEL__
+ #define __GNUC_PATCHLEVEL__ 3
++#endif
++#ifndef __LFRACT_MAX__
+ #define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
++#endif
++#ifndef __UINT_FAST8_MAX__
+ #define __UINT_FAST8_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MAX_EXP__
+ #define __DEC64_MAX_EXP__ 385
++#endif
++#ifndef __UINT_LEAST64_MAX__
+ #define __UINT_LEAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SA_FBIT__
+ #define __SA_FBIT__ 15
++#endif
++#ifndef __SHRT_MAX__
+ #define __SHRT_MAX__ 32767
++#endif
++#ifndef __LDBL_MAX__
+ #define __LDBL_MAX__ 1.7976931348623157e+308L
++#endif
++#ifndef __FRACT_MAX__
+ #define __FRACT_MAX__ 0X7FFFP-15R
++#endif
++#ifndef __thumb2__
+ #define __thumb2__ 1
++#endif
++#ifndef __UFRACT_FBIT__
+ #define __UFRACT_FBIT__ 16
++#endif
++#ifndef __ARM_FP
+ #define __ARM_FP 12
++#endif
++#ifndef __UFRACT_MIN__
+ #define __UFRACT_MIN__ 0.0UR
++#endif
++#ifndef __UINT_LEAST8_MAX__
+ #define __UINT_LEAST8_MAX__ 255
++#endif
++#ifndef __GCC_ATOMIC_BOOL_LOCK_FREE
+ #define __GCC_ATOMIC_BOOL_LOCK_FREE 2
++#endif
++#ifndef __UINTMAX_TYPE__
+ #define __UINTMAX_TYPE__ long long unsigned int
++#endif
++#ifndef __LLFRACT_EPSILON__
+ #define __LLFRACT_EPSILON__ 0x1P-63LLR
++#endif
++#ifndef __DEC32_EPSILON__
+ #define __DEC32_EPSILON__ 1E-6DF
++#endif
++#ifndef __OPTIMIZE__
+ #define __OPTIMIZE__ 1
++#endif
++#ifndef __CHAR_UNSIGNED__
+ #define __CHAR_UNSIGNED__ 1
++#endif
++#ifndef __UINT32_MAX__
+ #define __UINT32_MAX__ 4294967295UL
++#endif
++#ifndef __ULFRACT_MAX__
+ #define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
++#endif
++#ifndef __TA_IBIT__
+ #define __TA_IBIT__ 64
++#endif
++#ifndef __LDBL_MAX_EXP__
+ #define __LDBL_MAX_EXP__ 1024
++#endif
++#ifndef __WINT_MIN__
+ #define __WINT_MIN__ 0U
++#endif
++#ifndef __ULLFRACT_MIN__
+ #define __ULLFRACT_MIN__ 0.0ULLR
++#endif
++#ifndef __SCHAR_MAX__
+ #define __SCHAR_MAX__ 127
++#endif
++#ifndef __WCHAR_MIN__
+ #define __WCHAR_MIN__ 0U
++#endif
++#ifndef __DBL_DIG__
+ #define __DBL_DIG__ 15
++#endif
++#ifndef __GCC_ATOMIC_POINTER_LOCK_FREE
+ #define __GCC_ATOMIC_POINTER_LOCK_FREE 2
++#endif
++#ifndef __LLACCUM_MIN__
+ #define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
++#endif
++#ifndef __SIZEOF_INT__
+ #define __SIZEOF_INT__ 4
++#endif
++#ifndef __SIZEOF_POINTER__
+ #define __SIZEOF_POINTER__ 4
++#endif
++#ifndef __GCC_ATOMIC_CHAR16_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
++#endif
++#ifndef __USACCUM_IBIT__
+ #define __USACCUM_IBIT__ 8
++#endif
++#ifndef __USER_LABEL_PREFIX__
+ #define __USER_LABEL_PREFIX__ 
++#endif
++#ifndef __STDC_HOSTED__
+ #define __STDC_HOSTED__ 1
++#endif
++#ifndef __LDBL_HAS_INFINITY__
+ #define __LDBL_HAS_INFINITY__ 1
++#endif
++#ifndef __LFRACT_MIN__
+ #define __LFRACT_MIN__ (-0.5LR-0.5LR)
++#endif
++#ifndef __HA_IBIT__
+ #define __HA_IBIT__ 8
++#endif
++#ifndef __ARM_NEON_FP
+ #define __ARM_NEON_FP 4
++#endif
++#ifndef __TQ_IBIT__
+ #define __TQ_IBIT__ 0
++#endif
++#ifndef __FLT_EPSILON__
+ #define __FLT_EPSILON__ 1.1920928955078125e-7F
++#endif
++#ifndef __APCS_32__
+ #define __APCS_32__ 1
++#endif
++#ifndef __GXX_WEAK__
+ #define __GXX_WEAK__ 1
++#endif
++#ifndef __USFRACT_IBIT__
+ #define __USFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN__
+ #define __LDBL_MIN__ 2.2250738585072014e-308L
++#endif
++#ifndef __FRACT_MIN__
+ #define __FRACT_MIN__ (-0.5R-0.5R)
++#endif
++#ifndef __DEC32_MAX__
+ #define __DEC32_MAX__ 9.999999E96DF
++#endif
++#ifndef __DA_IBIT__
+ #define __DA_IBIT__ 32
++#endif
++#ifndef __ARM_SIZEOF_MINIMAL_ENUM
+ #define __ARM_SIZEOF_MINIMAL_ENUM 1
++#endif
++#ifndef __INT32_MAX__
+ #define __INT32_MAX__ 2147483647L
++#endif
++#ifndef __UQQ_FBIT__
+ #define __UQQ_FBIT__ 8
++#endif
++#ifndef __SIZEOF_LONG__
+ #define __SIZEOF_LONG__ 4
++#endif
++#ifndef __UACCUM_MAX__
+ #define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
++#endif
++#ifndef __DECIMAL_DIG__
+ #define __DECIMAL_DIG__ 17
++#endif
++#ifndef __LFRACT_EPSILON__
+ #define __LFRACT_EPSILON__ 0x1P-31LR
++#endif
++#ifndef __ULFRACT_MIN__
+ #define __ULFRACT_MIN__ 0.0ULR
++#endif
++#ifndef __LDBL_HAS_QUIET_NAN__
+ #define __LDBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __ULACCUM_IBIT__
+ #define __ULACCUM_IBIT__ 32
++#endif
++#ifndef __UACCUM_EPSILON__
+ #define __UACCUM_EPSILON__ 0x1P-16UK
++#endif
++#ifndef __GNUC__
+ #define __GNUC__ 4
++#endif
++#ifndef __ULLACCUM_MAX__
+ #define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
++#endif
++#ifndef __HQ_IBIT__
+ #define __HQ_IBIT__ 0
++#endif
++#ifndef __FLT_HAS_DENORM__
+ #define __FLT_HAS_DENORM__ 1
++#endif
++#ifndef __SIZEOF_LONG_DOUBLE__
+ #define __SIZEOF_LONG_DOUBLE__ 8
++#endif
++#ifndef __BIGGEST_ALIGNMENT__
+ #define __BIGGEST_ALIGNMENT__ 8
++#endif
++#ifndef __GNUC_STDC_INLINE__
+ #define __GNUC_STDC_INLINE__ 1
++#endif
++#ifndef __DQ_IBIT__
+ #define __DQ_IBIT__ 0
++#endif
++#ifndef __DBL_MAX__
+ #define __DBL_MAX__ double(1.7976931348623157e+308L)
++#endif
++#ifndef __ULFRACT_IBIT__
+ #define __ULFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_raw_strings
+ #define __cpp_raw_strings 200710
++#endif
++#ifndef __INT_FAST32_MAX__
+ #define __INT_FAST32_MAX__ 2147483647
++#endif
++#ifndef __DBL_HAS_INFINITY__
+ #define __DBL_HAS_INFINITY__ 1
++#endif
++#ifndef __INT64_MAX__
+ #define __INT64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __ACCUM_IBIT__
+ #define __ACCUM_IBIT__ 16
++#endif
++#ifndef __DEC32_MIN_EXP__
+ #define __DEC32_MIN_EXP__ (-94)
++#endif
++#ifndef __THUMB_INTERWORK__
+ #define __THUMB_INTERWORK__ 1
++#endif
++#ifndef __LACCUM_MAX__
+ #define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
++#endif
++#ifndef __INT_FAST16_TYPE__
+ #define __INT_FAST16_TYPE__ int
++#endif
++#ifndef __LDBL_HAS_DENORM__
+ #define __LDBL_HAS_DENORM__ 1
++#endif
++#ifndef __ARM_FEATURE_LDREX
+ #define __ARM_FEATURE_LDREX 7
++#endif
+ //VS2005-2012 treats all files as C++, while VS2013+ can treat C files correctly.
+-#if _MSC_VER < 1800 || defined(__cplusplus)
++#if defined(_MSC_VER) && (_MSC_VER < 1800 || defined(__cplusplus))
+ #define __cplusplus 201300L
+ #endif
++#ifndef __DEC128_MAX__
+ #define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
++#endif
++#ifndef __INT_LEAST32_MAX__
+ #define __INT_LEAST32_MAX__ 2147483647L
++#endif
++#ifndef __ARM_PCS
+ #define __ARM_PCS 1
++#endif
++#ifndef __DEC32_MIN__
+ #define __DEC32_MIN__ 1E-95DF
++#endif
++#ifndef __ACCUM_MAX__
+ #define __ACCUM_MAX__ 0X7FFFFFFFP-15K
++#endif
++#ifndef __DEPRECATED
+ #define __DEPRECATED 1
++#endif
++#ifndef __DBL_MAX_EXP__
+ #define __DBL_MAX_EXP__ 1024
++#endif
++#ifndef __USACCUM_EPSILON__
+ #define __USACCUM_EPSILON__ 0x1P-8UHK
++#endif
++#ifndef __DEC128_EPSILON__
+ #define __DEC128_EPSILON__ 1E-33DL
++#endif
++#ifndef __SFRACT_MAX__
+ #define __SFRACT_MAX__ 0X7FP-7HR
++#endif
++#ifndef __FRACT_IBIT__
+ #define __FRACT_IBIT__ 0
++#endif
++#ifndef __PTRDIFF_MAX__
+ #define __PTRDIFF_MAX__ 2147483647
++#endif
++#ifndef __UACCUM_MIN__
+ #define __UACCUM_MIN__ 0.0UK
++#endif
++#ifndef __UACCUM_IBIT__
+ #define __UACCUM_IBIT__ 16
++#endif
++#ifndef __GNUG__
+ #define __GNUG__ 4
++#endif
++#ifndef __LONG_LONG_MAX__
+ #define __LONG_LONG_MAX__ 9223372036854775807LL
++#endif
++#ifndef __SIZEOF_SIZE_T__
+ #define __SIZEOF_SIZE_T__ 4
++#endif
++#ifndef __ULACCUM_MAX__
+ #define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
++#endif
++#ifndef __cpp_rvalue_reference
+ #define __cpp_rvalue_reference 200610
++#endif
++#ifndef __SIZEOF_WINT_T__
+ #define __SIZEOF_WINT_T__ 4
++#endif
++#ifndef __SA_IBIT__
+ #define __SA_IBIT__ 16
++#endif
++#ifndef __ULLACCUM_MIN__
+ #define __ULLACCUM_MIN__ 0.0ULLK
++#endif
++#ifndef __GCC_HAVE_DWARF2_CFI_ASM
+ #define __GCC_HAVE_DWARF2_CFI_ASM 1
++#endif
++#ifndef __GXX_ABI_VERSION
+ #define __GXX_ABI_VERSION 1002
++#endif
++#ifndef __UTA_FBIT__
+ #define __UTA_FBIT__ 64
++#endif
++#ifndef __SOFTFP__
+ #define __SOFTFP__ 1
++#endif
++#ifndef __FLT_MIN_EXP__
+ #define __FLT_MIN_EXP__ (-125)
++#endif
++#ifndef __USFRACT_MAX__
+ #define __USFRACT_MAX__ 0XFFP-8UHR
++#endif
++#ifndef __UFRACT_IBIT__
+ #define __UFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_lambdas
+ #define __cpp_lambdas 200907
++#endif
++#ifndef __ARM_FEATURE_QBIT
+ #define __ARM_FEATURE_QBIT 1
++#endif
++#ifndef __INT_FAST64_TYPE__
+ #define __INT_FAST64_TYPE__ long long int
++#endif
++#ifndef __DBL_MIN__
+ #define __DBL_MIN__ double(2.2250738585072014e-308L)
++#endif
++#ifndef __FLT_MIN_10_EXP__
+ #define __FLT_MIN_10_EXP__ (-37)
++#endif
++#ifndef __LACCUM_MIN__
+ #define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
++#endif
++#ifndef __ULLACCUM_FBIT__
+ #define __ULLACCUM_FBIT__ 32
++#endif
++#ifndef __GXX_TYPEINFO_EQUALITY_INLINE
+ #define __GXX_TYPEINFO_EQUALITY_INLINE 0
++#endif
++#ifndef __ULLFRACT_EPSILON__
+ #define __ULLFRACT_EPSILON__ 0x1P-64ULLR
++#endif
++#ifndef __USES_INITFINI__
+ #define __USES_INITFINI__ 1
++#endif
++#ifndef __DEC128_MIN__
+ #define __DEC128_MIN__ 1E-6143DL
++#endif
++#ifndef __REGISTER_PREFIX__
+ #define __REGISTER_PREFIX__ 
++#endif
++#ifndef __UINT16_MAX__
+ #define __UINT16_MAX__ 65535
++#endif
++#ifndef __DBL_HAS_DENORM__
+ #define __DBL_HAS_DENORM__ 1
++#endif
++#ifndef __ACCUM_MIN__
+ #define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
++#endif
++#ifndef __SQ_IBIT__
+ #define __SQ_IBIT__ 0
++#endif
++#ifndef __UINT8_TYPE__
+ #define __UINT8_TYPE__ unsigned char
++#endif
++#ifndef __UHA_FBIT__
+ #define __UHA_FBIT__ 8
++#endif
++#ifndef __SFRACT_MIN__
+ #define __SFRACT_MIN__ (-0.5HR-0.5HR)
++#endif
++#ifndef __UTQ_FBIT__
+ #define __UTQ_FBIT__ 128
++#endif
++#ifndef __FLT_MANT_DIG__
+ #define __FLT_MANT_DIG__ 24
++#endif
++#ifndef __VERSION__
+ #define __VERSION__ "4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
++#endif
++#ifndef __ULLFRACT_FBIT__
+ #define __ULLFRACT_FBIT__ 64
++#endif
++#ifndef __cpp_unicode_characters
+ #define __cpp_unicode_characters 200704
++#endif
++#ifndef __FRACT_EPSILON__
+ #define __FRACT_EPSILON__ 0x1P-15R
++#endif
++#ifndef __ULACCUM_MIN__
+ #define __ULACCUM_MIN__ 0.0ULK
++#endif
++#ifndef __UDA_FBIT__
+ #define __UDA_FBIT__ 32
++#endif
++#ifndef __cpp_decltype_auto
+ #define __cpp_decltype_auto 201304
++#endif
++#ifndef __LLACCUM_EPSILON__
+ #define __LLACCUM_EPSILON__ 0x1P-31LLK
++#endif
++#ifndef __GCC_ATOMIC_INT_LOCK_FREE
+ #define __GCC_ATOMIC_INT_LOCK_FREE 2
++#endif
++#ifndef __FLOAT_WORD_ORDER__
+ #define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __USFRACT_MIN__
+ #define __USFRACT_MIN__ 0.0UHR
++#endif
++#ifndef __ULLACCUM_IBIT__
+ #define __ULLACCUM_IBIT__ 32
++#endif
++#ifndef __UQQ_IBIT__
+ #define __UQQ_IBIT__ 0
++#endif
++#ifndef __DEC64_EPSILON__
+ #define __DEC64_EPSILON__ 1E-15DD
++#endif
++#ifndef __ORDER_PDP_ENDIAN__
+ #define __ORDER_PDP_ENDIAN__ 3412
++#endif
++#ifndef __DEC128_MIN_EXP__
+ #define __DEC128_MIN_EXP__ (-6142)
++#endif
++#ifndef __UHQ_FBIT__
+ #define __UHQ_FBIT__ 16
++#endif
++#ifndef __LLACCUM_FBIT__
+ #define __LLACCUM_FBIT__ 31
++#endif
++#ifndef __INT_FAST32_TYPE__
+ #define __INT_FAST32_TYPE__ int
++#endif
++#ifndef __UINT_LEAST16_TYPE__
+ #define __UINT_LEAST16_TYPE__ short unsigned int
++#endif
++#ifndef __INT16_MAX__
+ #define __INT16_MAX__ 32767
++#endif
++#ifndef __SIZE_TYPE__
+ #define __SIZE_TYPE__ unsigned int
++#endif
++#ifndef __UINT64_MAX__
+ #define __UINT64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __UDQ_FBIT__
+ #define __UDQ_FBIT__ 64
++#endif
++#ifndef DEBUG
+ #define DEBUG 1
++#endif
++#ifndef __INT8_TYPE__
+ #define __INT8_TYPE__ signed char
++#endif
++#ifndef __thumb__
+ #define __thumb__ 1
++#endif
++#ifndef __cpp_digit_separators
+ #define __cpp_digit_separators 201309
++#endif
++#ifndef __ELF__
+ #define __ELF__ 1
++#endif
++#ifndef __ULFRACT_EPSILON__
+ #define __ULFRACT_EPSILON__ 0x1P-32ULR
++#endif
++#ifndef __LLFRACT_FBIT__
+ #define __LLFRACT_FBIT__ 63
++#endif
++#ifndef __FLT_RADIX__
+ #define __FLT_RADIX__ 2
++#endif
++#ifndef __INT_LEAST16_TYPE__
+ #define __INT_LEAST16_TYPE__ short int
++#endif
++#ifndef __ARM_ARCH_PROFILE
+ #define __ARM_ARCH_PROFILE 77
++#endif
++#ifndef __LDBL_EPSILON__
+ #define __LDBL_EPSILON__ 2.2204460492503131e-16L
++#endif
++#ifndef __SACCUM_MAX__
+ #define __SACCUM_MAX__ 0X7FFFP-7HK
++#endif
++#ifndef __SIG_ATOMIC_MAX__
+ #define __SIG_ATOMIC_MAX__ 2147483647
++#endif
++#ifndef __GCC_ATOMIC_WCHAR_T_LOCK_FREE
+ #define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
++#endif
++#ifndef __VFP_FP__
+ #define __VFP_FP__ 1
++#endif
++#ifndef __SIZEOF_PTRDIFF_T__
+ #define __SIZEOF_PTRDIFF_T__ 4
++#endif
++#ifndef __LACCUM_EPSILON__
+ #define __LACCUM_EPSILON__ 0x1P-31LK
++#endif
++#ifndef __DEC32_SUBNORMAL_MIN__
+ #define __DEC32_SUBNORMAL_MIN__ 0.000001E-95DF
++#endif
++#ifndef __INT_FAST16_MAX__
+ #define __INT_FAST16_MAX__ 2147483647
++#endif
++#ifndef __UINT_FAST32_MAX__
+ #define __UINT_FAST32_MAX__ 4294967295U
++#endif
++#ifndef __UINT_LEAST64_TYPE__
+ #define __UINT_LEAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __USACCUM_MAX__
+ #define __USACCUM_MAX__ 0XFFFFP-8UHK
++#endif
++#ifndef __SFRACT_EPSILON__
+ #define __SFRACT_EPSILON__ 0x1P-7HR
++#endif
++#ifndef __FLT_HAS_QUIET_NAN__
+ #define __FLT_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __FLT_MAX_10_EXP__
+ #define __FLT_MAX_10_EXP__ 38
++#endif
++#ifndef __LONG_MAX__
+ #define __LONG_MAX__ 2147483647L
++#endif
++#ifndef __DEC128_SUBNORMAL_MIN__
+ #define __DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL
++#endif
++#ifndef __FLT_HAS_INFINITY__
+ #define __FLT_HAS_INFINITY__ 1
++#endif
++#ifndef __cpp_unicode_literals
+ #define __cpp_unicode_literals 200710
++#endif
++#ifndef __USA_FBIT__
+ #define __USA_FBIT__ 16
++#endif
++#ifndef __UINT_FAST16_TYPE__
+ #define __UINT_FAST16_TYPE__ unsigned int
++#endif
++#ifndef __cpp_attribute_deprecated
+ #define __cpp_attribute_deprecated 201309
++#endif
++#ifndef __DEC64_MAX__
+ #define __DEC64_MAX__ 9.999999999999999E384DD
++#endif
++#ifndef __ARM_32BIT_STATE
+ #define __ARM_32BIT_STATE 1
++#endif
++#ifndef __CHAR16_TYPE__
+ #define __CHAR16_TYPE__ short unsigned int
++#endif
++#ifndef __PRAGMA_REDEFINE_EXTNAME
+ #define __PRAGMA_REDEFINE_EXTNAME 1
++#endif
++#ifndef __INT_LEAST16_MAX__
+ #define __INT_LEAST16_MAX__ 32767
++#endif
++#ifndef __DEC64_MANT_DIG__
+ #define __DEC64_MANT_DIG__ 16
++#endif
++#ifndef __UINT_LEAST32_MAX__
+ #define __UINT_LEAST32_MAX__ 4294967295UL
++#endif
++#ifndef __SACCUM_FBIT__
+ #define __SACCUM_FBIT__ 7
++#endif
++#ifndef __GCC_ATOMIC_LONG_LOCK_FREE
+ #define __GCC_ATOMIC_LONG_LOCK_FREE 2
++#endif
++#ifndef __INT_LEAST64_TYPE__
+ #define __INT_LEAST64_TYPE__ long long int
++#endif
++#ifndef __ARM_FEATURE_CLZ
+ #define __ARM_FEATURE_CLZ 1
++#endif
++#ifndef __INT16_TYPE__
+ #define __INT16_TYPE__ short int
++#endif
++#ifndef __INT_LEAST8_TYPE__
+ #define __INT_LEAST8_TYPE__ signed char
++#endif
++#ifndef __SQ_FBIT__
+ #define __SQ_FBIT__ 31
++#endif
++#ifndef __DEC32_MAX_EXP__
+ #define __DEC32_MAX_EXP__ 97
++#endif
++#ifndef __ARM_ARCH_ISA_THUMB
+ #define __ARM_ARCH_ISA_THUMB 2
++#endif
++#ifndef __INT_FAST8_MAX__
+ #define __INT_FAST8_MAX__ 2147483647
++#endif
++#ifndef __ARM_ARCH
+ #define __ARM_ARCH 7
++#endif
++#ifndef __INTPTR_MAX__
+ #define __INTPTR_MAX__ 2147483647
++#endif
++#ifndef __QQ_FBIT__
+ #define __QQ_FBIT__ 7
++#endif
++#ifndef __UTA_IBIT__
+ #define __UTA_IBIT__ 64
++#endif
++#ifndef __EXCEPTIONS
+ #define __EXCEPTIONS 1
++#endif
++#ifndef __LDBL_MANT_DIG__
+ #define __LDBL_MANT_DIG__ 53
++#endif
++#ifndef __SFRACT_FBIT__
+ #define __SFRACT_FBIT__ 7
++#endif
++#ifndef __SACCUM_MIN__
+ #define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
++#endif
++#ifndef __DBL_HAS_QUIET_NAN__
+ #define __DBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __SIG_ATOMIC_MIN__
+ #define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
++#endif
++#ifndef __cpp_return_type_deduction
+ #define __cpp_return_type_deduction 201304
++#endif
++#ifndef __INTPTR_TYPE__
+ #define __INTPTR_TYPE__ int
++#endif
++#ifndef __UINT16_TYPE__
+ #define __UINT16_TYPE__ short unsigned int
++#endif
++#ifndef __WCHAR_TYPE__
+ #define __WCHAR_TYPE__ unsigned int
++#endif
++#ifndef __SIZEOF_FLOAT__
+ #define __SIZEOF_FLOAT__ 4
++#endif
++#ifndef __THUMBEL__
+ #define __THUMBEL__ 1
++#endif
++#ifndef __USQ_FBIT__
+ #define __USQ_FBIT__ 32
++#endif
++#ifndef __UINTPTR_MAX__
+ #define __UINTPTR_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MIN_EXP__
+ #define __DEC64_MIN_EXP__ (-382)
++#endif
++#ifndef __cpp_decltype
+ #define __cpp_decltype 200707
++#endif
++#ifndef __INT_FAST64_MAX__
+ #define __INT_FAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __GCC_ATOMIC_TEST_AND_SET_TRUEVAL
+ #define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
++#endif
++#ifndef __FLT_DIG__
+ #define __FLT_DIG__ 6
++#endif
++#ifndef __UINT_FAST64_TYPE__
+ #define __UINT_FAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __INT_MAX__
+ #define __INT_MAX__ 2147483647
++#endif
++#ifndef __LACCUM_FBIT__
+ #define __LACCUM_FBIT__ 31
++#endif
++#ifndef __USACCUM_MIN__
+ #define __USACCUM_MIN__ 0.0UHK
++#endif
++#ifndef __UHA_IBIT__
+ #define __UHA_IBIT__ 8
++#endif
++#ifndef __INT64_TYPE__
+ #define __INT64_TYPE__ long long int
++#endif
++#ifndef __FLT_MAX_EXP__
+ #define __FLT_MAX_EXP__ 128
++#endif
++#ifndef __UTQ_IBIT__
+ #define __UTQ_IBIT__ 0
++#endif
++#ifndef __DBL_MANT_DIG__
+ #define __DBL_MANT_DIG__ 53
++#endif
++#ifndef __INT_LEAST64_MAX__
+ #define __INT_LEAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __DEC64_MIN__
+ #define __DEC64_MIN__ 1E-383DD
++#endif
++#ifndef __WINT_TYPE__
+ #define __WINT_TYPE__ unsigned int
++#endif
++#ifndef __UINT_LEAST32_TYPE__
+ #define __UINT_LEAST32_TYPE__ long unsigned int
++#endif
++#ifndef __SIZEOF_SHORT__
+ #define __SIZEOF_SHORT__ 2
++#endif
++#ifndef __ULLFRACT_IBIT__
+ #define __ULLFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN_EXP__
+ #define __LDBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __arm__
+ #define __arm__ 1
++#endif
++#ifndef __UDA_IBIT__
+ #define __UDA_IBIT__ 32
++#endif
++#ifndef __INT_LEAST8_MAX__
+ #define __INT_LEAST8_MAX__ 127
++#endif
++#ifndef __LFRACT_FBIT__
+ #define __LFRACT_FBIT__ 31
++#endif
++#ifndef __WCHAR_UNSIGNED__
+ #define __WCHAR_UNSIGNED__ 1
++#endif
++#ifndef __LDBL_MAX_10_EXP__
+ #define __LDBL_MAX_10_EXP__ 308
++#endif
++#ifndef __ATOMIC_RELAXED
+ #define __ATOMIC_RELAXED 0
++#endif
++#ifndef __DBL_EPSILON__
+ #define __DBL_EPSILON__ double(2.2204460492503131e-16L)
++#endif
++#ifndef __ARM_ARCH_7EM__
+ #define __ARM_ARCH_7EM__ 1
++#endif
++#ifndef __ARM_FEATURE_SIMD32
+ #define __ARM_FEATURE_SIMD32 1
++#endif
++#ifndef __INT_LEAST32_TYPE__
+ #define __INT_LEAST32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_WCHAR_T__
+ #define __SIZEOF_WCHAR_T__ 4
++#endif
++#ifndef __UINT64_TYPE__
+ #define __UINT64_TYPE__ long long unsigned int
++#endif
++#ifndef __LLFRACT_MAX__
+ #define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
++#endif
++#ifndef __TQ_FBIT__
+ #define __TQ_FBIT__ 127
++#endif
++#ifndef __INT_FAST8_TYPE__
+ #define __INT_FAST8_TYPE__ int
++#endif
++#ifndef __ULLACCUM_EPSILON__
+ #define __ULLACCUM_EPSILON__ 0x1P-32ULLK
++#endif
++#ifndef __UHQ_IBIT__
+ #define __UHQ_IBIT__ 0
++#endif
++#ifndef __LLACCUM_IBIT__
+ #define __LLACCUM_IBIT__ 32
++#endif
++#ifndef __DBL_DECIMAL_DIG__
+ #define __DBL_DECIMAL_DIG__ 17
++#endif
++#ifndef __DEC_EVAL_METHOD__
+ #define __DEC_EVAL_METHOD__ 2
++#endif
++#ifndef __TA_FBIT__
+ #define __TA_FBIT__ 63
++#endif
++#ifndef __UDQ_IBIT__
+ #define __UDQ_IBIT__ 0
++#endif
++#ifndef __ORDER_BIG_ENDIAN__
+ #define __ORDER_BIG_ENDIAN__ 4321
++#endif
++#ifndef __cpp_runtime_arrays
+ #define __cpp_runtime_arrays 201304
++#endif
++#ifndef __ACCUM_EPSILON__
+ #define __ACCUM_EPSILON__ 0x1P-15K
++#endif
++#ifndef __INTMAX_MAX__
+ #define __INTMAX_MAX__ 9223372036854775807LL
++#endif
++#ifndef __cpp_alias_templates
+ #define __cpp_alias_templates 200704
++#endif
++#ifndef __BYTE_ORDER__
+ #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __FLT_DENORM_MIN__
+ #define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
++#endif
++#ifndef __LLFRACT_IBIT__
+ #define __LLFRACT_IBIT__ 0
++#endif
++#ifndef __INT8_MAX__
+ #define __INT8_MAX__ 127
++#endif
++#ifndef __OPTIMIZE_SIZE__
+ #define __OPTIMIZE_SIZE__ 1
++#endif
++#ifndef __UINT_FAST32_TYPE__
+ #define __UINT_FAST32_TYPE__ unsigned int
++#endif
++#ifndef __CHAR32_TYPE__
+ #define __CHAR32_TYPE__ long unsigned int
++#endif
++#ifndef __FLT_MAX__
+ #define __FLT_MAX__ 3.4028234663852886e+38F
++#endif
++#ifndef __cpp_constexpr
+ #define __cpp_constexpr 200704
++#endif
++#ifndef __USACCUM_FBIT__
+ #define __USACCUM_FBIT__ 8
++#endif
++#ifndef __INT32_TYPE__
+ #define __INT32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_DOUBLE__
+ #define __SIZEOF_DOUBLE__ 8
++#endif
++#ifndef __UFRACT_EPSILON__
+ #define __UFRACT_EPSILON__ 0x1P-16UR
++#endif
++#ifndef __INTMAX_TYPE__
+ #define __INTMAX_TYPE__ long long int
++#endif
++#ifndef __DEC128_MAX_EXP__
+ #define __DEC128_MAX_EXP__ 6145
++#endif
++#ifndef __ATOMIC_CONSUME
+ #define __ATOMIC_CONSUME 1
++#endif
++#ifndef __GNUC_MINOR__
+ #define __GNUC_MINOR__ 9
++#endif
++#ifndef __UINTMAX_MAX__
+ #define __UINTMAX_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __DEC32_MANT_DIG__
+ #define __DEC32_MANT_DIG__ 7
++#endif
++#ifndef __HA_FBIT__
+ #define __HA_FBIT__ 7
++#endif
++#ifndef __DBL_MAX_10_EXP__
+ #define __DBL_MAX_10_EXP__ 308
++#endif
++#ifndef __LDBL_DENORM_MIN__
+ #define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
++#endif
++#ifndef __cpp_generic_lambdas
+ #define __cpp_generic_lambdas 201304
++#endif
++#ifndef __STDC__
+ #define __STDC__ 1
++#endif
++#ifndef __PTRDIFF_TYPE__
+ #define __PTRDIFF_TYPE__ int
++#endif
++#ifndef __LLFRACT_MIN__
+ #define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
++#endif
++#ifndef __ATOMIC_SEQ_CST
+ #define __ATOMIC_SEQ_CST 5
++#endif
++#ifndef __DA_FBIT__
+ #define __DA_FBIT__ 31
++#endif
++#ifndef __UINT32_TYPE__
+ #define __UINT32_TYPE__ long unsigned int
++#endif
++#ifndef __ARM_ARCH_EXT_IDIV__
+ #define __ARM_ARCH_EXT_IDIV__ 1
++#endif
++#ifndef __UINTPTR_TYPE__
+ #define __UINTPTR_TYPE__ unsigned int
++#endif
++#ifndef __USA_IBIT__
+ #define __USA_IBIT__ 16
++#endif
++#ifndef __DEC64_SUBNORMAL_MIN__
+ #define __DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD
++#endif
++#ifndef __ARM_EABI__
+ #define __ARM_EABI__ 1
++#endif
++#ifndef __DEC128_MANT_DIG__
+ #define __DEC128_MANT_DIG__ 34
++#endif
++#ifndef __LDBL_MIN_10_EXP__
+ #define __LDBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __SIZEOF_LONG_LONG__
+ #define __SIZEOF_LONG_LONG__ 8
++#endif
++#ifndef __ULACCUM_EPSILON__
+ #define __ULACCUM_EPSILON__ 0x1P-32ULK
++#endif
++#ifndef __cpp_user_defined_literals
+ #define __cpp_user_defined_literals 200809
++#endif
++#ifndef __SACCUM_IBIT__
+ #define __SACCUM_IBIT__ 8
++#endif
++#ifndef __GCC_ATOMIC_LLONG_LOCK_FREE
+ #define __GCC_ATOMIC_LLONG_LOCK_FREE 1
++#endif
++#ifndef __LDBL_DIG__
+ #define __LDBL_DIG__ 15
++#endif
++#ifndef __FLT_DECIMAL_DIG__
+ #define __FLT_DECIMAL_DIG__ 9
++#endif
++#ifndef __UINT_FAST16_MAX__
+ #define __UINT_FAST16_MAX__ 4294967295U
++#endif
++#ifndef __GCC_ATOMIC_SHORT_LOCK_FREE
+ #define __GCC_ATOMIC_SHORT_LOCK_FREE 2
++#endif
++#ifndef __ULLFRACT_MAX__
+ #define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
++#endif
++#ifndef __UINT_FAST8_TYPE__
+ #define __UINT_FAST8_TYPE__ unsigned int
++#endif
++#ifndef __USFRACT_EPSILON__
+ #define __USFRACT_EPSILON__ 0x1P-8UHR
++#endif
++#ifndef __ULACCUM_FBIT__
+ #define __ULACCUM_FBIT__ 32
++#endif
++#ifndef __ARM_FEATURE_DSP
+ #define __ARM_FEATURE_DSP 1
++#endif
++#ifndef __QQ_IBIT__
+ #define __QQ_IBIT__ 0
++#endif
++#ifndef __cpp_init_captures
+ #define __cpp_init_captures 201304
++#endif
++#ifndef __ATOMIC_ACQ_REL
+ #define __ATOMIC_ACQ_REL 4
++#endif
++#ifndef __ATOMIC_RELEASE
+ #define __ATOMIC_RELEASE 3
+ #endif
++#endif
+ 
+ // --- Include directories begin --- //
+ //./../../../..
+merged
+  result 100644 62eb97372a4b233e3edf966ac5ee124a42e979fb COMPONENTS/Common/Tests/mock.Calendar.h
+  our    100644 825ac890b937ec55194f6e16bae4e1cbe9da4870 COMPONENTS/Common/Tests/mock.Calendar.h
+@@ -16,7 +16,7 @@
+       return true;
+    }
+ 
+-   virtual TimeOfDay GetTimeOfDay() override
++   virtual TimeOfDay GetTimeOfDay() const override
+    {
+       return mockTimeOfDay;
+    }
+merged
+  result 100644 fb8da1502574b17e8e59ed8cb9b7e8591bdd7b75 COMPONENTS/FileSchema/Build/GCC.VS/gcc_Debug.h
+  our    100644 816d1e683d7edd77a6fb485d4b56b8164c3a24f9 COMPONENTS/FileSchema/Build/GCC.VS/gcc_Debug.h
+@@ -4,384 +4,1128 @@
+ 	This file lists the preprocessor macros extracted from your GCC.
+ 	It is needed for IntelliSense to parse other header files correctly.
+ */
+-#ifdef _MSC_VER
++#if defined(_MSC_VER) || defined (__SYSPROGS_CODESENSE__)
++#ifndef __DBL_MIN_EXP__
+ #define __DBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __HQ_FBIT__
+ #define __HQ_FBIT__ 15
++#endif
++#ifndef __cpp_attributes
+ #define __cpp_attributes 200809
++#endif
++#ifndef __UINT_LEAST16_MAX__
+ #define __UINT_LEAST16_MAX__ 65535
++#endif
++#ifndef __ARM_SIZEOF_WCHAR_T
+ #define __ARM_SIZEOF_WCHAR_T 32
++#endif
++#ifndef __ATOMIC_ACQUIRE
+ #define __ATOMIC_ACQUIRE 2
++#endif
++#ifndef __SFRACT_IBIT__
+ #define __SFRACT_IBIT__ 0
++#endif
++#ifndef __FLT_MIN__
+ #define __FLT_MIN__ 1.1754943508222875e-38F
++#endif
++#ifndef __GCC_IEC_559_COMPLEX
+ #define __GCC_IEC_559_COMPLEX 0
++#endif
++#ifndef __UFRACT_MAX__
+ #define __UFRACT_MAX__ 0XFFFFP-16UR
++#endif
++#ifndef __UINT_LEAST8_TYPE__
+ #define __UINT_LEAST8_TYPE__ unsigned char
++#endif
++#ifndef __DQ_FBIT__
+ #define __DQ_FBIT__ 63
++#endif
++#ifndef __ARM_FEATURE_SAT
+ #define __ARM_FEATURE_SAT 1
++#endif
++#ifndef __ULFRACT_FBIT__
+ #define __ULFRACT_FBIT__ 32
++#endif
++#ifndef __SACCUM_EPSILON__
+ #define __SACCUM_EPSILON__ 0x1P-7HK
++#endif
++#ifndef __CHAR_BIT__
+ #define __CHAR_BIT__ 8
++#endif
++#ifndef __USQ_IBIT__
+ #define __USQ_IBIT__ 0
++#endif
++#ifndef __UINT8_MAX__
+ #define __UINT8_MAX__ 255
++#endif
++#ifndef __ACCUM_FBIT__
+ #define __ACCUM_FBIT__ 15
++#endif
++#ifndef __WINT_MAX__
+ #define __WINT_MAX__ 4294967295U
++#endif
++#ifndef __cpp_static_assert
+ #define __cpp_static_assert 200410
++#endif
++#ifndef __USFRACT_FBIT__
+ #define __USFRACT_FBIT__ 8
++#endif
++#ifndef __ORDER_LITTLE_ENDIAN__
+ #define __ORDER_LITTLE_ENDIAN__ 1234
++#endif
++#ifndef __SIZE_MAX__
+ #define __SIZE_MAX__ 4294967295U
++#endif
++#ifndef __WCHAR_MAX__
+ #define __WCHAR_MAX__ 4294967295U
++#endif
++#ifndef __LACCUM_IBIT__
+ #define __LACCUM_IBIT__ 32
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
++#endif
++#ifndef __DBL_DENORM_MIN__
+ #define __DBL_DENORM_MIN__ double(4.9406564584124654e-324L)
++#endif
++#ifndef __GCC_ATOMIC_CHAR_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR_LOCK_FREE 2
++#endif
++#ifndef __GCC_IEC_559
+ #define __GCC_IEC_559 0
++#endif
++#ifndef __FLT_EVAL_METHOD__
+ #define __FLT_EVAL_METHOD__ 0
++#endif
++#ifndef __cpp_binary_literals
+ #define __cpp_binary_literals 201304
++#endif
++#ifndef __LLACCUM_MAX__
+ #define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
++#endif
++#ifndef __GCC_ATOMIC_CHAR32_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
++#endif
++#ifndef __FRACT_FBIT__
+ #define __FRACT_FBIT__ 15
++#endif
++#ifndef __cpp_variadic_templates
+ #define __cpp_variadic_templates 200704
++#endif
++#ifndef __UINT_FAST64_MAX__
+ #define __UINT_FAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SIG_ATOMIC_TYPE__
+ #define __SIG_ATOMIC_TYPE__ int
++#endif
++#ifndef __UACCUM_FBIT__
+ #define __UACCUM_FBIT__ 16
++#endif
++#ifndef __DBL_MIN_10_EXP__
+ #define __DBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __FINITE_MATH_ONLY__
+ #define __FINITE_MATH_ONLY__ 0
++#endif
++#ifndef __ARMEL__
+ #define __ARMEL__ 1
++#endif
++#ifndef __ARM_FEATURE_UNALIGNED
+ #define __ARM_FEATURE_UNALIGNED 1
++#endif
++#ifndef __LFRACT_IBIT__
+ #define __LFRACT_IBIT__ 0
++#endif
++#ifndef __GNUC_PATCHLEVEL__
+ #define __GNUC_PATCHLEVEL__ 3
++#endif
++#ifndef __LFRACT_MAX__
+ #define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
++#endif
++#ifndef __UINT_FAST8_MAX__
+ #define __UINT_FAST8_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MAX_EXP__
+ #define __DEC64_MAX_EXP__ 385
++#endif
++#ifndef __UINT_LEAST64_MAX__
+ #define __UINT_LEAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SA_FBIT__
+ #define __SA_FBIT__ 15
++#endif
++#ifndef __SHRT_MAX__
+ #define __SHRT_MAX__ 32767
++#endif
++#ifndef __LDBL_MAX__
+ #define __LDBL_MAX__ 1.7976931348623157e+308L
++#endif
++#ifndef __FRACT_MAX__
+ #define __FRACT_MAX__ 0X7FFFP-15R
++#endif
++#ifndef __thumb2__
+ #define __thumb2__ 1
++#endif
++#ifndef __UFRACT_FBIT__
+ #define __UFRACT_FBIT__ 16
++#endif
++#ifndef __ARM_FP
+ #define __ARM_FP 12
++#endif
++#ifndef __UFRACT_MIN__
+ #define __UFRACT_MIN__ 0.0UR
++#endif
++#ifndef __UINT_LEAST8_MAX__
+ #define __UINT_LEAST8_MAX__ 255
++#endif
++#ifndef __GCC_ATOMIC_BOOL_LOCK_FREE
+ #define __GCC_ATOMIC_BOOL_LOCK_FREE 2
++#endif
++#ifndef __UINTMAX_TYPE__
+ #define __UINTMAX_TYPE__ long long unsigned int
++#endif
++#ifndef __LLFRACT_EPSILON__
+ #define __LLFRACT_EPSILON__ 0x1P-63LLR
++#endif
++#ifndef __DEC32_EPSILON__
+ #define __DEC32_EPSILON__ 1E-6DF
++#endif
++#ifndef __OPTIMIZE__
+ #define __OPTIMIZE__ 1
++#endif
++#ifndef __CHAR_UNSIGNED__
+ #define __CHAR_UNSIGNED__ 1
++#endif
++#ifndef __UINT32_MAX__
+ #define __UINT32_MAX__ 4294967295UL
++#endif
++#ifndef __ULFRACT_MAX__
+ #define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
++#endif
++#ifndef __TA_IBIT__
+ #define __TA_IBIT__ 64
++#endif
++#ifndef __LDBL_MAX_EXP__
+ #define __LDBL_MAX_EXP__ 1024
++#endif
++#ifndef __WINT_MIN__
+ #define __WINT_MIN__ 0U
++#endif
++#ifndef __ULLFRACT_MIN__
+ #define __ULLFRACT_MIN__ 0.0ULLR
++#endif
++#ifndef __SCHAR_MAX__
+ #define __SCHAR_MAX__ 127
++#endif
++#ifndef __WCHAR_MIN__
+ #define __WCHAR_MIN__ 0U
++#endif
++#ifndef __DBL_DIG__
+ #define __DBL_DIG__ 15
++#endif
++#ifndef __GCC_ATOMIC_POINTER_LOCK_FREE
+ #define __GCC_ATOMIC_POINTER_LOCK_FREE 2
++#endif
++#ifndef __LLACCUM_MIN__
+ #define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
++#endif
++#ifndef __SIZEOF_INT__
+ #define __SIZEOF_INT__ 4
++#endif
++#ifndef __SIZEOF_POINTER__
+ #define __SIZEOF_POINTER__ 4
++#endif
++#ifndef __GCC_ATOMIC_CHAR16_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
++#endif
++#ifndef __USACCUM_IBIT__
+ #define __USACCUM_IBIT__ 8
++#endif
++#ifndef __USER_LABEL_PREFIX__
+ #define __USER_LABEL_PREFIX__ 
++#endif
++#ifndef __STDC_HOSTED__
+ #define __STDC_HOSTED__ 1
++#endif
++#ifndef __LDBL_HAS_INFINITY__
+ #define __LDBL_HAS_INFINITY__ 1
++#endif
++#ifndef __LFRACT_MIN__
+ #define __LFRACT_MIN__ (-0.5LR-0.5LR)
++#endif
++#ifndef __HA_IBIT__
+ #define __HA_IBIT__ 8
++#endif
++#ifndef __ARM_NEON_FP
+ #define __ARM_NEON_FP 4
++#endif
++#ifndef __TQ_IBIT__
+ #define __TQ_IBIT__ 0
++#endif
++#ifndef __FLT_EPSILON__
+ #define __FLT_EPSILON__ 1.1920928955078125e-7F
++#endif
++#ifndef __APCS_32__
+ #define __APCS_32__ 1
++#endif
++#ifndef __GXX_WEAK__
+ #define __GXX_WEAK__ 1
++#endif
++#ifndef __USFRACT_IBIT__
+ #define __USFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN__
+ #define __LDBL_MIN__ 2.2250738585072014e-308L
++#endif
++#ifndef __FRACT_MIN__
+ #define __FRACT_MIN__ (-0.5R-0.5R)
++#endif
++#ifndef __DEC32_MAX__
+ #define __DEC32_MAX__ 9.999999E96DF
++#endif
++#ifndef __DA_IBIT__
+ #define __DA_IBIT__ 32
++#endif
++#ifndef __ARM_SIZEOF_MINIMAL_ENUM
+ #define __ARM_SIZEOF_MINIMAL_ENUM 1
++#endif
++#ifndef __INT32_MAX__
+ #define __INT32_MAX__ 2147483647L
++#endif
++#ifndef __UQQ_FBIT__
+ #define __UQQ_FBIT__ 8
++#endif
++#ifndef __SIZEOF_LONG__
+ #define __SIZEOF_LONG__ 4
++#endif
++#ifndef __UACCUM_MAX__
+ #define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
++#endif
++#ifndef __DECIMAL_DIG__
+ #define __DECIMAL_DIG__ 17
++#endif
++#ifndef __LFRACT_EPSILON__
+ #define __LFRACT_EPSILON__ 0x1P-31LR
++#endif
++#ifndef __ULFRACT_MIN__
+ #define __ULFRACT_MIN__ 0.0ULR
++#endif
++#ifndef __LDBL_HAS_QUIET_NAN__
+ #define __LDBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __ULACCUM_IBIT__
+ #define __ULACCUM_IBIT__ 32
++#endif
++#ifndef __UACCUM_EPSILON__
+ #define __UACCUM_EPSILON__ 0x1P-16UK
++#endif
++#ifndef __GNUC__
+ #define __GNUC__ 4
++#endif
++#ifndef __ULLACCUM_MAX__
+ #define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
++#endif
++#ifndef __HQ_IBIT__
+ #define __HQ_IBIT__ 0
++#endif
++#ifndef __FLT_HAS_DENORM__
+ #define __FLT_HAS_DENORM__ 1
++#endif
++#ifndef __SIZEOF_LONG_DOUBLE__
+ #define __SIZEOF_LONG_DOUBLE__ 8
++#endif
++#ifndef __BIGGEST_ALIGNMENT__
+ #define __BIGGEST_ALIGNMENT__ 8
++#endif
++#ifndef __GNUC_STDC_INLINE__
+ #define __GNUC_STDC_INLINE__ 1
++#endif
++#ifndef __DQ_IBIT__
+ #define __DQ_IBIT__ 0
++#endif
++#ifndef __DBL_MAX__
+ #define __DBL_MAX__ double(1.7976931348623157e+308L)
++#endif
++#ifndef __ULFRACT_IBIT__
+ #define __ULFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_raw_strings
+ #define __cpp_raw_strings 200710
++#endif
++#ifndef __INT_FAST32_MAX__
+ #define __INT_FAST32_MAX__ 2147483647
++#endif
++#ifndef __DBL_HAS_INFINITY__
+ #define __DBL_HAS_INFINITY__ 1
++#endif
++#ifndef __INT64_MAX__
+ #define __INT64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __ACCUM_IBIT__
+ #define __ACCUM_IBIT__ 16
++#endif
++#ifndef __DEC32_MIN_EXP__
+ #define __DEC32_MIN_EXP__ (-94)
++#endif
++#ifndef __THUMB_INTERWORK__
+ #define __THUMB_INTERWORK__ 1
++#endif
++#ifndef __LACCUM_MAX__
+ #define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
++#endif
++#ifndef __INT_FAST16_TYPE__
+ #define __INT_FAST16_TYPE__ int
++#endif
++#ifndef __LDBL_HAS_DENORM__
+ #define __LDBL_HAS_DENORM__ 1
++#endif
++#ifndef __ARM_FEATURE_LDREX
+ #define __ARM_FEATURE_LDREX 7
++#endif
+ //VS2005-2012 treats all files as C++, while VS2013+ can treat C files correctly.
+-#if _MSC_VER < 1800 || defined(__cplusplus)
++#if defined(_MSC_VER) && (_MSC_VER < 1800 || defined(__cplusplus))
+ #define __cplusplus 201300L
+ #endif
++#ifndef __DEC128_MAX__
+ #define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
++#endif
++#ifndef __INT_LEAST32_MAX__
+ #define __INT_LEAST32_MAX__ 2147483647L
++#endif
++#ifndef __ARM_PCS
+ #define __ARM_PCS 1
++#endif
++#ifndef __DEC32_MIN__
+ #define __DEC32_MIN__ 1E-95DF
++#endif
++#ifndef __ACCUM_MAX__
+ #define __ACCUM_MAX__ 0X7FFFFFFFP-15K
++#endif
++#ifndef __DEPRECATED
+ #define __DEPRECATED 1
++#endif
++#ifndef __DBL_MAX_EXP__
+ #define __DBL_MAX_EXP__ 1024
++#endif
++#ifndef __USACCUM_EPSILON__
+ #define __USACCUM_EPSILON__ 0x1P-8UHK
++#endif
++#ifndef __DEC128_EPSILON__
+ #define __DEC128_EPSILON__ 1E-33DL
++#endif
++#ifndef __SFRACT_MAX__
+ #define __SFRACT_MAX__ 0X7FP-7HR
++#endif
++#ifndef __FRACT_IBIT__
+ #define __FRACT_IBIT__ 0
++#endif
++#ifndef __PTRDIFF_MAX__
+ #define __PTRDIFF_MAX__ 2147483647
++#endif
++#ifndef __UACCUM_MIN__
+ #define __UACCUM_MIN__ 0.0UK
++#endif
++#ifndef __UACCUM_IBIT__
+ #define __UACCUM_IBIT__ 16
++#endif
++#ifndef __GNUG__
+ #define __GNUG__ 4
++#endif
++#ifndef __LONG_LONG_MAX__
+ #define __LONG_LONG_MAX__ 9223372036854775807LL
++#endif
++#ifndef __SIZEOF_SIZE_T__
+ #define __SIZEOF_SIZE_T__ 4
++#endif
++#ifndef __ULACCUM_MAX__
+ #define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
++#endif
++#ifndef __cpp_rvalue_reference
+ #define __cpp_rvalue_reference 200610
++#endif
++#ifndef __SIZEOF_WINT_T__
+ #define __SIZEOF_WINT_T__ 4
++#endif
++#ifndef __SA_IBIT__
+ #define __SA_IBIT__ 16
++#endif
++#ifndef __ULLACCUM_MIN__
+ #define __ULLACCUM_MIN__ 0.0ULLK
++#endif
++#ifndef __GCC_HAVE_DWARF2_CFI_ASM
+ #define __GCC_HAVE_DWARF2_CFI_ASM 1
++#endif
++#ifndef __GXX_ABI_VERSION
+ #define __GXX_ABI_VERSION 1002
++#endif
++#ifndef __UTA_FBIT__
+ #define __UTA_FBIT__ 64
++#endif
++#ifndef __SOFTFP__
+ #define __SOFTFP__ 1
++#endif
++#ifndef __FLT_MIN_EXP__
+ #define __FLT_MIN_EXP__ (-125)
++#endif
++#ifndef __USFRACT_MAX__
+ #define __USFRACT_MAX__ 0XFFP-8UHR
++#endif
++#ifndef __UFRACT_IBIT__
+ #define __UFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_lambdas
+ #define __cpp_lambdas 200907
++#endif
++#ifndef __ARM_FEATURE_QBIT
+ #define __ARM_FEATURE_QBIT 1
++#endif
++#ifndef __INT_FAST64_TYPE__
+ #define __INT_FAST64_TYPE__ long long int
++#endif
++#ifndef __DBL_MIN__
+ #define __DBL_MIN__ double(2.2250738585072014e-308L)
++#endif
++#ifndef __FLT_MIN_10_EXP__
+ #define __FLT_MIN_10_EXP__ (-37)
++#endif
++#ifndef __LACCUM_MIN__
+ #define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
++#endif
++#ifndef __ULLACCUM_FBIT__
+ #define __ULLACCUM_FBIT__ 32
++#endif
++#ifndef __GXX_TYPEINFO_EQUALITY_INLINE
+ #define __GXX_TYPEINFO_EQUALITY_INLINE 0
++#endif
++#ifndef __ULLFRACT_EPSILON__
+ #define __ULLFRACT_EPSILON__ 0x1P-64ULLR
++#endif
++#ifndef __USES_INITFINI__
+ #define __USES_INITFINI__ 1
++#endif
++#ifndef __DEC128_MIN__
+ #define __DEC128_MIN__ 1E-6143DL
++#endif
++#ifndef __REGISTER_PREFIX__
+ #define __REGISTER_PREFIX__ 
++#endif
++#ifndef __UINT16_MAX__
+ #define __UINT16_MAX__ 65535
++#endif
++#ifndef __DBL_HAS_DENORM__
+ #define __DBL_HAS_DENORM__ 1
++#endif
++#ifndef __ACCUM_MIN__
+ #define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
++#endif
++#ifndef __SQ_IBIT__
+ #define __SQ_IBIT__ 0
++#endif
++#ifndef __UINT8_TYPE__
+ #define __UINT8_TYPE__ unsigned char
++#endif
++#ifndef __UHA_FBIT__
+ #define __UHA_FBIT__ 8
++#endif
++#ifndef __SFRACT_MIN__
+ #define __SFRACT_MIN__ (-0.5HR-0.5HR)
++#endif
++#ifndef __UTQ_FBIT__
+ #define __UTQ_FBIT__ 128
++#endif
++#ifndef __FLT_MANT_DIG__
+ #define __FLT_MANT_DIG__ 24
++#endif
++#ifndef __VERSION__
+ #define __VERSION__ "4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
++#endif
++#ifndef __ULLFRACT_FBIT__
+ #define __ULLFRACT_FBIT__ 64
++#endif
++#ifndef __cpp_unicode_characters
+ #define __cpp_unicode_characters 200704
++#endif
++#ifndef __FRACT_EPSILON__
+ #define __FRACT_EPSILON__ 0x1P-15R
++#endif
++#ifndef __ULACCUM_MIN__
+ #define __ULACCUM_MIN__ 0.0ULK
++#endif
++#ifndef __UDA_FBIT__
+ #define __UDA_FBIT__ 32
++#endif
++#ifndef __cpp_decltype_auto
+ #define __cpp_decltype_auto 201304
++#endif
++#ifndef __LLACCUM_EPSILON__
+ #define __LLACCUM_EPSILON__ 0x1P-31LLK
++#endif
++#ifndef __GCC_ATOMIC_INT_LOCK_FREE
+ #define __GCC_ATOMIC_INT_LOCK_FREE 2
++#endif
++#ifndef __FLOAT_WORD_ORDER__
+ #define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __USFRACT_MIN__
+ #define __USFRACT_MIN__ 0.0UHR
++#endif
++#ifndef __ULLACCUM_IBIT__
+ #define __ULLACCUM_IBIT__ 32
++#endif
++#ifndef __UQQ_IBIT__
+ #define __UQQ_IBIT__ 0
++#endif
++#ifndef __DEC64_EPSILON__
+ #define __DEC64_EPSILON__ 1E-15DD
++#endif
++#ifndef __ORDER_PDP_ENDIAN__
+ #define __ORDER_PDP_ENDIAN__ 3412
++#endif
++#ifndef __DEC128_MIN_EXP__
+ #define __DEC128_MIN_EXP__ (-6142)
++#endif
++#ifndef __UHQ_FBIT__
+ #define __UHQ_FBIT__ 16
++#endif
++#ifndef __LLACCUM_FBIT__
+ #define __LLACCUM_FBIT__ 31
++#endif
++#ifndef __INT_FAST32_TYPE__
+ #define __INT_FAST32_TYPE__ int
++#endif
++#ifndef __UINT_LEAST16_TYPE__
+ #define __UINT_LEAST16_TYPE__ short unsigned int
++#endif
++#ifndef __INT16_MAX__
+ #define __INT16_MAX__ 32767
++#endif
++#ifndef __SIZE_TYPE__
+ #define __SIZE_TYPE__ unsigned int
++#endif
++#ifndef __UINT64_MAX__
+ #define __UINT64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __UDQ_FBIT__
+ #define __UDQ_FBIT__ 64
++#endif
++#ifndef DEBUG
+ #define DEBUG 1
++#endif
++#ifndef __INT8_TYPE__
+ #define __INT8_TYPE__ signed char
++#endif
++#ifndef __thumb__
+ #define __thumb__ 1
++#endif
++#ifndef __cpp_digit_separators
+ #define __cpp_digit_separators 201309
++#endif
++#ifndef __ELF__
+ #define __ELF__ 1
++#endif
++#ifndef __ULFRACT_EPSILON__
+ #define __ULFRACT_EPSILON__ 0x1P-32ULR
++#endif
++#ifndef __LLFRACT_FBIT__
+ #define __LLFRACT_FBIT__ 63
++#endif
++#ifndef __FLT_RADIX__
+ #define __FLT_RADIX__ 2
++#endif
++#ifndef __INT_LEAST16_TYPE__
+ #define __INT_LEAST16_TYPE__ short int
++#endif
++#ifndef __ARM_ARCH_PROFILE
+ #define __ARM_ARCH_PROFILE 77
++#endif
++#ifndef __LDBL_EPSILON__
+ #define __LDBL_EPSILON__ 2.2204460492503131e-16L
++#endif
++#ifndef __SACCUM_MAX__
+ #define __SACCUM_MAX__ 0X7FFFP-7HK
++#endif
++#ifndef __SIG_ATOMIC_MAX__
+ #define __SIG_ATOMIC_MAX__ 2147483647
++#endif
++#ifndef __GCC_ATOMIC_WCHAR_T_LOCK_FREE
+ #define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
++#endif
++#ifndef __VFP_FP__
+ #define __VFP_FP__ 1
++#endif
++#ifndef __SIZEOF_PTRDIFF_T__
+ #define __SIZEOF_PTRDIFF_T__ 4
++#endif
++#ifndef __LACCUM_EPSILON__
+ #define __LACCUM_EPSILON__ 0x1P-31LK
++#endif
++#ifndef __DEC32_SUBNORMAL_MIN__
+ #define __DEC32_SUBNORMAL_MIN__ 0.000001E-95DF
++#endif
++#ifndef __INT_FAST16_MAX__
+ #define __INT_FAST16_MAX__ 2147483647
++#endif
++#ifndef __UINT_FAST32_MAX__
+ #define __UINT_FAST32_MAX__ 4294967295U
++#endif
++#ifndef __UINT_LEAST64_TYPE__
+ #define __UINT_LEAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __USACCUM_MAX__
+ #define __USACCUM_MAX__ 0XFFFFP-8UHK
++#endif
++#ifndef __SFRACT_EPSILON__
+ #define __SFRACT_EPSILON__ 0x1P-7HR
++#endif
++#ifndef __FLT_HAS_QUIET_NAN__
+ #define __FLT_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __FLT_MAX_10_EXP__
+ #define __FLT_MAX_10_EXP__ 38
++#endif
++#ifndef __LONG_MAX__
+ #define __LONG_MAX__ 2147483647L
++#endif
++#ifndef __DEC128_SUBNORMAL_MIN__
+ #define __DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL
++#endif
++#ifndef __FLT_HAS_INFINITY__
+ #define __FLT_HAS_INFINITY__ 1
++#endif
++#ifndef __cpp_unicode_literals
+ #define __cpp_unicode_literals 200710
++#endif
++#ifndef __USA_FBIT__
+ #define __USA_FBIT__ 16
++#endif
++#ifndef __UINT_FAST16_TYPE__
+ #define __UINT_FAST16_TYPE__ unsigned int
++#endif
++#ifndef __cpp_attribute_deprecated
+ #define __cpp_attribute_deprecated 201309
++#endif
++#ifndef __DEC64_MAX__
+ #define __DEC64_MAX__ 9.999999999999999E384DD
++#endif
++#ifndef __ARM_32BIT_STATE
+ #define __ARM_32BIT_STATE 1
++#endif
++#ifndef __CHAR16_TYPE__
+ #define __CHAR16_TYPE__ short unsigned int
++#endif
++#ifndef __PRAGMA_REDEFINE_EXTNAME
+ #define __PRAGMA_REDEFINE_EXTNAME 1
++#endif
++#ifndef __INT_LEAST16_MAX__
+ #define __INT_LEAST16_MAX__ 32767
++#endif
++#ifndef __DEC64_MANT_DIG__
+ #define __DEC64_MANT_DIG__ 16
++#endif
++#ifndef __UINT_LEAST32_MAX__
+ #define __UINT_LEAST32_MAX__ 4294967295UL
++#endif
++#ifndef __SACCUM_FBIT__
+ #define __SACCUM_FBIT__ 7
++#endif
++#ifndef __GCC_ATOMIC_LONG_LOCK_FREE
+ #define __GCC_ATOMIC_LONG_LOCK_FREE 2
++#endif
++#ifndef __INT_LEAST64_TYPE__
+ #define __INT_LEAST64_TYPE__ long long int
++#endif
++#ifndef __ARM_FEATURE_CLZ
+ #define __ARM_FEATURE_CLZ 1
++#endif
++#ifndef __INT16_TYPE__
+ #define __INT16_TYPE__ short int
++#endif
++#ifndef __INT_LEAST8_TYPE__
+ #define __INT_LEAST8_TYPE__ signed char
++#endif
++#ifndef __SQ_FBIT__
+ #define __SQ_FBIT__ 31
++#endif
++#ifndef __DEC32_MAX_EXP__
+ #define __DEC32_MAX_EXP__ 97
++#endif
++#ifndef __ARM_ARCH_ISA_THUMB
+ #define __ARM_ARCH_ISA_THUMB 2
++#endif
++#ifndef __INT_FAST8_MAX__
+ #define __INT_FAST8_MAX__ 2147483647
++#endif
++#ifndef __ARM_ARCH
+ #define __ARM_ARCH 7
++#endif
++#ifndef __INTPTR_MAX__
+ #define __INTPTR_MAX__ 2147483647
++#endif
++#ifndef __QQ_FBIT__
+ #define __QQ_FBIT__ 7
++#endif
++#ifndef __UTA_IBIT__
+ #define __UTA_IBIT__ 64
++#endif
++#ifndef __EXCEPTIONS
+ #define __EXCEPTIONS 1
++#endif
++#ifndef __LDBL_MANT_DIG__
+ #define __LDBL_MANT_DIG__ 53
++#endif
++#ifndef __SFRACT_FBIT__
+ #define __SFRACT_FBIT__ 7
++#endif
++#ifndef __SACCUM_MIN__
+ #define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
++#endif
++#ifndef __DBL_HAS_QUIET_NAN__
+ #define __DBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __SIG_ATOMIC_MIN__
+ #define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
++#endif
++#ifndef __cpp_return_type_deduction
+ #define __cpp_return_type_deduction 201304
++#endif
++#ifndef __INTPTR_TYPE__
+ #define __INTPTR_TYPE__ int
++#endif
++#ifndef __UINT16_TYPE__
+ #define __UINT16_TYPE__ short unsigned int
++#endif
++#ifndef __WCHAR_TYPE__
+ #define __WCHAR_TYPE__ unsigned int
++#endif
++#ifndef __SIZEOF_FLOAT__
+ #define __SIZEOF_FLOAT__ 4
++#endif
++#ifndef __THUMBEL__
+ #define __THUMBEL__ 1
++#endif
++#ifndef __USQ_FBIT__
+ #define __USQ_FBIT__ 32
++#endif
++#ifndef __UINTPTR_MAX__
+ #define __UINTPTR_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MIN_EXP__
+ #define __DEC64_MIN_EXP__ (-382)
++#endif
++#ifndef __cpp_decltype
+ #define __cpp_decltype 200707
++#endif
++#ifndef __INT_FAST64_MAX__
+ #define __INT_FAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __GCC_ATOMIC_TEST_AND_SET_TRUEVAL
+ #define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
++#endif
++#ifndef __FLT_DIG__
+ #define __FLT_DIG__ 6
++#endif
++#ifndef __UINT_FAST64_TYPE__
+ #define __UINT_FAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __INT_MAX__
+ #define __INT_MAX__ 2147483647
++#endif
++#ifndef __LACCUM_FBIT__
+ #define __LACCUM_FBIT__ 31
++#endif
++#ifndef __USACCUM_MIN__
+ #define __USACCUM_MIN__ 0.0UHK
++#endif
++#ifndef __UHA_IBIT__
+ #define __UHA_IBIT__ 8
++#endif
++#ifndef __INT64_TYPE__
+ #define __INT64_TYPE__ long long int
++#endif
++#ifndef __FLT_MAX_EXP__
+ #define __FLT_MAX_EXP__ 128
++#endif
++#ifndef __UTQ_IBIT__
+ #define __UTQ_IBIT__ 0
++#endif
++#ifndef __DBL_MANT_DIG__
+ #define __DBL_MANT_DIG__ 53
++#endif
++#ifndef __INT_LEAST64_MAX__
+ #define __INT_LEAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __DEC64_MIN__
+ #define __DEC64_MIN__ 1E-383DD
++#endif
++#ifndef __WINT_TYPE__
+ #define __WINT_TYPE__ unsigned int
++#endif
++#ifndef __UINT_LEAST32_TYPE__
+ #define __UINT_LEAST32_TYPE__ long unsigned int
++#endif
++#ifndef __SIZEOF_SHORT__
+ #define __SIZEOF_SHORT__ 2
++#endif
++#ifndef __ULLFRACT_IBIT__
+ #define __ULLFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN_EXP__
+ #define __LDBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __arm__
+ #define __arm__ 1
++#endif
++#ifndef __UDA_IBIT__
+ #define __UDA_IBIT__ 32
++#endif
++#ifndef __INT_LEAST8_MAX__
+ #define __INT_LEAST8_MAX__ 127
++#endif
++#ifndef __LFRACT_FBIT__
+ #define __LFRACT_FBIT__ 31
++#endif
++#ifndef __WCHAR_UNSIGNED__
+ #define __WCHAR_UNSIGNED__ 1
++#endif
++#ifndef __LDBL_MAX_10_EXP__
+ #define __LDBL_MAX_10_EXP__ 308
++#endif
++#ifndef __ATOMIC_RELAXED
+ #define __ATOMIC_RELAXED 0
++#endif
++#ifndef __DBL_EPSILON__
+ #define __DBL_EPSILON__ double(2.2204460492503131e-16L)
++#endif
++#ifndef __ARM_ARCH_7EM__
+ #define __ARM_ARCH_7EM__ 1
++#endif
++#ifndef __ARM_FEATURE_SIMD32
+ #define __ARM_FEATURE_SIMD32 1
++#endif
++#ifndef __INT_LEAST32_TYPE__
+ #define __INT_LEAST32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_WCHAR_T__
+ #define __SIZEOF_WCHAR_T__ 4
++#endif
++#ifndef __UINT64_TYPE__
+ #define __UINT64_TYPE__ long long unsigned int
++#endif
++#ifndef __LLFRACT_MAX__
+ #define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
++#endif
++#ifndef __TQ_FBIT__
+ #define __TQ_FBIT__ 127
++#endif
++#ifndef __INT_FAST8_TYPE__
+ #define __INT_FAST8_TYPE__ int
++#endif
++#ifndef __ULLACCUM_EPSILON__
+ #define __ULLACCUM_EPSILON__ 0x1P-32ULLK
++#endif
++#ifndef __UHQ_IBIT__
+ #define __UHQ_IBIT__ 0
++#endif
++#ifndef __LLACCUM_IBIT__
+ #define __LLACCUM_IBIT__ 32
++#endif
++#ifndef __DBL_DECIMAL_DIG__
+ #define __DBL_DECIMAL_DIG__ 17
++#endif
++#ifndef __DEC_EVAL_METHOD__
+ #define __DEC_EVAL_METHOD__ 2
++#endif
++#ifndef __TA_FBIT__
+ #define __TA_FBIT__ 63
++#endif
++#ifndef __UDQ_IBIT__
+ #define __UDQ_IBIT__ 0
++#endif
++#ifndef __ORDER_BIG_ENDIAN__
+ #define __ORDER_BIG_ENDIAN__ 4321
++#endif
++#ifndef __cpp_runtime_arrays
+ #define __cpp_runtime_arrays 201304
++#endif
++#ifndef __ACCUM_EPSILON__
+ #define __ACCUM_EPSILON__ 0x1P-15K
++#endif
++#ifndef __INTMAX_MAX__
+ #define __INTMAX_MAX__ 9223372036854775807LL
++#endif
++#ifndef __cpp_alias_templates
+ #define __cpp_alias_templates 200704
++#endif
++#ifndef __BYTE_ORDER__
+ #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __FLT_DENORM_MIN__
+ #define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
++#endif
++#ifndef __LLFRACT_IBIT__
+ #define __LLFRACT_IBIT__ 0
++#endif
++#ifndef __INT8_MAX__
+ #define __INT8_MAX__ 127
++#endif
++#ifndef __OPTIMIZE_SIZE__
+ #define __OPTIMIZE_SIZE__ 1
++#endif
++#ifndef __UINT_FAST32_TYPE__
+ #define __UINT_FAST32_TYPE__ unsigned int
++#endif
++#ifndef __CHAR32_TYPE__
+ #define __CHAR32_TYPE__ long unsigned int
++#endif
++#ifndef __FLT_MAX__
+ #define __FLT_MAX__ 3.4028234663852886e+38F
++#endif
++#ifndef __cpp_constexpr
+ #define __cpp_constexpr 200704
++#endif
++#ifndef __USACCUM_FBIT__
+ #define __USACCUM_FBIT__ 8
++#endif
++#ifndef __INT32_TYPE__
+ #define __INT32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_DOUBLE__
+ #define __SIZEOF_DOUBLE__ 8
++#endif
++#ifndef __UFRACT_EPSILON__
+ #define __UFRACT_EPSILON__ 0x1P-16UR
++#endif
++#ifndef __INTMAX_TYPE__
+ #define __INTMAX_TYPE__ long long int
++#endif
++#ifndef __DEC128_MAX_EXP__
+ #define __DEC128_MAX_EXP__ 6145
++#endif
++#ifndef __ATOMIC_CONSUME
+ #define __ATOMIC_CONSUME 1
++#endif
++#ifndef __GNUC_MINOR__
+ #define __GNUC_MINOR__ 9
++#endif
++#ifndef __UINTMAX_MAX__
+ #define __UINTMAX_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __DEC32_MANT_DIG__
+ #define __DEC32_MANT_DIG__ 7
++#endif
++#ifndef __HA_FBIT__
+ #define __HA_FBIT__ 7
++#endif
++#ifndef __DBL_MAX_10_EXP__
+ #define __DBL_MAX_10_EXP__ 308
++#endif
++#ifndef __LDBL_DENORM_MIN__
+ #define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
++#endif
++#ifndef __cpp_generic_lambdas
+ #define __cpp_generic_lambdas 201304
++#endif
++#ifndef __STDC__
+ #define __STDC__ 1
++#endif
++#ifndef __PTRDIFF_TYPE__
+ #define __PTRDIFF_TYPE__ int
++#endif
++#ifndef __LLFRACT_MIN__
+ #define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
++#endif
++#ifndef __ATOMIC_SEQ_CST
+ #define __ATOMIC_SEQ_CST 5
++#endif
++#ifndef __DA_FBIT__
+ #define __DA_FBIT__ 31
++#endif
++#ifndef __UINT32_TYPE__
+ #define __UINT32_TYPE__ long unsigned int
++#endif
++#ifndef __ARM_ARCH_EXT_IDIV__
+ #define __ARM_ARCH_EXT_IDIV__ 1
++#endif
++#ifndef __UINTPTR_TYPE__
+ #define __UINTPTR_TYPE__ unsigned int
++#endif
++#ifndef __USA_IBIT__
+ #define __USA_IBIT__ 16
++#endif
++#ifndef __DEC64_SUBNORMAL_MIN__
+ #define __DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD
++#endif
++#ifndef __ARM_EABI__
+ #define __ARM_EABI__ 1
++#endif
++#ifndef __DEC128_MANT_DIG__
+ #define __DEC128_MANT_DIG__ 34
++#endif
++#ifndef __LDBL_MIN_10_EXP__
+ #define __LDBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __SIZEOF_LONG_LONG__
+ #define __SIZEOF_LONG_LONG__ 8
++#endif
++#ifndef __ULACCUM_EPSILON__
+ #define __ULACCUM_EPSILON__ 0x1P-32ULK
++#endif
++#ifndef __cpp_user_defined_literals
+ #define __cpp_user_defined_literals 200809
++#endif
++#ifndef __SACCUM_IBIT__
+ #define __SACCUM_IBIT__ 8
++#endif
++#ifndef __GCC_ATOMIC_LLONG_LOCK_FREE
+ #define __GCC_ATOMIC_LLONG_LOCK_FREE 1
++#endif
++#ifndef __LDBL_DIG__
+ #define __LDBL_DIG__ 15
++#endif
++#ifndef __FLT_DECIMAL_DIG__
+ #define __FLT_DECIMAL_DIG__ 9
++#endif
++#ifndef __UINT_FAST16_MAX__
+ #define __UINT_FAST16_MAX__ 4294967295U
++#endif
++#ifndef __GCC_ATOMIC_SHORT_LOCK_FREE
+ #define __GCC_ATOMIC_SHORT_LOCK_FREE 2
++#endif
++#ifndef __ULLFRACT_MAX__
+ #define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
++#endif
++#ifndef __UINT_FAST8_TYPE__
+ #define __UINT_FAST8_TYPE__ unsigned int
++#endif
++#ifndef __USFRACT_EPSILON__
+ #define __USFRACT_EPSILON__ 0x1P-8UHR
++#endif
++#ifndef __ULACCUM_FBIT__
+ #define __ULACCUM_FBIT__ 32
++#endif
++#ifndef __ARM_FEATURE_DSP
+ #define __ARM_FEATURE_DSP 1
++#endif
++#ifndef __QQ_IBIT__
+ #define __QQ_IBIT__ 0
++#endif
++#ifndef __cpp_init_captures
+ #define __cpp_init_captures 201304
++#endif
++#ifndef __ATOMIC_ACQ_REL
+ #define __ATOMIC_ACQ_REL 4
++#endif
++#ifndef __ATOMIC_RELEASE
+ #define __ATOMIC_RELEASE 3
+ #endif
++#endif
+ 
+ // --- Include directories begin --- //
+ //./../../../..
+merged
+  result 100644 6e40deaa4c4a4d19e893aa410e654f9db5d5bfd9 COMPONENTS/Protobuf/build/GCC.VS/gcc_Debug.h
+  our    100644 2689f2ef2b58d04bf30e27cac3796dcaa9eeba47 COMPONENTS/Protobuf/build/GCC.VS/gcc_Debug.h
+@@ -4,384 +4,1128 @@
+ 	This file lists the preprocessor macros extracted from your GCC.
+ 	It is needed for IntelliSense to parse other header files correctly.
+ */
+-#ifdef _MSC_VER
++#if defined(_MSC_VER) || defined (__SYSPROGS_CODESENSE__)
++#ifndef __DBL_MIN_EXP__
+ #define __DBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __HQ_FBIT__
+ #define __HQ_FBIT__ 15
++#endif
++#ifndef __cpp_attributes
+ #define __cpp_attributes 200809
++#endif
++#ifndef __UINT_LEAST16_MAX__
+ #define __UINT_LEAST16_MAX__ 65535
++#endif
++#ifndef __ARM_SIZEOF_WCHAR_T
+ #define __ARM_SIZEOF_WCHAR_T 32
++#endif
++#ifndef __ATOMIC_ACQUIRE
+ #define __ATOMIC_ACQUIRE 2
++#endif
++#ifndef __SFRACT_IBIT__
+ #define __SFRACT_IBIT__ 0
++#endif
++#ifndef __FLT_MIN__
+ #define __FLT_MIN__ 1.1754943508222875e-38F
++#endif
++#ifndef __GCC_IEC_559_COMPLEX
+ #define __GCC_IEC_559_COMPLEX 0
++#endif
++#ifndef __UFRACT_MAX__
+ #define __UFRACT_MAX__ 0XFFFFP-16UR
++#endif
++#ifndef __UINT_LEAST8_TYPE__
+ #define __UINT_LEAST8_TYPE__ unsigned char
++#endif
++#ifndef __DQ_FBIT__
+ #define __DQ_FBIT__ 63
++#endif
++#ifndef __ARM_FEATURE_SAT
+ #define __ARM_FEATURE_SAT 1
++#endif
++#ifndef __ULFRACT_FBIT__
+ #define __ULFRACT_FBIT__ 32
++#endif
++#ifndef __SACCUM_EPSILON__
+ #define __SACCUM_EPSILON__ 0x1P-7HK
++#endif
++#ifndef __CHAR_BIT__
+ #define __CHAR_BIT__ 8
++#endif
++#ifndef __USQ_IBIT__
+ #define __USQ_IBIT__ 0
++#endif
++#ifndef __UINT8_MAX__
+ #define __UINT8_MAX__ 255
++#endif
++#ifndef __ACCUM_FBIT__
+ #define __ACCUM_FBIT__ 15
++#endif
++#ifndef __WINT_MAX__
+ #define __WINT_MAX__ 4294967295U
++#endif
++#ifndef __cpp_static_assert
+ #define __cpp_static_assert 200410
++#endif
++#ifndef __USFRACT_FBIT__
+ #define __USFRACT_FBIT__ 8
++#endif
++#ifndef __ORDER_LITTLE_ENDIAN__
+ #define __ORDER_LITTLE_ENDIAN__ 1234
++#endif
++#ifndef __SIZE_MAX__
+ #define __SIZE_MAX__ 4294967295U
++#endif
++#ifndef __WCHAR_MAX__
+ #define __WCHAR_MAX__ 4294967295U
++#endif
++#ifndef __LACCUM_IBIT__
+ #define __LACCUM_IBIT__ 32
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
++#endif
++#ifndef __DBL_DENORM_MIN__
+ #define __DBL_DENORM_MIN__ double(4.9406564584124654e-324L)
++#endif
++#ifndef __GCC_ATOMIC_CHAR_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR_LOCK_FREE 2
++#endif
++#ifndef __GCC_IEC_559
+ #define __GCC_IEC_559 0
++#endif
++#ifndef __FLT_EVAL_METHOD__
+ #define __FLT_EVAL_METHOD__ 0
++#endif
++#ifndef __cpp_binary_literals
+ #define __cpp_binary_literals 201304
++#endif
++#ifndef __LLACCUM_MAX__
+ #define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
++#endif
++#ifndef __GCC_ATOMIC_CHAR32_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
++#endif
++#ifndef __FRACT_FBIT__
+ #define __FRACT_FBIT__ 15
++#endif
++#ifndef __cpp_variadic_templates
+ #define __cpp_variadic_templates 200704
++#endif
++#ifndef __UINT_FAST64_MAX__
+ #define __UINT_FAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SIG_ATOMIC_TYPE__
+ #define __SIG_ATOMIC_TYPE__ int
++#endif
++#ifndef __UACCUM_FBIT__
+ #define __UACCUM_FBIT__ 16
++#endif
++#ifndef __DBL_MIN_10_EXP__
+ #define __DBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __FINITE_MATH_ONLY__
+ #define __FINITE_MATH_ONLY__ 0
++#endif
++#ifndef __ARMEL__
+ #define __ARMEL__ 1
++#endif
++#ifndef __ARM_FEATURE_UNALIGNED
+ #define __ARM_FEATURE_UNALIGNED 1
++#endif
++#ifndef __LFRACT_IBIT__
+ #define __LFRACT_IBIT__ 0
++#endif
++#ifndef __GNUC_PATCHLEVEL__
+ #define __GNUC_PATCHLEVEL__ 3
++#endif
++#ifndef __LFRACT_MAX__
+ #define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
++#endif
++#ifndef __UINT_FAST8_MAX__
+ #define __UINT_FAST8_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MAX_EXP__
+ #define __DEC64_MAX_EXP__ 385
++#endif
++#ifndef __UINT_LEAST64_MAX__
+ #define __UINT_LEAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SA_FBIT__
+ #define __SA_FBIT__ 15
++#endif
++#ifndef __SHRT_MAX__
+ #define __SHRT_MAX__ 32767
++#endif
++#ifndef __LDBL_MAX__
+ #define __LDBL_MAX__ 1.7976931348623157e+308L
++#endif
++#ifndef __FRACT_MAX__
+ #define __FRACT_MAX__ 0X7FFFP-15R
++#endif
++#ifndef __thumb2__
+ #define __thumb2__ 1
++#endif
++#ifndef __UFRACT_FBIT__
+ #define __UFRACT_FBIT__ 16
++#endif
++#ifndef __ARM_FP
+ #define __ARM_FP 12
++#endif
++#ifndef __UFRACT_MIN__
+ #define __UFRACT_MIN__ 0.0UR
++#endif
++#ifndef __UINT_LEAST8_MAX__
+ #define __UINT_LEAST8_MAX__ 255
++#endif
++#ifndef __GCC_ATOMIC_BOOL_LOCK_FREE
+ #define __GCC_ATOMIC_BOOL_LOCK_FREE 2
++#endif
++#ifndef __UINTMAX_TYPE__
+ #define __UINTMAX_TYPE__ long long unsigned int
++#endif
++#ifndef __LLFRACT_EPSILON__
+ #define __LLFRACT_EPSILON__ 0x1P-63LLR
++#endif
++#ifndef __DEC32_EPSILON__
+ #define __DEC32_EPSILON__ 1E-6DF
++#endif
++#ifndef __OPTIMIZE__
+ #define __OPTIMIZE__ 1
++#endif
++#ifndef __CHAR_UNSIGNED__
+ #define __CHAR_UNSIGNED__ 1
++#endif
++#ifndef __UINT32_MAX__
+ #define __UINT32_MAX__ 4294967295UL
++#endif
++#ifndef __ULFRACT_MAX__
+ #define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
++#endif
++#ifndef __TA_IBIT__
+ #define __TA_IBIT__ 64
++#endif
++#ifndef __LDBL_MAX_EXP__
+ #define __LDBL_MAX_EXP__ 1024
++#endif
++#ifndef __WINT_MIN__
+ #define __WINT_MIN__ 0U
++#endif
++#ifndef __ULLFRACT_MIN__
+ #define __ULLFRACT_MIN__ 0.0ULLR
++#endif
++#ifndef __SCHAR_MAX__
+ #define __SCHAR_MAX__ 127
++#endif
++#ifndef __WCHAR_MIN__
+ #define __WCHAR_MIN__ 0U
++#endif
++#ifndef __DBL_DIG__
+ #define __DBL_DIG__ 15
++#endif
++#ifndef __GCC_ATOMIC_POINTER_LOCK_FREE
+ #define __GCC_ATOMIC_POINTER_LOCK_FREE 2
++#endif
++#ifndef __LLACCUM_MIN__
+ #define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
++#endif
++#ifndef __SIZEOF_INT__
+ #define __SIZEOF_INT__ 4
++#endif
++#ifndef __SIZEOF_POINTER__
+ #define __SIZEOF_POINTER__ 4
++#endif
++#ifndef __GCC_ATOMIC_CHAR16_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
++#endif
++#ifndef __USACCUM_IBIT__
+ #define __USACCUM_IBIT__ 8
++#endif
++#ifndef __USER_LABEL_PREFIX__
+ #define __USER_LABEL_PREFIX__ 
++#endif
++#ifndef __STDC_HOSTED__
+ #define __STDC_HOSTED__ 1
++#endif
++#ifndef __LDBL_HAS_INFINITY__
+ #define __LDBL_HAS_INFINITY__ 1
++#endif
++#ifndef __LFRACT_MIN__
+ #define __LFRACT_MIN__ (-0.5LR-0.5LR)
++#endif
++#ifndef __HA_IBIT__
+ #define __HA_IBIT__ 8
++#endif
++#ifndef __ARM_NEON_FP
+ #define __ARM_NEON_FP 4
++#endif
++#ifndef __TQ_IBIT__
+ #define __TQ_IBIT__ 0
++#endif
++#ifndef __FLT_EPSILON__
+ #define __FLT_EPSILON__ 1.1920928955078125e-7F
++#endif
++#ifndef __APCS_32__
+ #define __APCS_32__ 1
++#endif
++#ifndef __GXX_WEAK__
+ #define __GXX_WEAK__ 1
++#endif
++#ifndef __USFRACT_IBIT__
+ #define __USFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN__
+ #define __LDBL_MIN__ 2.2250738585072014e-308L
++#endif
++#ifndef __FRACT_MIN__
+ #define __FRACT_MIN__ (-0.5R-0.5R)
++#endif
++#ifndef __DEC32_MAX__
+ #define __DEC32_MAX__ 9.999999E96DF
++#endif
++#ifndef __DA_IBIT__
+ #define __DA_IBIT__ 32
++#endif
++#ifndef __ARM_SIZEOF_MINIMAL_ENUM
+ #define __ARM_SIZEOF_MINIMAL_ENUM 1
++#endif
++#ifndef __INT32_MAX__
+ #define __INT32_MAX__ 2147483647L
++#endif
++#ifndef __UQQ_FBIT__
+ #define __UQQ_FBIT__ 8
++#endif
++#ifndef __SIZEOF_LONG__
+ #define __SIZEOF_LONG__ 4
++#endif
++#ifndef __UACCUM_MAX__
+ #define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
++#endif
++#ifndef __DECIMAL_DIG__
+ #define __DECIMAL_DIG__ 17
++#endif
++#ifndef __LFRACT_EPSILON__
+ #define __LFRACT_EPSILON__ 0x1P-31LR
++#endif
++#ifndef __ULFRACT_MIN__
+ #define __ULFRACT_MIN__ 0.0ULR
++#endif
++#ifndef __LDBL_HAS_QUIET_NAN__
+ #define __LDBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __ULACCUM_IBIT__
+ #define __ULACCUM_IBIT__ 32
++#endif
++#ifndef __UACCUM_EPSILON__
+ #define __UACCUM_EPSILON__ 0x1P-16UK
++#endif
++#ifndef __GNUC__
+ #define __GNUC__ 4
++#endif
++#ifndef __ULLACCUM_MAX__
+ #define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
++#endif
++#ifndef __HQ_IBIT__
+ #define __HQ_IBIT__ 0
++#endif
++#ifndef __FLT_HAS_DENORM__
+ #define __FLT_HAS_DENORM__ 1
++#endif
++#ifndef __SIZEOF_LONG_DOUBLE__
+ #define __SIZEOF_LONG_DOUBLE__ 8
++#endif
++#ifndef __BIGGEST_ALIGNMENT__
+ #define __BIGGEST_ALIGNMENT__ 8
++#endif
++#ifndef __GNUC_STDC_INLINE__
+ #define __GNUC_STDC_INLINE__ 1
++#endif
++#ifndef __DQ_IBIT__
+ #define __DQ_IBIT__ 0
++#endif
++#ifndef __DBL_MAX__
+ #define __DBL_MAX__ double(1.7976931348623157e+308L)
++#endif
++#ifndef __ULFRACT_IBIT__
+ #define __ULFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_raw_strings
+ #define __cpp_raw_strings 200710
++#endif
++#ifndef __INT_FAST32_MAX__
+ #define __INT_FAST32_MAX__ 2147483647
++#endif
++#ifndef __DBL_HAS_INFINITY__
+ #define __DBL_HAS_INFINITY__ 1
++#endif
++#ifndef __INT64_MAX__
+ #define __INT64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __ACCUM_IBIT__
+ #define __ACCUM_IBIT__ 16
++#endif
++#ifndef __DEC32_MIN_EXP__
+ #define __DEC32_MIN_EXP__ (-94)
++#endif
++#ifndef __THUMB_INTERWORK__
+ #define __THUMB_INTERWORK__ 1
++#endif
++#ifndef __LACCUM_MAX__
+ #define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
++#endif
++#ifndef __INT_FAST16_TYPE__
+ #define __INT_FAST16_TYPE__ int
++#endif
++#ifndef __LDBL_HAS_DENORM__
+ #define __LDBL_HAS_DENORM__ 1
++#endif
++#ifndef __ARM_FEATURE_LDREX
+ #define __ARM_FEATURE_LDREX 7
++#endif
+ //VS2005-2012 treats all files as C++, while VS2013+ can treat C files correctly.
+-#if _MSC_VER < 1800 || defined(__cplusplus)
++#if defined(_MSC_VER) && (_MSC_VER < 1800 || defined(__cplusplus))
+ #define __cplusplus 201300L
+ #endif
++#ifndef __DEC128_MAX__
+ #define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
++#endif
++#ifndef __INT_LEAST32_MAX__
+ #define __INT_LEAST32_MAX__ 2147483647L
++#endif
++#ifndef __ARM_PCS
+ #define __ARM_PCS 1
++#endif
++#ifndef __DEC32_MIN__
+ #define __DEC32_MIN__ 1E-95DF
++#endif
++#ifndef __ACCUM_MAX__
+ #define __ACCUM_MAX__ 0X7FFFFFFFP-15K
++#endif
++#ifndef __DEPRECATED
+ #define __DEPRECATED 1
++#endif
++#ifndef __DBL_MAX_EXP__
+ #define __DBL_MAX_EXP__ 1024
++#endif
++#ifndef __USACCUM_EPSILON__
+ #define __USACCUM_EPSILON__ 0x1P-8UHK
++#endif
++#ifndef __DEC128_EPSILON__
+ #define __DEC128_EPSILON__ 1E-33DL
++#endif
++#ifndef __SFRACT_MAX__
+ #define __SFRACT_MAX__ 0X7FP-7HR
++#endif
++#ifndef __FRACT_IBIT__
+ #define __FRACT_IBIT__ 0
++#endif
++#ifndef __PTRDIFF_MAX__
+ #define __PTRDIFF_MAX__ 2147483647
++#endif
++#ifndef __UACCUM_MIN__
+ #define __UACCUM_MIN__ 0.0UK
++#endif
++#ifndef __UACCUM_IBIT__
+ #define __UACCUM_IBIT__ 16
++#endif
++#ifndef __GNUG__
+ #define __GNUG__ 4
++#endif
++#ifndef __LONG_LONG_MAX__
+ #define __LONG_LONG_MAX__ 9223372036854775807LL
++#endif
++#ifndef __SIZEOF_SIZE_T__
+ #define __SIZEOF_SIZE_T__ 4
++#endif
++#ifndef __ULACCUM_MAX__
+ #define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
++#endif
++#ifndef __cpp_rvalue_reference
+ #define __cpp_rvalue_reference 200610
++#endif
++#ifndef __SIZEOF_WINT_T__
+ #define __SIZEOF_WINT_T__ 4
++#endif
++#ifndef __SA_IBIT__
+ #define __SA_IBIT__ 16
++#endif
++#ifndef __ULLACCUM_MIN__
+ #define __ULLACCUM_MIN__ 0.0ULLK
++#endif
++#ifndef __GCC_HAVE_DWARF2_CFI_ASM
+ #define __GCC_HAVE_DWARF2_CFI_ASM 1
++#endif
++#ifndef __GXX_ABI_VERSION
+ #define __GXX_ABI_VERSION 1002
++#endif
++#ifndef __UTA_FBIT__
+ #define __UTA_FBIT__ 64
++#endif
++#ifndef __SOFTFP__
+ #define __SOFTFP__ 1
++#endif
++#ifndef __FLT_MIN_EXP__
+ #define __FLT_MIN_EXP__ (-125)
++#endif
++#ifndef __USFRACT_MAX__
+ #define __USFRACT_MAX__ 0XFFP-8UHR
++#endif
++#ifndef __UFRACT_IBIT__
+ #define __UFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_lambdas
+ #define __cpp_lambdas 200907
++#endif
++#ifndef __ARM_FEATURE_QBIT
+ #define __ARM_FEATURE_QBIT 1
++#endif
++#ifndef __INT_FAST64_TYPE__
+ #define __INT_FAST64_TYPE__ long long int
++#endif
++#ifndef __DBL_MIN__
+ #define __DBL_MIN__ double(2.2250738585072014e-308L)
++#endif
++#ifndef __FLT_MIN_10_EXP__
+ #define __FLT_MIN_10_EXP__ (-37)
++#endif
++#ifndef __LACCUM_MIN__
+ #define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
++#endif
++#ifndef __ULLACCUM_FBIT__
+ #define __ULLACCUM_FBIT__ 32
++#endif
++#ifndef __GXX_TYPEINFO_EQUALITY_INLINE
+ #define __GXX_TYPEINFO_EQUALITY_INLINE 0
++#endif
++#ifndef __ULLFRACT_EPSILON__
+ #define __ULLFRACT_EPSILON__ 0x1P-64ULLR
++#endif
++#ifndef __USES_INITFINI__
+ #define __USES_INITFINI__ 1
++#endif
++#ifndef __DEC128_MIN__
+ #define __DEC128_MIN__ 1E-6143DL
++#endif
++#ifndef __REGISTER_PREFIX__
+ #define __REGISTER_PREFIX__ 
++#endif
++#ifndef __UINT16_MAX__
+ #define __UINT16_MAX__ 65535
++#endif
++#ifndef __DBL_HAS_DENORM__
+ #define __DBL_HAS_DENORM__ 1
++#endif
++#ifndef __ACCUM_MIN__
+ #define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
++#endif
++#ifndef __SQ_IBIT__
+ #define __SQ_IBIT__ 0
++#endif
++#ifndef __UINT8_TYPE__
+ #define __UINT8_TYPE__ unsigned char
++#endif
++#ifndef __UHA_FBIT__
+ #define __UHA_FBIT__ 8
++#endif
++#ifndef __SFRACT_MIN__
+ #define __SFRACT_MIN__ (-0.5HR-0.5HR)
++#endif
++#ifndef __UTQ_FBIT__
+ #define __UTQ_FBIT__ 128
++#endif
++#ifndef __FLT_MANT_DIG__
+ #define __FLT_MANT_DIG__ 24
++#endif
++#ifndef __VERSION__
+ #define __VERSION__ "4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
++#endif
++#ifndef __ULLFRACT_FBIT__
+ #define __ULLFRACT_FBIT__ 64
++#endif
++#ifndef __cpp_unicode_characters
+ #define __cpp_unicode_characters 200704
++#endif
++#ifndef __FRACT_EPSILON__
+ #define __FRACT_EPSILON__ 0x1P-15R
++#endif
++#ifndef __ULACCUM_MIN__
+ #define __ULACCUM_MIN__ 0.0ULK
++#endif
++#ifndef __UDA_FBIT__
+ #define __UDA_FBIT__ 32
++#endif
++#ifndef __cpp_decltype_auto
+ #define __cpp_decltype_auto 201304
++#endif
++#ifndef __LLACCUM_EPSILON__
+ #define __LLACCUM_EPSILON__ 0x1P-31LLK
++#endif
++#ifndef __GCC_ATOMIC_INT_LOCK_FREE
+ #define __GCC_ATOMIC_INT_LOCK_FREE 2
++#endif
++#ifndef __FLOAT_WORD_ORDER__
+ #define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __USFRACT_MIN__
+ #define __USFRACT_MIN__ 0.0UHR
++#endif
++#ifndef __ULLACCUM_IBIT__
+ #define __ULLACCUM_IBIT__ 32
++#endif
++#ifndef __UQQ_IBIT__
+ #define __UQQ_IBIT__ 0
++#endif
++#ifndef __DEC64_EPSILON__
+ #define __DEC64_EPSILON__ 1E-15DD
++#endif
++#ifndef __ORDER_PDP_ENDIAN__
+ #define __ORDER_PDP_ENDIAN__ 3412
++#endif
++#ifndef __DEC128_MIN_EXP__
+ #define __DEC128_MIN_EXP__ (-6142)
++#endif
++#ifndef __UHQ_FBIT__
+ #define __UHQ_FBIT__ 16
++#endif
++#ifndef __LLACCUM_FBIT__
+ #define __LLACCUM_FBIT__ 31
++#endif
++#ifndef __INT_FAST32_TYPE__
+ #define __INT_FAST32_TYPE__ int
++#endif
++#ifndef __UINT_LEAST16_TYPE__
+ #define __UINT_LEAST16_TYPE__ short unsigned int
++#endif
++#ifndef __INT16_MAX__
+ #define __INT16_MAX__ 32767
++#endif
++#ifndef __SIZE_TYPE__
+ #define __SIZE_TYPE__ unsigned int
++#endif
++#ifndef __UINT64_MAX__
+ #define __UINT64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __UDQ_FBIT__
+ #define __UDQ_FBIT__ 64
++#endif
++#ifndef DEBUG
+ #define DEBUG 1
++#endif
++#ifndef __INT8_TYPE__
+ #define __INT8_TYPE__ signed char
++#endif
++#ifndef __thumb__
+ #define __thumb__ 1
++#endif
++#ifndef __cpp_digit_separators
+ #define __cpp_digit_separators 201309
++#endif
++#ifndef __ELF__
+ #define __ELF__ 1
++#endif
++#ifndef __ULFRACT_EPSILON__
+ #define __ULFRACT_EPSILON__ 0x1P-32ULR
++#endif
++#ifndef __LLFRACT_FBIT__
+ #define __LLFRACT_FBIT__ 63
++#endif
++#ifndef __FLT_RADIX__
+ #define __FLT_RADIX__ 2
++#endif
++#ifndef __INT_LEAST16_TYPE__
+ #define __INT_LEAST16_TYPE__ short int
++#endif
++#ifndef __ARM_ARCH_PROFILE
+ #define __ARM_ARCH_PROFILE 77
++#endif
++#ifndef __LDBL_EPSILON__
+ #define __LDBL_EPSILON__ 2.2204460492503131e-16L
++#endif
++#ifndef __SACCUM_MAX__
+ #define __SACCUM_MAX__ 0X7FFFP-7HK
++#endif
++#ifndef __SIG_ATOMIC_MAX__
+ #define __SIG_ATOMIC_MAX__ 2147483647
++#endif
++#ifndef __GCC_ATOMIC_WCHAR_T_LOCK_FREE
+ #define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
++#endif
++#ifndef __VFP_FP__
+ #define __VFP_FP__ 1
++#endif
++#ifndef __SIZEOF_PTRDIFF_T__
+ #define __SIZEOF_PTRDIFF_T__ 4
++#endif
++#ifndef __LACCUM_EPSILON__
+ #define __LACCUM_EPSILON__ 0x1P-31LK
++#endif
++#ifndef __DEC32_SUBNORMAL_MIN__
+ #define __DEC32_SUBNORMAL_MIN__ 0.000001E-95DF
++#endif
++#ifndef __INT_FAST16_MAX__
+ #define __INT_FAST16_MAX__ 2147483647
++#endif
++#ifndef __UINT_FAST32_MAX__
+ #define __UINT_FAST32_MAX__ 4294967295U
++#endif
++#ifndef __UINT_LEAST64_TYPE__
+ #define __UINT_LEAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __USACCUM_MAX__
+ #define __USACCUM_MAX__ 0XFFFFP-8UHK
++#endif
++#ifndef __SFRACT_EPSILON__
+ #define __SFRACT_EPSILON__ 0x1P-7HR
++#endif
++#ifndef __FLT_HAS_QUIET_NAN__
+ #define __FLT_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __FLT_MAX_10_EXP__
+ #define __FLT_MAX_10_EXP__ 38
++#endif
++#ifndef __LONG_MAX__
+ #define __LONG_MAX__ 2147483647L
++#endif
++#ifndef __DEC128_SUBNORMAL_MIN__
+ #define __DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL
++#endif
++#ifndef __FLT_HAS_INFINITY__
+ #define __FLT_HAS_INFINITY__ 1
++#endif
++#ifndef __cpp_unicode_literals
+ #define __cpp_unicode_literals 200710
++#endif
++#ifndef __USA_FBIT__
+ #define __USA_FBIT__ 16
++#endif
++#ifndef __UINT_FAST16_TYPE__
+ #define __UINT_FAST16_TYPE__ unsigned int
++#endif
++#ifndef __cpp_attribute_deprecated
+ #define __cpp_attribute_deprecated 201309
++#endif
++#ifndef __DEC64_MAX__
+ #define __DEC64_MAX__ 9.999999999999999E384DD
++#endif
++#ifndef __ARM_32BIT_STATE
+ #define __ARM_32BIT_STATE 1
++#endif
++#ifndef __CHAR16_TYPE__
+ #define __CHAR16_TYPE__ short unsigned int
++#endif
++#ifndef __PRAGMA_REDEFINE_EXTNAME
+ #define __PRAGMA_REDEFINE_EXTNAME 1
++#endif
++#ifndef __INT_LEAST16_MAX__
+ #define __INT_LEAST16_MAX__ 32767
++#endif
++#ifndef __DEC64_MANT_DIG__
+ #define __DEC64_MANT_DIG__ 16
++#endif
++#ifndef __UINT_LEAST32_MAX__
+ #define __UINT_LEAST32_MAX__ 4294967295UL
++#endif
++#ifndef __SACCUM_FBIT__
+ #define __SACCUM_FBIT__ 7
++#endif
++#ifndef __GCC_ATOMIC_LONG_LOCK_FREE
+ #define __GCC_ATOMIC_LONG_LOCK_FREE 2
++#endif
++#ifndef __INT_LEAST64_TYPE__
+ #define __INT_LEAST64_TYPE__ long long int
++#endif
++#ifndef __ARM_FEATURE_CLZ
+ #define __ARM_FEATURE_CLZ 1
++#endif
++#ifndef __INT16_TYPE__
+ #define __INT16_TYPE__ short int
++#endif
++#ifndef __INT_LEAST8_TYPE__
+ #define __INT_LEAST8_TYPE__ signed char
++#endif
++#ifndef __SQ_FBIT__
+ #define __SQ_FBIT__ 31
++#endif
++#ifndef __DEC32_MAX_EXP__
+ #define __DEC32_MAX_EXP__ 97
++#endif
++#ifndef __ARM_ARCH_ISA_THUMB
+ #define __ARM_ARCH_ISA_THUMB 2
++#endif
++#ifndef __INT_FAST8_MAX__
+ #define __INT_FAST8_MAX__ 2147483647
++#endif
++#ifndef __ARM_ARCH
+ #define __ARM_ARCH 7
++#endif
++#ifndef __INTPTR_MAX__
+ #define __INTPTR_MAX__ 2147483647
++#endif
++#ifndef __QQ_FBIT__
+ #define __QQ_FBIT__ 7
++#endif
++#ifndef __UTA_IBIT__
+ #define __UTA_IBIT__ 64
++#endif
++#ifndef __EXCEPTIONS
+ #define __EXCEPTIONS 1
++#endif
++#ifndef __LDBL_MANT_DIG__
+ #define __LDBL_MANT_DIG__ 53
++#endif
++#ifndef __SFRACT_FBIT__
+ #define __SFRACT_FBIT__ 7
++#endif
++#ifndef __SACCUM_MIN__
+ #define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
++#endif
++#ifndef __DBL_HAS_QUIET_NAN__
+ #define __DBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __SIG_ATOMIC_MIN__
+ #define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
++#endif
++#ifndef __cpp_return_type_deduction
+ #define __cpp_return_type_deduction 201304
++#endif
++#ifndef __INTPTR_TYPE__
+ #define __INTPTR_TYPE__ int
++#endif
++#ifndef __UINT16_TYPE__
+ #define __UINT16_TYPE__ short unsigned int
++#endif
++#ifndef __WCHAR_TYPE__
+ #define __WCHAR_TYPE__ unsigned int
++#endif
++#ifndef __SIZEOF_FLOAT__
+ #define __SIZEOF_FLOAT__ 4
++#endif
++#ifndef __THUMBEL__
+ #define __THUMBEL__ 1
++#endif
++#ifndef __USQ_FBIT__
+ #define __USQ_FBIT__ 32
++#endif
++#ifndef __UINTPTR_MAX__
+ #define __UINTPTR_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MIN_EXP__
+ #define __DEC64_MIN_EXP__ (-382)
++#endif
++#ifndef __cpp_decltype
+ #define __cpp_decltype 200707
++#endif
++#ifndef __INT_FAST64_MAX__
+ #define __INT_FAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __GCC_ATOMIC_TEST_AND_SET_TRUEVAL
+ #define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
++#endif
++#ifndef __FLT_DIG__
+ #define __FLT_DIG__ 6
++#endif
++#ifndef __UINT_FAST64_TYPE__
+ #define __UINT_FAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __INT_MAX__
+ #define __INT_MAX__ 2147483647
++#endif
++#ifndef __LACCUM_FBIT__
+ #define __LACCUM_FBIT__ 31
++#endif
++#ifndef __USACCUM_MIN__
+ #define __USACCUM_MIN__ 0.0UHK
++#endif
++#ifndef __UHA_IBIT__
+ #define __UHA_IBIT__ 8
++#endif
++#ifndef __INT64_TYPE__
+ #define __INT64_TYPE__ long long int
++#endif
++#ifndef __FLT_MAX_EXP__
+ #define __FLT_MAX_EXP__ 128
++#endif
++#ifndef __UTQ_IBIT__
+ #define __UTQ_IBIT__ 0
++#endif
++#ifndef __DBL_MANT_DIG__
+ #define __DBL_MANT_DIG__ 53
++#endif
++#ifndef __INT_LEAST64_MAX__
+ #define __INT_LEAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __DEC64_MIN__
+ #define __DEC64_MIN__ 1E-383DD
++#endif
++#ifndef __WINT_TYPE__
+ #define __WINT_TYPE__ unsigned int
++#endif
++#ifndef __UINT_LEAST32_TYPE__
+ #define __UINT_LEAST32_TYPE__ long unsigned int
++#endif
++#ifndef __SIZEOF_SHORT__
+ #define __SIZEOF_SHORT__ 2
++#endif
++#ifndef __ULLFRACT_IBIT__
+ #define __ULLFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN_EXP__
+ #define __LDBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __arm__
+ #define __arm__ 1
++#endif
++#ifndef __UDA_IBIT__
+ #define __UDA_IBIT__ 32
++#endif
++#ifndef __INT_LEAST8_MAX__
+ #define __INT_LEAST8_MAX__ 127
++#endif
++#ifndef __LFRACT_FBIT__
+ #define __LFRACT_FBIT__ 31
++#endif
++#ifndef __WCHAR_UNSIGNED__
+ #define __WCHAR_UNSIGNED__ 1
++#endif
++#ifndef __LDBL_MAX_10_EXP__
+ #define __LDBL_MAX_10_EXP__ 308
++#endif
++#ifndef __ATOMIC_RELAXED
+ #define __ATOMIC_RELAXED 0
++#endif
++#ifndef __DBL_EPSILON__
+ #define __DBL_EPSILON__ double(2.2204460492503131e-16L)
++#endif
++#ifndef __ARM_ARCH_7EM__
+ #define __ARM_ARCH_7EM__ 1
++#endif
++#ifndef __ARM_FEATURE_SIMD32
+ #define __ARM_FEATURE_SIMD32 1
++#endif
++#ifndef __INT_LEAST32_TYPE__
+ #define __INT_LEAST32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_WCHAR_T__
+ #define __SIZEOF_WCHAR_T__ 4
++#endif
++#ifndef __UINT64_TYPE__
+ #define __UINT64_TYPE__ long long unsigned int
++#endif
++#ifndef __LLFRACT_MAX__
+ #define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
++#endif
++#ifndef __TQ_FBIT__
+ #define __TQ_FBIT__ 127
++#endif
++#ifndef __INT_FAST8_TYPE__
+ #define __INT_FAST8_TYPE__ int
++#endif
++#ifndef __ULLACCUM_EPSILON__
+ #define __ULLACCUM_EPSILON__ 0x1P-32ULLK
++#endif
++#ifndef __UHQ_IBIT__
+ #define __UHQ_IBIT__ 0
++#endif
++#ifndef __LLACCUM_IBIT__
+ #define __LLACCUM_IBIT__ 32
++#endif
++#ifndef __DBL_DECIMAL_DIG__
+ #define __DBL_DECIMAL_DIG__ 17
++#endif
++#ifndef __DEC_EVAL_METHOD__
+ #define __DEC_EVAL_METHOD__ 2
++#endif
++#ifndef __TA_FBIT__
+ #define __TA_FBIT__ 63
++#endif
++#ifndef __UDQ_IBIT__
+ #define __UDQ_IBIT__ 0
++#endif
++#ifndef __ORDER_BIG_ENDIAN__
+ #define __ORDER_BIG_ENDIAN__ 4321
++#endif
++#ifndef __cpp_runtime_arrays
+ #define __cpp_runtime_arrays 201304
++#endif
++#ifndef __ACCUM_EPSILON__
+ #define __ACCUM_EPSILON__ 0x1P-15K
++#endif
++#ifndef __INTMAX_MAX__
+ #define __INTMAX_MAX__ 9223372036854775807LL
++#endif
++#ifndef __cpp_alias_templates
+ #define __cpp_alias_templates 200704
++#endif
++#ifndef __BYTE_ORDER__
+ #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __FLT_DENORM_MIN__
+ #define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
++#endif
++#ifndef __LLFRACT_IBIT__
+ #define __LLFRACT_IBIT__ 0
++#endif
++#ifndef __INT8_MAX__
+ #define __INT8_MAX__ 127
++#endif
++#ifndef __OPTIMIZE_SIZE__
+ #define __OPTIMIZE_SIZE__ 1
++#endif
++#ifndef __UINT_FAST32_TYPE__
+ #define __UINT_FAST32_TYPE__ unsigned int
++#endif
++#ifndef __CHAR32_TYPE__
+ #define __CHAR32_TYPE__ long unsigned int
++#endif
++#ifndef __FLT_MAX__
+ #define __FLT_MAX__ 3.4028234663852886e+38F
++#endif
++#ifndef __cpp_constexpr
+ #define __cpp_constexpr 200704
++#endif
++#ifndef __USACCUM_FBIT__
+ #define __USACCUM_FBIT__ 8
++#endif
++#ifndef __INT32_TYPE__
+ #define __INT32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_DOUBLE__
+ #define __SIZEOF_DOUBLE__ 8
++#endif
++#ifndef __UFRACT_EPSILON__
+ #define __UFRACT_EPSILON__ 0x1P-16UR
++#endif
++#ifndef __INTMAX_TYPE__
+ #define __INTMAX_TYPE__ long long int
++#endif
++#ifndef __DEC128_MAX_EXP__
+ #define __DEC128_MAX_EXP__ 6145
++#endif
++#ifndef __ATOMIC_CONSUME
+ #define __ATOMIC_CONSUME 1
++#endif
++#ifndef __GNUC_MINOR__
+ #define __GNUC_MINOR__ 9
++#endif
++#ifndef __UINTMAX_MAX__
+ #define __UINTMAX_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __DEC32_MANT_DIG__
+ #define __DEC32_MANT_DIG__ 7
++#endif
++#ifndef __HA_FBIT__
+ #define __HA_FBIT__ 7
++#endif
++#ifndef __DBL_MAX_10_EXP__
+ #define __DBL_MAX_10_EXP__ 308
++#endif
++#ifndef __LDBL_DENORM_MIN__
+ #define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
++#endif
++#ifndef __cpp_generic_lambdas
+ #define __cpp_generic_lambdas 201304
++#endif
++#ifndef __STDC__
+ #define __STDC__ 1
++#endif
++#ifndef __PTRDIFF_TYPE__
+ #define __PTRDIFF_TYPE__ int
++#endif
++#ifndef __LLFRACT_MIN__
+ #define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
++#endif
++#ifndef __ATOMIC_SEQ_CST
+ #define __ATOMIC_SEQ_CST 5
++#endif
++#ifndef __DA_FBIT__
+ #define __DA_FBIT__ 31
++#endif
++#ifndef __UINT32_TYPE__
+ #define __UINT32_TYPE__ long unsigned int
++#endif
++#ifndef __ARM_ARCH_EXT_IDIV__
+ #define __ARM_ARCH_EXT_IDIV__ 1
++#endif
++#ifndef __UINTPTR_TYPE__
+ #define __UINTPTR_TYPE__ unsigned int
++#endif
++#ifndef __USA_IBIT__
+ #define __USA_IBIT__ 16
++#endif
++#ifndef __DEC64_SUBNORMAL_MIN__
+ #define __DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD
++#endif
++#ifndef __ARM_EABI__
+ #define __ARM_EABI__ 1
++#endif
++#ifndef __DEC128_MANT_DIG__
+ #define __DEC128_MANT_DIG__ 34
++#endif
++#ifndef __LDBL_MIN_10_EXP__
+ #define __LDBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __SIZEOF_LONG_LONG__
+ #define __SIZEOF_LONG_LONG__ 8
++#endif
++#ifndef __ULACCUM_EPSILON__
+ #define __ULACCUM_EPSILON__ 0x1P-32ULK
++#endif
++#ifndef __cpp_user_defined_literals
+ #define __cpp_user_defined_literals 200809
++#endif
++#ifndef __SACCUM_IBIT__
+ #define __SACCUM_IBIT__ 8
++#endif
++#ifndef __GCC_ATOMIC_LLONG_LOCK_FREE
+ #define __GCC_ATOMIC_LLONG_LOCK_FREE 1
++#endif
++#ifndef __LDBL_DIG__
+ #define __LDBL_DIG__ 15
++#endif
++#ifndef __FLT_DECIMAL_DIG__
+ #define __FLT_DECIMAL_DIG__ 9
++#endif
++#ifndef __UINT_FAST16_MAX__
+ #define __UINT_FAST16_MAX__ 4294967295U
++#endif
++#ifndef __GCC_ATOMIC_SHORT_LOCK_FREE
+ #define __GCC_ATOMIC_SHORT_LOCK_FREE 2
++#endif
++#ifndef __ULLFRACT_MAX__
+ #define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
++#endif
++#ifndef __UINT_FAST8_TYPE__
+ #define __UINT_FAST8_TYPE__ unsigned int
++#endif
++#ifndef __USFRACT_EPSILON__
+ #define __USFRACT_EPSILON__ 0x1P-8UHR
++#endif
++#ifndef __ULACCUM_FBIT__
+ #define __ULACCUM_FBIT__ 32
++#endif
++#ifndef __ARM_FEATURE_DSP
+ #define __ARM_FEATURE_DSP 1
++#endif
++#ifndef __QQ_IBIT__
+ #define __QQ_IBIT__ 0
++#endif
++#ifndef __cpp_init_captures
+ #define __cpp_init_captures 201304
++#endif
++#ifndef __ATOMIC_ACQ_REL
+ #define __ATOMIC_ACQ_REL 4
++#endif
++#ifndef __ATOMIC_RELEASE
+ #define __ATOMIC_RELEASE 3
+ #endif
++#endif
+ 
+ // --- Include directories begin --- //
+ //./../../../..
+merged
+  result 100644 e08b715469dfecda9a6732609e0f7e6f45a03679 COMPONENTS/Scheduler/Tests/mock.Calendar.h
+  our    100644 b6c228842280da3f707956d3565a5dd05675fb6c COMPONENTS/Scheduler/Tests/mock.Calendar.h
+@@ -16,31 +16,31 @@
+       mockMinutes = minutes;
+    }
+ 
+-   bool SetTimeOfDay(TimeOfDay timeOfDay)
++   bool SetTimeOfDay(TimeOfDay timeOfDay) override
+    {
+       mockHours = timeOfDay.GetHours();
+       mockMinutes = timeOfDay.GetMinutes();
+       return true;
+    }
+ 
+-   bool SetDate(Date date)
++   bool SetDate(Date date) override
+    {
+       mockDate = date;
+       return true;
+    }
+ 
+-   Date GetDate()
++   Date GetDate() const override
+    {
+       return mockDate;
+    }
+ 
+-   TimeOfDay GetTimeOfDay()
++   TimeOfDay GetTimeOfDay() const override
+    {
+       TimeOfDay timeOfDay(mockHours, mockMinutes);
+       return timeOfDay;
+    }
+ 
+-   TimeOfTheWeek GetTimeOfTheWeek()
++   TimeOfTheWeek GetTimeOfTheWeek() override
+    {
+       return mockTimeOfTheWeek;
+    }
+merged
+  result 100644 a76e6949ac9383e2afb03c721414ddd69626a1c3 NG/CommonMocks/nullMock.Calendar.h
+  our    100644 5d2cf6121206e621ff2dacc168e139ff9513b41b NG/CommonMocks/nullMock.Calendar.h
+@@ -11,54 +11,50 @@
+ protected:
+    NullMockCalendar() {}
+ public:
+-   virtual TimeOfDay GetTimeOfDay()
++   virtual TimeOfDay GetTimeOfDay() const override
+    {
+       TimeOfDay timeOfDay{ 0, 0 };
+       return timeOfDay;
+    }
+ 
+-   virtual bool SetTimeOfDay(TimeOfDay timeOfDay) { return true; }
++   virtual bool SetTimeOfDay(TimeOfDay timeOfDay) override { return true; }
+ 
+-   virtual Date GetDate()
++   virtual Date GetDate() const override
+    {
+       Date date{ 0, 0, 0 };
+       return date;
+    }
+ 
+-   virtual bool SetDate(Date date) { return true; }
++   virtual bool SetDate(Date date) override { return true; }
+ 
+-   virtual s8 GetTimeZoneOffset() const { return 0; }
+-   virtual bool SetTimeZoneOffset(s8 timeZoneoffset) { return true; }
++   virtual void Update(u16 updatePeriod = DefaultUpdatePeriod) override {}
++   virtual bool SetUnixTime(u32 unixTime)  override { return true; }
++   virtual u32 GetUnixTime() const override { return 0; }
+ 
+-   virtual void Update(){}
+-   virtual bool SetUnixTime(u32 unixTime) { return true; }
+-   virtual u32 GetUnixTime() const { return 0; }
+-
+-   virtual DaylightSavingInterface& GetDaylightSaving()
++   virtual DaylightSavingInterface& GetDaylightSaving() override
+    {
+       SimpleMockDaylightSaving daylightSaving;
+       return daylightSaving;
+    }
+ 
+-   virtual TimeZoneInterface& GetTimeZone()
++   virtual TimeZoneInterface& GetTimeZone() override
+    {
+       TimeZone timeZone;
+       return timeZone;
+    }
+ 
+-   virtual void Update(u16 updatePeriod = DefaultUpdatePeriod){};
+-   virtual TimeOfTheWeek GetTimeOfTheWeek()
++   virtual TimeOfTheWeek GetTimeOfTheWeek() override
+    {
+    
+       return nullMockTimeOfTheWeek;
+    }
+    
+-   virtual void SetTimeOfTheWeek(TimeOfTheWeek timeOfTheWeek)
++   virtual void SetTimeOfTheWeek(TimeOfTheWeek timeOfTheWeek) override
+    {
+    }
+ 
+-   virtual DateTime GetLocalDateTime() { return DateTime(GetDate(), GetTimeOfDay()); }
+-   virtual void ApplyDSTAndTimeZoneIfApplicable(DateTime& dateTime){};
++   virtual DateTime GetLocalDateTime() const override { return DateTime(GetDate(), GetTimeOfDay()); }
++   virtual void ApplyDSTAndTimeZoneIfApplicable(DateTime& dateTime) override {};
+ private:
+    // Don't allow copy and assignment
+    NullMockCalendar(const NullMockCalendar &);
+merged
+  result 100644 d39fd35770bb61d6ba9258067ef36a64bb62bc05 NG/InternetGateway/Build/GCC.VS/.gitignore
+  our    100644 449bc819eecff02af1cdc350e85587fe60afc18f NG/InternetGateway/Build/GCC.VS/.gitignore
+@@ -1,3 +1,4 @@
+ *.crc
+ *.bin
+-*.zip
+\ No newline at end of file
++*.zip
++CodeDB/*
+merged
+  result 100644 303c7acef8c5fd96c4a08f1f8a6ea4ff6cfff0d3 NG/InternetGateway/Build/GCC.VS/gcc_Debug.h
+  our    100644 a6c4dce9078529f577e31c35d7b9c1c7b7fe5fd8 NG/InternetGateway/Build/GCC.VS/gcc_Debug.h
+@@ -4,408 +4,1200 @@
+ 	This file lists the preprocessor macros extracted from your GCC.
+ 	It is needed for IntelliSense to parse other header files correctly.
+ */
+-#ifdef _MSC_VER
++#if defined(_MSC_VER) || defined (__SYSPROGS_CODESENSE__)
++#ifndef __DBL_MIN_EXP__
+ #define __DBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __HQ_FBIT__
+ #define __HQ_FBIT__ 15
++#endif
++#ifndef __cpp_attributes
+ #define __cpp_attributes 200809
++#endif
++#ifndef __UINT_LEAST16_MAX__
+ #define __UINT_LEAST16_MAX__ 65535
++#endif
++#ifndef __ARM_SIZEOF_WCHAR_T
+ #define __ARM_SIZEOF_WCHAR_T 32
++#endif
++#ifndef __ATOMIC_ACQUIRE
+ #define __ATOMIC_ACQUIRE 2
++#endif
++#ifndef __SFRACT_IBIT__
+ #define __SFRACT_IBIT__ 0
++#endif
++#ifndef __FLT_MIN__
+ #define __FLT_MIN__ 1.1754943508222875e-38F
++#endif
++#ifndef __GCC_IEC_559_COMPLEX
+ #define __GCC_IEC_559_COMPLEX 0
++#endif
++#ifndef BOARD
+ #define BOARD SAM4E_EK
++#endif
++#ifndef __UFRACT_MAX__
+ #define __UFRACT_MAX__ 0XFFFFP-16UR
++#endif
++#ifndef __UINT_LEAST8_TYPE__
+ #define __UINT_LEAST8_TYPE__ unsigned char
++#endif
++#ifndef __DQ_FBIT__
+ #define __DQ_FBIT__ 63
++#endif
++#ifndef __ARM_FEATURE_SAT
+ #define __ARM_FEATURE_SAT 1
++#endif
++#ifndef __ULFRACT_FBIT__
+ #define __ULFRACT_FBIT__ 32
++#endif
++#ifndef __SACCUM_EPSILON__
+ #define __SACCUM_EPSILON__ 0x1P-7HK
++#endif
++#ifndef __CHAR_BIT__
+ #define __CHAR_BIT__ 8
++#endif
++#ifndef __USQ_IBIT__
+ #define __USQ_IBIT__ 0
++#endif
++#ifndef __UINT8_MAX__
+ #define __UINT8_MAX__ 255
++#endif
++#ifndef __ACCUM_FBIT__
+ #define __ACCUM_FBIT__ 15
++#endif
++#ifndef __WINT_MAX__
+ #define __WINT_MAX__ 4294967295U
++#endif
++#ifndef __cpp_static_assert
+ #define __cpp_static_assert 200410
++#endif
++#ifndef __USFRACT_FBIT__
+ #define __USFRACT_FBIT__ 8
++#endif
++#ifndef __ORDER_LITTLE_ENDIAN__
+ #define __ORDER_LITTLE_ENDIAN__ 1234
++#endif
++#ifndef __SIZE_MAX__
+ #define __SIZE_MAX__ 4294967295U
++#endif
++#ifndef __WCHAR_MAX__
+ #define __WCHAR_MAX__ 4294967295U
++#endif
++#ifndef __LACCUM_IBIT__
+ #define __LACCUM_IBIT__ 32
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
++#endif
++#ifndef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4
+ #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
++#endif
++#ifndef __DBL_DENORM_MIN__
+ #define __DBL_DENORM_MIN__ double(4.9406564584124654e-324L)
++#endif
++#ifndef __GCC_ATOMIC_CHAR_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR_LOCK_FREE 2
++#endif
++#ifndef __GCC_IEC_559
+ #define __GCC_IEC_559 0
++#endif
++#ifndef __FLT_EVAL_METHOD__
+ #define __FLT_EVAL_METHOD__ 0
++#endif
++#ifndef __cpp_binary_literals
+ #define __cpp_binary_literals 201304
++#endif
++#ifndef __LLACCUM_MAX__
+ #define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
++#endif
++#ifndef __GCC_ATOMIC_CHAR32_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
++#endif
++#ifndef S25FL164K
+ #define S25FL164K 1
++#endif
++#ifndef __FRACT_FBIT__
+ #define __FRACT_FBIT__ 15
++#endif
++#ifndef ENABLE_TSTAMP
+ #define ENABLE_TSTAMP 1
++#endif
++#ifndef __cpp_variadic_templates
+ #define __cpp_variadic_templates 200704
++#endif
++#ifndef __UINT_FAST64_MAX__
+ #define __UINT_FAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SIG_ATOMIC_TYPE__
+ #define __SIG_ATOMIC_TYPE__ int
++#endif
++#ifndef __UACCUM_FBIT__
+ #define __UACCUM_FBIT__ 16
++#endif
++#ifndef __DBL_MIN_10_EXP__
+ #define __DBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __FINITE_MATH_ONLY__
+ #define __FINITE_MATH_ONLY__ 0
++#endif
++#ifndef __ARMEL__
+ #define __ARMEL__ 1
++#endif
++#ifndef __ARM_FEATURE_UNALIGNED
+ #define __ARM_FEATURE_UNALIGNED 1
++#endif
++#ifndef __LFRACT_IBIT__
+ #define __LFRACT_IBIT__ 0
++#endif
++#ifndef __GNUC_PATCHLEVEL__
+ #define __GNUC_PATCHLEVEL__ 3
++#endif
++#ifndef __LFRACT_MAX__
+ #define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
++#endif
++#ifndef __UINT_FAST8_MAX__
+ #define __UINT_FAST8_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MAX_EXP__
+ #define __DEC64_MAX_EXP__ 385
++#endif
++#ifndef __UINT_LEAST64_MAX__
+ #define __UINT_LEAST64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __SA_FBIT__
+ #define __SA_FBIT__ 15
++#endif
++#ifndef USE_SAM4E_EK
+ #define USE_SAM4E_EK 1
++#endif
++#ifndef __SHRT_MAX__
+ #define __SHRT_MAX__ 32767
++#endif
++#ifndef __LDBL_MAX__
+ #define __LDBL_MAX__ 1.7976931348623157e+308L
++#endif
++#ifndef __FRACT_MAX__
+ #define __FRACT_MAX__ 0X7FFFP-15R
++#endif
++#ifndef __thumb2__
+ #define __thumb2__ 1
++#endif
++#ifndef __UFRACT_FBIT__
+ #define __UFRACT_FBIT__ 16
++#endif
++#ifndef __ARM_FP
+ #define __ARM_FP 12
++#endif
++#ifndef __UFRACT_MIN__
+ #define __UFRACT_MIN__ 0.0UR
++#endif
++#ifndef __UINT_LEAST8_MAX__
+ #define __UINT_LEAST8_MAX__ 255
++#endif
++#ifndef __GCC_ATOMIC_BOOL_LOCK_FREE
+ #define __GCC_ATOMIC_BOOL_LOCK_FREE 2
++#endif
++#ifndef __UINTMAX_TYPE__
+ #define __UINTMAX_TYPE__ long long unsigned int
++#endif
++#ifndef SIO_HUB
+ #define SIO_HUB 1
++#endif
++#ifndef __LLFRACT_EPSILON__
+ #define __LLFRACT_EPSILON__ 0x1P-63LLR
++#endif
++#ifndef __DEC32_EPSILON__
+ #define __DEC32_EPSILON__ 1E-6DF
++#endif
++#ifndef __OPTIMIZE__
+ #define __OPTIMIZE__ 1
++#endif
++#ifndef __CHAR_UNSIGNED__
+ #define __CHAR_UNSIGNED__ 1
++#endif
++#ifndef __UINT32_MAX__
+ #define __UINT32_MAX__ 4294967295UL
++#endif
++#ifndef __ULFRACT_MAX__
+ #define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
++#endif
++#ifndef __TA_IBIT__
+ #define __TA_IBIT__ 64
++#endif
++#ifndef __LDBL_MAX_EXP__
+ #define __LDBL_MAX_EXP__ 1024
++#endif
++#ifndef __WINT_MIN__
+ #define __WINT_MIN__ 0U
++#endif
++#ifndef __ULLFRACT_MIN__
+ #define __ULLFRACT_MIN__ 0.0ULLR
++#endif
++#ifndef __SCHAR_MAX__
+ #define __SCHAR_MAX__ 127
++#endif
++#ifndef __WCHAR_MIN__
+ #define __WCHAR_MIN__ 0U
++#endif
++#ifndef __DBL_DIG__
+ #define __DBL_DIG__ 15
++#endif
++#ifndef __GCC_ATOMIC_POINTER_LOCK_FREE
+ #define __GCC_ATOMIC_POINTER_LOCK_FREE 2
++#endif
++#ifndef __LLACCUM_MIN__
+ #define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
++#endif
++#ifndef _POSIX_SOURCE
+ #define _POSIX_SOURCE 1
++#endif
++#ifndef __SIZEOF_INT__
+ #define __SIZEOF_INT__ 4
++#endif
++#ifndef __SIZEOF_POINTER__
+ #define __SIZEOF_POINTER__ 4
++#endif
++#ifndef __GCC_ATOMIC_CHAR16_T_LOCK_FREE
+ #define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
++#endif
++#ifndef __USACCUM_IBIT__
+ #define __USACCUM_IBIT__ 8
++#endif
++#ifndef __USER_LABEL_PREFIX__
+ #define __USER_LABEL_PREFIX__ 
++#endif
++#ifndef __STDC_HOSTED__
+ #define __STDC_HOSTED__ 1
++#endif
++#ifndef __LDBL_HAS_INFINITY__
+ #define __LDBL_HAS_INFINITY__ 1
++#endif
++#ifndef __LFRACT_MIN__
+ #define __LFRACT_MIN__ (-0.5LR-0.5LR)
++#endif
++#ifndef __HA_IBIT__
+ #define __HA_IBIT__ 8
++#endif
++#ifndef __ARM_NEON_FP
+ #define __ARM_NEON_FP 4
++#endif
++#ifndef __TQ_IBIT__
+ #define __TQ_IBIT__ 0
++#endif
++#ifndef __FLT_EPSILON__
+ #define __FLT_EPSILON__ 1.1920928955078125e-7F
++#endif
++#ifndef __APCS_32__
+ #define __APCS_32__ 1
++#endif
++#ifndef __GXX_WEAK__
+ #define __GXX_WEAK__ 1
++#endif
++#ifndef __USFRACT_IBIT__
+ #define __USFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN__
+ #define __LDBL_MIN__ 2.2250738585072014e-308L
++#endif
++#ifndef __FRACT_MIN__
+ #define __FRACT_MIN__ (-0.5R-0.5R)
++#endif
++#ifndef __DEC32_MAX__
+ #define __DEC32_MAX__ 9.999999E96DF
++#endif
++#ifndef __DA_IBIT__
+ #define __DA_IBIT__ 32
++#endif
++#ifndef __ARM_SIZEOF_MINIMAL_ENUM
+ #define __ARM_SIZEOF_MINIMAL_ENUM 1
++#endif
++#ifndef __FREERTOS__
+ #define __FREERTOS__ 1
++#endif
++#ifndef __INT32_MAX__
+ #define __INT32_MAX__ 2147483647L
++#endif
++#ifndef __UQQ_FBIT__
+ #define __UQQ_FBIT__ 8
++#endif
++#ifndef __SIZEOF_LONG__
+ #define __SIZEOF_LONG__ 4
++#endif
++#ifndef __UACCUM_MAX__
+ #define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
++#endif
++#ifndef __DECIMAL_DIG__
+ #define __DECIMAL_DIG__ 17
++#endif
++#ifndef __LFRACT_EPSILON__
+ #define __LFRACT_EPSILON__ 0x1P-31LR
++#endif
++#ifndef __ULFRACT_MIN__
+ #define __ULFRACT_MIN__ 0.0ULR
++#endif
++#ifndef __LDBL_HAS_QUIET_NAN__
+ #define __LDBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __ULACCUM_IBIT__
+ #define __ULACCUM_IBIT__ 32
++#endif
++#ifndef __UACCUM_EPSILON__
+ #define __UACCUM_EPSILON__ 0x1P-16UK
++#endif
++#ifndef __GNUC__
+ #define __GNUC__ 4
++#endif
++#ifndef __ULLACCUM_MAX__
+ #define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
++#endif
++#ifndef __HQ_IBIT__
+ #define __HQ_IBIT__ 0
++#endif
++#ifndef __FLT_HAS_DENORM__
+ #define __FLT_HAS_DENORM__ 1
++#endif
++#ifndef __SIZEOF_LONG_DOUBLE__
+ #define __SIZEOF_LONG_DOUBLE__ 8
++#endif
++#ifndef __BIGGEST_ALIGNMENT__
+ #define __BIGGEST_ALIGNMENT__ 8
++#endif
++#ifndef __GNUC_STDC_INLINE__
+ #define __GNUC_STDC_INLINE__ 1
++#endif
++#ifndef __DQ_IBIT__
+ #define __DQ_IBIT__ 0
++#endif
++#ifndef __DBL_MAX__
+ #define __DBL_MAX__ double(1.7976931348623157e+308L)
++#endif
++#ifndef __ULFRACT_IBIT__
+ #define __ULFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_raw_strings
+ #define __cpp_raw_strings 200710
++#endif
++#ifndef __INT_FAST32_MAX__
+ #define __INT_FAST32_MAX__ 2147483647
++#endif
++#ifndef __DBL_HAS_INFINITY__
+ #define __DBL_HAS_INFINITY__ 1
++#endif
++#ifndef __INT64_MAX__
+ #define __INT64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __ACCUM_IBIT__
+ #define __ACCUM_IBIT__ 16
++#endif
++#ifndef __DEC32_MIN_EXP__
+ #define __DEC32_MIN_EXP__ (-94)
++#endif
++#ifndef __THUMB_INTERWORK__
+ #define __THUMB_INTERWORK__ 1
++#endif
++#ifndef __LACCUM_MAX__
+ #define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
++#endif
++#ifndef __INT_FAST16_TYPE__
+ #define __INT_FAST16_TYPE__ int
++#endif
++#ifndef __LDBL_HAS_DENORM__
+ #define __LDBL_HAS_DENORM__ 1
++#endif
++#ifndef __ARM_FEATURE_LDREX
+ #define __ARM_FEATURE_LDREX 7
++#endif
+ //VS2005-2012 treats all files as C++, while VS2013+ can treat C files correctly.
+-#if _MSC_VER < 1800 || defined(__cplusplus)
++#if defined(_MSC_VER) && (_MSC_VER < 1800 || defined(__cplusplus))
+ #define __cplusplus 201300L
+ #endif
++#ifndef __DEC128_MAX__
+ #define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
++#endif
++#ifndef __INT_LEAST32_MAX__
+ #define __INT_LEAST32_MAX__ 2147483647L
++#endif
++#ifndef __ARM_PCS
+ #define __ARM_PCS 1
++#endif
++#ifndef __DEC32_MIN__
+ #define __DEC32_MIN__ 1E-95DF
++#endif
++#ifndef __ACCUM_MAX__
+ #define __ACCUM_MAX__ 0X7FFFFFFFP-15K
++#endif
++#ifndef __DEPRECATED
+ #define __DEPRECATED 1
++#endif
++#ifndef __DBL_MAX_EXP__
+ #define __DBL_MAX_EXP__ 1024
++#endif
++#ifndef __USACCUM_EPSILON__
+ #define __USACCUM_EPSILON__ 0x1P-8UHK
++#endif
++#ifndef __DEC128_EPSILON__
+ #define __DEC128_EPSILON__ 1E-33DL
++#endif
++#ifndef __SFRACT_MAX__
+ #define __SFRACT_MAX__ 0X7FP-7HR
++#endif
++#ifndef __FRACT_IBIT__
+ #define __FRACT_IBIT__ 0
++#endif
++#ifndef __PTRDIFF_MAX__
+ #define __PTRDIFF_MAX__ 2147483647
++#endif
++#ifndef __UACCUM_MIN__
+ #define __UACCUM_MIN__ 0.0UK
++#endif
++#ifndef __UACCUM_IBIT__
+ #define __UACCUM_IBIT__ 16
++#endif
++#ifndef __GNUG__
+ #define __GNUG__ 4
++#endif
++#ifndef __LONG_LONG_MAX__
+ #define __LONG_LONG_MAX__ 9223372036854775807LL
++#endif
++#ifndef __SIZEOF_SIZE_T__
+ #define __SIZEOF_SIZE_T__ 4
++#endif
++#ifndef __ULACCUM_MAX__
+ #define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
++#endif
++#ifndef __cpp_rvalue_reference
+ #define __cpp_rvalue_reference 200610
++#endif
++#ifndef __SIZEOF_WINT_T__
+ #define __SIZEOF_WINT_T__ 4
++#endif
++#ifndef __SA_IBIT__
+ #define __SA_IBIT__ 16
++#endif
++#ifndef __ULLACCUM_MIN__
+ #define __ULLACCUM_MIN__ 0.0ULLK
++#endif
++#ifndef __GCC_HAVE_DWARF2_CFI_ASM
+ #define __GCC_HAVE_DWARF2_CFI_ASM 1
++#endif
++#ifndef __GXX_ABI_VERSION
+ #define __GXX_ABI_VERSION 1002
++#endif
++#ifndef _DEBUG_
+ #define _DEBUG_ 0
++#endif
++#ifndef __UTA_FBIT__
+ #define __UTA_FBIT__ 64
++#endif
++#ifndef __SOFTFP__
+ #define __SOFTFP__ 1
++#endif
++#ifndef __FLT_MIN_EXP__
+ #define __FLT_MIN_EXP__ (-125)
++#endif
++#ifndef __USFRACT_MAX__
+ #define __USFRACT_MAX__ 0XFFP-8UHR
++#endif
++#ifndef __UFRACT_IBIT__
+ #define __UFRACT_IBIT__ 0
++#endif
++#ifndef __cpp_lambdas
+ #define __cpp_lambdas 200907
++#endif
++#ifndef __ARM_FEATURE_QBIT
+ #define __ARM_FEATURE_QBIT 1
++#endif
++#ifndef __INT_FAST64_TYPE__
+ #define __INT_FAST64_TYPE__ long long int
++#endif
++#ifndef __DBL_MIN__
+ #define __DBL_MIN__ double(2.2250738585072014e-308L)
++#endif
++#ifndef __FLT_MIN_10_EXP__
+ #define __FLT_MIN_10_EXP__ (-37)
++#endif
++#ifndef TAL_TYPE
+ #define TAL_TYPE AT86RF212B
++#endif
++#ifndef __LACCUM_MIN__
+ #define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
++#endif
++#ifndef __ULLACCUM_FBIT__
+ #define __ULLACCUM_FBIT__ 32
++#endif
++#ifndef __GXX_TYPEINFO_EQUALITY_INLINE
+ #define __GXX_TYPEINFO_EQUALITY_INLINE 0
++#endif
++#ifndef __ULLFRACT_EPSILON__
+ #define __ULLFRACT_EPSILON__ 0x1P-64ULLR
++#endif
++#ifndef __USES_INITFINI__
+ #define __USES_INITFINI__ 1
++#endif
++#ifndef __DEC128_MIN__
+ #define __DEC128_MIN__ 1E-6143DL
++#endif
++#ifndef __REGISTER_PREFIX__
+ #define __REGISTER_PREFIX__ 
++#endif
++#ifndef __UINT16_MAX__
+ #define __UINT16_MAX__ 65535
++#endif
++#ifndef __DBL_HAS_DENORM__
+ #define __DBL_HAS_DENORM__ 1
++#endif
++#ifndef __ACCUM_MIN__
+ #define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
++#endif
++#ifndef __SQ_IBIT__
+ #define __SQ_IBIT__ 0
++#endif
++#ifndef __UINT8_TYPE__
+ #define __UINT8_TYPE__ unsigned char
++#endif
++#ifndef __UHA_FBIT__
+ #define __UHA_FBIT__ 8
++#endif
++#ifndef __SFRACT_MIN__
+ #define __SFRACT_MIN__ (-0.5HR-0.5HR)
++#endif
++#ifndef __UTQ_FBIT__
+ #define __UTQ_FBIT__ 128
++#endif
++#ifndef __FLT_MANT_DIG__
+ #define __FLT_MANT_DIG__ 24
++#endif
++#ifndef __VERSION__
+ #define __VERSION__ "4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
++#endif
++#ifndef __ULLFRACT_FBIT__
+ #define __ULLFRACT_FBIT__ 64
++#endif
++#ifndef __cpp_unicode_characters
+ #define __cpp_unicode_characters 200704
++#endif
++#ifndef __FRACT_EPSILON__
+ #define __FRACT_EPSILON__ 0x1P-15R
++#endif
++#ifndef __ULACCUM_MIN__
+ #define __ULACCUM_MIN__ 0.0ULK
++#endif
++#ifndef __UDA_FBIT__
+ #define __UDA_FBIT__ 32
++#endif
++#ifndef __cpp_decltype_auto
+ #define __cpp_decltype_auto 201304
++#endif
++#ifndef __LLACCUM_EPSILON__
+ #define __LLACCUM_EPSILON__ 0x1P-31LLK
++#endif
++#ifndef __GCC_ATOMIC_INT_LOCK_FREE
+ #define __GCC_ATOMIC_INT_LOCK_FREE 2
++#endif
++#ifndef __FLOAT_WORD_ORDER__
+ #define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __USFRACT_MIN__
+ #define __USFRACT_MIN__ 0.0UHR
++#endif
++#ifndef __ULLACCUM_IBIT__
+ #define __ULLACCUM_IBIT__ 32
++#endif
++#ifndef __UQQ_IBIT__
+ #define __UQQ_IBIT__ 0
++#endif
++#ifndef __SAM4E16E__
+ #define __SAM4E16E__ 1
++#endif
++#ifndef __DEC64_EPSILON__
+ #define __DEC64_EPSILON__ 1E-15DD
++#endif
++#ifndef __ORDER_PDP_ENDIAN__
+ #define __ORDER_PDP_ENDIAN__ 3412
++#endif
++#ifndef __DEC128_MIN_EXP__
+ #define __DEC128_MIN_EXP__ (-6142)
++#endif
++#ifndef __UHQ_FBIT__
+ #define __UHQ_FBIT__ 16
++#endif
++#ifndef __LLACCUM_FBIT__
+ #define __LLACCUM_FBIT__ 31
++#endif
++#ifndef __INT_FAST32_TYPE__
+ #define __INT_FAST32_TYPE__ int
++#endif
++#ifndef __UINT_LEAST16_TYPE__
+ #define __UINT_LEAST16_TYPE__ short unsigned int
++#endif
++#ifndef __INT16_MAX__
+ #define __INT16_MAX__ 32767
++#endif
++#ifndef __SIZE_TYPE__
+ #define __SIZE_TYPE__ unsigned int
++#endif
++#ifndef __UINT64_MAX__
+ #define __UINT64_MAX__ 18446744073709551615ULL
++#endif
++#ifndef SAM
+ #define SAM 1
++#endif
++#ifndef __UDQ_FBIT__
+ #define __UDQ_FBIT__ 64
++#endif
++#ifndef DEBUG
+ #define DEBUG 1
++#endif
++#ifndef __INT8_TYPE__
+ #define __INT8_TYPE__ signed char
++#endif
++#ifndef __thumb__
+ #define __thumb__ 1
++#endif
++#ifndef __cpp_digit_separators
+ #define __cpp_digit_separators 201309
++#endif
++#ifndef __ELF__
+ #define __ELF__ 1
++#endif
++#ifndef __ULFRACT_EPSILON__
+ #define __ULFRACT_EPSILON__ 0x1P-32ULR
++#endif
++#ifndef __LLFRACT_FBIT__
+ #define __LLFRACT_FBIT__ 63
++#endif
++#ifndef __FLT_RADIX__
+ #define __FLT_RADIX__ 2
++#endif
++#ifndef __INT_LEAST16_TYPE__
+ #define __INT_LEAST16_TYPE__ short int
++#endif
++#ifndef __ARM_ARCH_PROFILE
+ #define __ARM_ARCH_PROFILE 77
++#endif
++#ifndef __LDBL_EPSILON__
+ #define __LDBL_EPSILON__ 2.2204460492503131e-16L
++#endif
++#ifndef __SACCUM_MAX__
+ #define __SACCUM_MAX__ 0X7FFFP-7HK
++#endif
++#ifndef __SIG_ATOMIC_MAX__
+ #define __SIG_ATOMIC_MAX__ 2147483647
++#endif
++#ifndef __GCC_ATOMIC_WCHAR_T_LOCK_FREE
+ #define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
++#endif
++#ifndef __VFP_FP__
+ #define __VFP_FP__ 1
++#endif
++#ifndef __SIZEOF_PTRDIFF_T__
+ #define __SIZEOF_PTRDIFF_T__ 4
++#endif
++#ifndef __LACCUM_EPSILON__
+ #define __LACCUM_EPSILON__ 0x1P-31LK
++#endif
++#ifndef _WINSOCK_H__SAM4E16C__
+ #define _WINSOCK_H__SAM4E16C__ 1
++#endif
++#ifndef SAL_TYPE
+ #define SAL_TYPE AT86RF2xx
++#endif
++#ifndef __DEC32_SUBNORMAL_MIN__
+ #define __DEC32_SUBNORMAL_MIN__ 0.000001E-95DF
++#endif
++#ifndef __INT_FAST16_MAX__
+ #define __INT_FAST16_MAX__ 2147483647
++#endif
++#ifndef __UINT_FAST32_MAX__
+ #define __UINT_FAST32_MAX__ 4294967295U
++#endif
++#ifndef __UINT_LEAST64_TYPE__
+ #define __UINT_LEAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __USACCUM_MAX__
+ #define __USACCUM_MAX__ 0XFFFFP-8UHK
++#endif
++#ifndef __SFRACT_EPSILON__
+ #define __SFRACT_EPSILON__ 0x1P-7HR
++#endif
++#ifndef __FLT_HAS_QUIET_NAN__
+ #define __FLT_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __FLT_MAX_10_EXP__
+ #define __FLT_MAX_10_EXP__ 38
++#endif
++#ifndef __LONG_MAX__
+ #define __LONG_MAX__ 2147483647L
++#endif
++#ifndef __DEC128_SUBNORMAL_MIN__
+ #define __DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL
++#endif
++#ifndef __FLT_HAS_INFINITY__
+ #define __FLT_HAS_INFINITY__ 1
++#endif
++#ifndef __cpp_unicode_literals
+ #define __cpp_unicode_literals 200710
++#endif
++#ifndef __USA_FBIT__
+ #define __USA_FBIT__ 16
++#endif
++#ifndef __UINT_FAST16_TYPE__
+ #define __UINT_FAST16_TYPE__ unsigned int
++#endif
++#ifndef __cpp_attribute_deprecated
+ #define __cpp_attribute_deprecated 201309
++#endif
++#ifndef __DEC64_MAX__
+ #define __DEC64_MAX__ 9.999999999999999E384DD
++#endif
++#ifndef __ARM_32BIT_STATE
+ #define __ARM_32BIT_STATE 1
++#endif
++#ifndef __CHAR16_TYPE__
+ #define __CHAR16_TYPE__ short unsigned int
++#endif
++#ifndef __PRAGMA_REDEFINE_EXTNAME
+ #define __PRAGMA_REDEFINE_EXTNAME 1
++#endif
++#ifndef __INT_LEAST16_MAX__
+ #define __INT_LEAST16_MAX__ 32767
++#endif
++#ifndef __DEC64_MANT_DIG__
+ #define __DEC64_MANT_DIG__ 16
++#endif
++#ifndef __UINT_LEAST32_MAX__
+ #define __UINT_LEAST32_MAX__ 4294967295UL
++#endif
++#ifndef __SACCUM_FBIT__
+ #define __SACCUM_FBIT__ 7
++#endif
++#ifndef HIGHEST_STACK_LAYER
+ #define HIGHEST_STACK_LAYER MAC
++#endif
++#ifndef __GCC_ATOMIC_LONG_LOCK_FREE
+ #define __GCC_ATOMIC_LONG_LOCK_FREE 2
++#endif
++#ifndef __INT_LEAST64_TYPE__
+ #define __INT_LEAST64_TYPE__ long long int
++#endif
++#ifndef __ARM_FEATURE_CLZ
+ #define __ARM_FEATURE_CLZ 1
++#endif
++#ifndef __INT16_TYPE__
+ #define __INT16_TYPE__ short int
++#endif
++#ifndef __INT_LEAST8_TYPE__
+ #define __INT_LEAST8_TYPE__ signed char
++#endif
++#ifndef __SQ_FBIT__
+ #define __SQ_FBIT__ 31
++#endif
++#ifndef __DEC32_MAX_EXP__
+ #define __DEC32_MAX_EXP__ 97
++#endif
++#ifndef __ARM_ARCH_ISA_THUMB
+ #define __ARM_ARCH_ISA_THUMB 2
++#endif
++#ifndef __INT_FAST8_MAX__
+ #define __INT_FAST8_MAX__ 2147483647
++#endif
++#ifndef __ARM_ARCH
+ #define __ARM_ARCH 7
++#endif
++#ifndef __INTPTR_MAX__
+ #define __INTPTR_MAX__ 2147483647
++#endif
++#ifndef __QQ_FBIT__
+ #define __QQ_FBIT__ 7
++#endif
++#ifndef __UTA_IBIT__
+ #define __UTA_IBIT__ 64
++#endif
++#ifndef TRACE
+ #define TRACE 1
++#endif
++#ifndef __EXCEPTIONS
+ #define __EXCEPTIONS 1
++#endif
++#ifndef PAL_USE_SPI_TRX
+ #define PAL_USE_SPI_TRX 1
++#endif
++#ifndef __LDBL_MANT_DIG__
+ #define __LDBL_MANT_DIG__ 53
++#endif
++#ifndef FFD
+ #define FFD 1
++#endif
++#ifndef __SFRACT_FBIT__
+ #define __SFRACT_FBIT__ 7
++#endif
++#ifndef __SACCUM_MIN__
+ #define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
++#endif
++#ifndef __DBL_HAS_QUIET_NAN__
+ #define __DBL_HAS_QUIET_NAN__ 1
++#endif
++#ifndef __SIG_ATOMIC_MIN__
+ #define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
++#endif
++#ifndef __cpp_return_type_deduction
+ #define __cpp_return_type_deduction 201304
++#endif
++#ifndef __INTPTR_TYPE__
+ #define __INTPTR_TYPE__ int
++#endif
++#ifndef __UINT16_TYPE__
+ #define __UINT16_TYPE__ short unsigned int
++#endif
++#ifndef __WCHAR_TYPE__
+ #define __WCHAR_TYPE__ unsigned int
++#endif
++#ifndef __SIZEOF_FLOAT__
+ #define __SIZEOF_FLOAT__ 4
++#endif
++#ifndef __THUMBEL__
+ #define __THUMBEL__ 1
++#endif
++#ifndef __USQ_FBIT__
+ #define __USQ_FBIT__ 32
++#endif
++#ifndef __UINTPTR_MAX__
+ #define __UINTPTR_MAX__ 4294967295U
++#endif
++#ifndef __DEC64_MIN_EXP__
+ #define __DEC64_MIN_EXP__ (-382)
++#endif
++#ifndef __cpp_decltype
+ #define __cpp_decltype 200707
++#endif
++#ifndef __INT_FAST64_MAX__
+ #define __INT_FAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __GCC_ATOMIC_TEST_AND_SET_TRUEVAL
+ #define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
++#endif
++#ifndef __FLT_DIG__
+ #define __FLT_DIG__ 6
++#endif
++#ifndef __UINT_FAST64_TYPE__
+ #define __UINT_FAST64_TYPE__ long long unsigned int
++#endif
++#ifndef __INT_MAX__
+ #define __INT_MAX__ 2147483647
++#endif
++#ifndef __LACCUM_FBIT__
+ #define __LACCUM_FBIT__ 31
++#endif
++#ifndef __USACCUM_MIN__
+ #define __USACCUM_MIN__ 0.0UHK
++#endif
++#ifndef STB_ON_SAL
+ #define STB_ON_SAL 1
++#endif
++#ifndef __UHA_IBIT__
+ #define __UHA_IBIT__ 8
++#endif
++#ifndef __INT64_TYPE__
+ #define __INT64_TYPE__ long long int
++#endif
++#ifndef __FLT_MAX_EXP__
+ #define __FLT_MAX_EXP__ 128
++#endif
++#ifndef __UTQ_IBIT__
+ #define __UTQ_IBIT__ 0
++#endif
++#ifndef __DBL_MANT_DIG__
+ #define __DBL_MANT_DIG__ 53
++#endif
++#ifndef __INT_LEAST64_MAX__
+ #define __INT_LEAST64_MAX__ 9223372036854775807LL
++#endif
++#ifndef __DEC64_MIN__
+ #define __DEC64_MIN__ 1E-383DD
++#endif
++#ifndef __WINT_TYPE__
+ #define __WINT_TYPE__ unsigned int
++#endif
++#ifndef __UINT_LEAST32_TYPE__
+ #define __UINT_LEAST32_TYPE__ long unsigned int
++#endif
++#ifndef DISABLE_TSTAMP_IRQ
+ #define DISABLE_TSTAMP_IRQ 1
++#endif
++#ifndef __SIZEOF_SHORT__
+ #define __SIZEOF_SHORT__ 2
++#endif
++#ifndef __ULLFRACT_IBIT__
+ #define __ULLFRACT_IBIT__ 0
++#endif
++#ifndef __LDBL_MIN_EXP__
+ #define __LDBL_MIN_EXP__ (-1021)
++#endif
++#ifndef __arm__
+ #define __arm__ 1
++#endif
++#ifndef __UDA_IBIT__
+ #define __UDA_IBIT__ 32
++#endif
++#ifndef FREERTOS_HEAP_SIZE_KB
+ #define FREERTOS_HEAP_SIZE_KB 84
++#endif
++#ifndef __INT_LEAST8_MAX__
+ #define __INT_LEAST8_MAX__ 127
++#endif
++#ifndef TINY_FLASH
+ #define TINY_FLASH 1
++#endif
++#ifndef __LFRACT_FBIT__
+ #define __LFRACT_FBIT__ 31
++#endif
++#ifndef __WCHAR_UNSIGNED__
+ #define __WCHAR_UNSIGNED__ 1
++#endif
++#ifndef __LDBL_MAX_10_EXP__
+ #define __LDBL_MAX_10_EXP__ 308
++#endif
++#ifndef __ATOMIC_RELAXED
+ #define __ATOMIC_RELAXED 0
++#endif
++#ifndef __DBL_EPSILON__
+ #define __DBL_EPSILON__ double(2.2204460492503131e-16L)
++#endif
++#ifndef __ARM_ARCH_7EM__
+ #define __ARM_ARCH_7EM__ 1
++#endif
++#ifndef INCLUDE_uxTaskGetStackHighWaterMark
+ #define INCLUDE_uxTaskGetStackHighWaterMark 1
++#endif
++#ifndef __ARM_FEATURE_SIMD32
+ #define __ARM_FEATURE_SIMD32 1
++#endif
++#ifndef __INT_LEAST32_TYPE__
+ #define __INT_LEAST32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_WCHAR_T__
+ #define __SIZEOF_WCHAR_T__ 4
++#endif
++#ifndef __UINT64_TYPE__
+ #define __UINT64_TYPE__ long long unsigned int
++#endif
++#ifndef __LLFRACT_MAX__
+ #define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
++#endif
++#ifndef __TQ_FBIT__
+ #define __TQ_FBIT__ 127
++#endif
++#ifndef __INT_FAST8_TYPE__
+ #define __INT_FAST8_TYPE__ int
++#endif
++#ifndef __ULLACCUM_EPSILON__
+ #define __ULLACCUM_EPSILON__ 0x1P-32ULLK
++#endif
++#ifndef __UHQ_IBIT__
+ #define __UHQ_IBIT__ 0
++#endif
++#ifndef __LLACCUM_IBIT__
+ #define __LLACCUM_IBIT__ 32
++#endif
++#ifndef __DBL_DECIMAL_DIG__
+ #define __DBL_DECIMAL_DIG__ 17
++#endif
++#ifndef __DEC_EVAL_METHOD__
+ #define __DEC_EVAL_METHOD__ 2
++#endif
++#ifndef __TA_FBIT__
+ #define __TA_FBIT__ 63
++#endif
++#ifndef __UDQ_IBIT__
+ #define __UDQ_IBIT__ 0
++#endif
++#ifndef __ORDER_BIG_ENDIAN__
+ #define __ORDER_BIG_ENDIAN__ 4321
++#endif
++#ifndef __cpp_runtime_arrays
+ #define __cpp_runtime_arrays 201304
++#endif
++#ifndef __ACCUM_EPSILON__
+ #define __ACCUM_EPSILON__ 0x1P-15K
++#endif
++#ifndef __INTMAX_MAX__
+ #define __INTMAX_MAX__ 9223372036854775807LL
++#endif
++#ifndef __cpp_alias_templates
+ #define __cpp_alias_templates 200704
++#endif
++#ifndef __BYTE_ORDER__
+ #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
++#endif
++#ifndef __FLT_DENORM_MIN__
+ #define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
++#endif
++#ifndef ENABLE_TFA
+ #define ENABLE_TFA 1
++#endif
++#ifndef __LLFRACT_IBIT__
+ #define __LLFRACT_IBIT__ 0
++#endif
++#ifndef __INT8_MAX__
+ #define __INT8_MAX__ 127
++#endif
++#ifndef __UINT_FAST32_TYPE__
+ #define __UINT_FAST32_TYPE__ unsigned int
++#endif
++#ifndef __CHAR32_TYPE__
+ #define __CHAR32_TYPE__ long unsigned int
++#endif
++#ifndef __FLT_MAX__
+ #define __FLT_MAX__ 3.4028234663852886e+38F
++#endif
++#ifndef __cpp_constexpr
+ #define __cpp_constexpr 200704
++#endif
++#ifndef __USACCUM_FBIT__
+ #define __USACCUM_FBIT__ 8
++#endif
++#ifndef AL_STACK_ORYX
+ #define AL_STACK_ORYX 1
++#endif
++#ifndef __INT32_TYPE__
+ #define __INT32_TYPE__ long int
++#endif
++#ifndef __SIZEOF_DOUBLE__
+ #define __SIZEOF_DOUBLE__ 8
++#endif
++#ifndef __UFRACT_EPSILON__
+ #define __UFRACT_EPSILON__ 0x1P-16UR
++#endif
++#ifndef __INTMAX_TYPE__
+ #define __INTMAX_TYPE__ long long int
++#endif
++#ifndef __DEC128_MAX_EXP__
+ #define __DEC128_MAX_EXP__ 6145
++#endif
++#ifndef ANTENNA_DIVERSITY
+ #define ANTENNA_DIVERSITY 0
++#endif
++#ifndef __ATOMIC_CONSUME
+ #define __ATOMIC_CONSUME 1
++#endif
++#ifndef __GNUC_MINOR__
+ #define __GNUC_MINOR__ 9
++#endif
++#ifndef __UINTMAX_MAX__
+ #define __UINTMAX_MAX__ 18446744073709551615ULL
++#endif
++#ifndef __DEC32_MANT_DIG__
+ #define __DEC32_MANT_DIG__ 7
++#endif
++#ifndef __HA_FBIT__
+ #define __HA_FBIT__ 7
++#endif
++#ifndef __DBL_MAX_10_EXP__
+ #define __DBL_MAX_10_EXP__ 308
++#endif
++#ifndef __LDBL_DENORM_MIN__
+ #define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
++#endif
++#ifndef __cpp_generic_lambdas
+ #define __cpp_generic_lambdas 201304
++#endif
++#ifndef __STDC__
+ #define __STDC__ 1
++#endif
++#ifndef __PTRDIFF_TYPE__
+ #define __PTRDIFF_TYPE__ int
++#endif
++#ifndef __LLFRACT_MIN__
+ #define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
++#endif
++#ifndef __ATOMIC_SEQ_CST
+ #define __ATOMIC_SEQ_CST 5
++#endif
++#ifndef __DA_FBIT__
+ #define __DA_FBIT__ 31
++#endif
++#ifndef __UINT32_TYPE__
+ #define __UINT32_TYPE__ long unsigned int
++#endif
++#ifndef __ARM_ARCH_EXT_IDIV__
+ #define __ARM_ARCH_EXT_IDIV__ 1
++#endif
++#ifndef __UINTPTR_TYPE__
+ #define __UINTPTR_TYPE__ unsigned int
++#endif
++#ifndef __USA_IBIT__
+ #define __USA_IBIT__ 16
++#endif
++#ifndef __DEC64_SUBNORMAL_MIN__
+ #define __DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD
++#endif
++#ifndef __ARM_EABI__
+ #define __ARM_EABI__ 1
++#endif
++#ifndef __DEC128_MANT_DIG__
+ #define __DEC128_MANT_DIG__ 34
++#endif
++#ifndef __LDBL_MIN_10_EXP__
+ #define __LDBL_MIN_10_EXP__ (-307)
++#endif
++#ifndef __SIZEOF_LONG_LONG__
+ #define __SIZEOF_LONG_LONG__ 8
++#endif
++#ifndef __ULACCUM_EPSILON__
+ #define __ULACCUM_EPSILON__ 0x1P-32ULK
++#endif
++#ifndef __cpp_user_defined_literals
+ #define __cpp_user_defined_literals 200809
++#endif
++#ifndef __SACCUM_IBIT__
+ #define __SACCUM_IBIT__ 8
++#endif
++#ifndef __GCC_ATOMIC_LLONG_LOCK_FREE
+ #define __GCC_ATOMIC_LLONG_LOCK_FREE 1
++#endif
++#ifndef __LDBL_DIG__
+ #define __LDBL_DIG__ 15
++#endif
++#ifndef __FLT_DECIMAL_DIG__
+ #define __FLT_DECIMAL_DIG__ 9
++#endif
++#ifndef __UINT_FAST16_MAX__
+ #define __UINT_FAST16_MAX__ 4294967295U
++#endif
++#ifndef __GCC_ATOMIC_SHORT_LOCK_FREE
+ #define __GCC_ATOMIC_SHORT_LOCK_FREE 2
++#endif
++#ifndef __ULLFRACT_MAX__
+ #define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
++#endif
++#ifndef __UINT_FAST8_TYPE__
+ #define __UINT_FAST8_TYPE__ unsigned int
++#endif
++#ifndef __USFRACT_EPSILON__
+ #define __USFRACT_EPSILON__ 0x1P-8UHR
++#endif
++#ifndef __ULACCUM_FBIT__
+ #define __ULACCUM_FBIT__ 32
++#endif
++#ifndef __ARM_FEATURE_DSP
+ #define __ARM_FEATURE_DSP 1
++#endif
++#ifndef __QQ_IBIT__
+ #define __QQ_IBIT__ 0
++#endif
++#ifndef __cpp_init_captures
+ #define __cpp_init_captures 201304
++#endif
++#ifndef __ATOMIC_ACQ_REL
+ #define __ATOMIC_ACQ_REL 4
++#endif
++#ifndef __ATOMIC_RELEASE
+ #define __ATOMIC_RELEASE 3
+ #endif
++#endif
+ 
+ // --- Include directories begin --- //
+ //./../..
+merged
+  result 100644 571276fa2cf585d4196bf69f4ca858f404c9f4e5 NG/InternetGateway/Source/PropertyMapping/SystemDomainPropertyMapping.cpp
+  our    100644 0b018f97db67762f6e71f09457bb90cc74418b54 NG/InternetGateway/Source/PropertyMapping/SystemDomainPropertyMapping.cpp
+@@ -19,7 +19,7 @@
+    FunctionEventDispatcher::Dispatch(FunctionEventDispatcher::Dispatch::ProductEventQueue, [&]
+    {
+       SystemDomainPropertyAccessor propertyAccessor(propertyStore);
+-	   
++
+       switch (propertyAddress.GetPropertyId())
+       {
+       case SystemDomainProperty::HolidayEnable:
+@@ -30,10 +30,10 @@
+          // this property is not represented in the MiGenie interface, but affects status of zones
+          Update_IsInHolidayMode_InAllZones(allSystemData, SystemDomainPropertyAccessor(propertyStore).GetHolidayActive());
+          break;
+-	  case SystemDomainProperty::HolidayFirstDay:
++      case SystemDomainProperty::HolidayFirstDay:
+         allSystemData.GetSystem(0).GetConfig().GetHoliday().SetStartUtcTime(propertyAccessor.GetHolidayFirstDay());
+-		  break;
+-     case SystemDomainProperty::HolidayLastDay:
++          break;
++      case SystemDomainProperty::HolidayLastDay:
+         allSystemData.GetSystem(0).GetConfig().GetHoliday().SetEndUtcTime(propertyAccessor.GetHolidayLastDay());
+         break;
+       default:
+merged
+  result 100644 0419a38edf343d9d53746a93165a33dfabc885a9 NG/InternetGateway/Tests/tests.PropertyMapping.SystemDomain.cpp
+  our    100644 cc625178ac3d7a37a95aac074df35b0d3adee235 NG/InternetGateway/Tests/tests.PropertyMapping.SystemDomain.cpp
+@@ -25,8 +25,8 @@
+       unique_ptr<InternetGatewayPropertyStore> propertyStore;
+ 
+       unique_ptr<SystemDomainPropertyAccessor> systemDomainPropertyAccessor;
+-      u32 expectedStartUtcTime = 10;
+-      u32 expectedEndUtcTime = 1010;
++      u32 expectedStartUnixTime = 1442846127; // 2:35:27 pm UTC  |  Monday, September 21, 2015
++      u32 expectedEndUnixTime = 1451316953;   // 3:35:53 pm UTC  |  Monday, December 28, 2015
+ 
+       TestSystemDomainPropertyMapping()
+       {
+@@ -56,16 +56,16 @@
+       {
+          Protobuf::HolidaySettings holidaySettings;
+          holidaySettings.SetIsEnabled(true);
+-         holidaySettings.SetStartUtcTime(expectedStartUtcTime);
+-         holidaySettings.SetEndUtcTime(expectedEndUtcTime);
++         holidaySettings.SetStartUtcTime(expectedStartUnixTime);
++         holidaySettings.SetEndUtcTime(expectedEndUnixTime);
+ 
+          systemConfig.SetHoliday(holidaySettings);
+       }
+ 
+       void SetupHolidaySettingsChangesInPropertyStore()
+       {
+-         systemDomainPropertyAccessor->SetHolidayFirstDay(expectedStartUtcTime);
+-         systemDomainPropertyAccessor->SetHolidayLastDay(expectedEndUtcTime);
++         systemDomainPropertyAccessor->SetHolidayFirstDay(expectedStartUnixTime);
++         systemDomainPropertyAccessor->SetHolidayLastDay(expectedEndUnixTime);
+          systemDomainPropertyAccessor->SetHolidayEnable(true);
+       }
+    };
+@@ -75,13 +75,14 @@
+       // Given
+       Protobuf::SystemConfig arbitarySystemConfig;
+       SetupHolidaySettingsChangesInProtobuf(arbitarySystemConfig);
++      ASSERT_FALSE(systemDomainPropertyAccessor->GetHolidayEnable());
+ 
+       // When
+       PropertyMapping::UpdateSystemDomainPropertiesWith_SystemConfig(*propertyStore, arbitarySystemConfig);
+ 
+       // Then
+       ASSERT_TRUE(systemDomainPropertyAccessor->GetHolidayEnable());
+-      ASSERT_EQ(expectedStartUtcTime, systemDomainPropertyAccessor->GetHolidayFirstDay());
+-      ASSERT_EQ(expectedEndUtcTime, systemDomainPropertyAccessor->GetHolidayLastDay());
++      ASSERT_EQ(expectedStartUnixTime, systemDomainPropertyAccessor->GetHolidayFirstDay());
++      ASSERT_EQ(expectedEndUnixTime, systemDomainPropertyAccessor->GetHolidayLastDay());
+    }
+ }
+merged
+  result 100644 f091ac3a9aa70227da21bcb547a3835800099734 NG/MiTime/Mocks/mock.Calendar.h
+  our    100644 9c26b1ddbaf8559fddde8eb481f012c644af8ce9 NG/MiTime/Mocks/mock.Calendar.h
+@@ -16,7 +16,7 @@
+       return true;
+    }
+ 
+-   virtual TimeOfDay GetTimeOfDay() override
++   virtual TimeOfDay GetTimeOfDay() const override
+    {
+       return mockTimeOfDay;
+    }
+merged
+  result 100644 64cbb776350d63807dc0ef06c6cc43eeb8d9dcfb NG/MiTime/Source/ActualSetpointSelector/ActualSetpointSelector.cpp
+  our    100644 4f68b16cbdad03716fa8eff2a23b16f4f36ebd22 NG/MiTime/Source/ActualSetpointSelector/ActualSetpointSelector.cpp
+@@ -122,7 +122,7 @@
+    DateTime nextEventTime = m_scheduler.GetNextEventDateTime();
+    m_zoneDomainPropertyAccessor.SetNextEventTime(nextEventTime);
+ 
+-   TimeOfTheWeek timeOfTheWeekAtNextSetpointTime = nextEventTime.GetTimeOfTheWeeK();
++   TimeOfTheWeek timeOfTheWeekAtNextSetpointTime = nextEventTime.GetTimeOfTheWeek();
+    DayAndSetpoint dayAndSetpointAtNextEventTime = m_scheduler.GetSetpointBefore(timeOfTheWeekAtNextSetpointTime);
+    s16 setpointAtNextEventTime = dayAndSetpointAtNextEventTime.GetSetpoint().GetTemperature();
+    m_zoneDomainPropertyAccessor.SetNextEventSetpoint(setpointAtNextEventTime);
+merged
+  result 100644 cfa9a654cb54ab7fddb43173e3aec7c3f9ec64ba NG/MiTime/Source/Framework/Builders/MiTimeBuilder.cpp
+  our    100644 5dd79007727836fc87c48876a1fd37bf2940736f NG/MiTime/Source/Framework/Builders/MiTimeBuilder.cpp
+@@ -7,7 +7,6 @@
+ #include "MiTimeSystemObjectsBuilder.h"
+ #include "MiTimeTaskPriorities.h"
+ #include "PropertyStoreSettings.h"
+-#include "SystemFirmwarePrimer.h"
+ #include "BoardIOConfiguration.h"
+ #include "MiTimeTestInterfaceCommandFactory.h"
+ #include "TemperatureControlAlgorithmTask.h"
+merged
+  result 100644 027373736f55404d997a48f2239559b44d67d6b3 NG/MiTime/Source/Framework/Builders/MiTimeTestInterfaceBuilder.cpp
+  our    100644 3117167f99dd4e2b905b134930ca1647382472a2 NG/MiTime/Source/Framework/Builders/MiTimeTestInterfaceBuilder.cpp
+@@ -6,7 +6,6 @@
+ #include "CliFileReceiver.h"
+ #include "MiTimeSystemObjectsBuilder.h"
+ #include "MiTimeTaskPriorities.h"
+-#include "SystemFirmwarePrimer.h"
+ #include "BoardIOConfiguration.h"
+ #include "MiTimeTestInterfaceCommandFactory.h"
+ #include "RtosMutex.h"
+removed in remote
+  base   100644 d2bbdcd482b2736979cec33b635fd4c9d93c3c6e NG/MiTime/Source/Framework/SystemFirmwarePrimer.cpp
+  our    100644 d2bbdcd482b2736979cec33b635fd4c9d93c3c6e NG/MiTime/Source/Framework/SystemFirmwarePrimer.cpp
+@@ -1,401 +0,0 @@
+-#include <boost/bind.hpp>
+-
+-#include "SystemFirmwarePrimer.h"
+-#include "FirmwareUpdateAvailableReceivedArguments.h"
+-#include "GatewayHasObtainedTheLatestSystemMatrixArguments.h"
+-#include "MiCanFileTransferCompleteReceivedArguments.h"
+-#include "MiCanFileReceiver.h"
+-#include "Logger.h"
+-#include "FirmwareUpdateConstants.h"
+-#include "MiCanRequestFileTransferMessage.h"
+-#include "MiCanStartFileTransferMessage.h"
+-#include "MiCanMessageType.h"
+-#include "MiCanPduSendResultArguments.h"
+-#include "FunctionEventDispatcher.h"
+-#include "EventManagerQueue.h"
+-#include "PartNumbers.h"
+-
+-namespace MiTime
+-{
+-   const MiTimeEvent::Value SystemFirmwarePrimer::m_productEventsOfInterest[] =
+-   {
+-      MiTimeEvent::FirmwareUpdateAvailable,
+-      MiTimeEvent::GatewayHasObtainedTheLatestSystemMatrix
+-   };
+-
+-   const MiCanEvent::Value SystemFirmwarePrimer::m_miCanEventsOfInterest[] =
+-   {
+-      MiCanEvent::FileReceiveComplete,
+-      MiCanEvent::FileSendComplete,
+-      MiCanEvent::DisableTrickling,
+-      MiCanEvent::EnableTrickling,
+-      MiCanEvent::MiCanPduSendResult
+-   };
+-
+-<<<<<<< HEAD
+-=======
+-   const char * const SystemFirmwarePrimer::InternetGatewayPartNumber = PartNumbers::InternetGateway;
+-
+->>>>>>> remotes/Pablo/NowhereArchipelago
+-   SystemFirmwarePrimer::SystemFirmwarePrimer(EventManagerInterface &productEventManager,
+-                                             EventManagerInterface &miCanEventManager,
+-                                             FileSystemInterface &fileSystem,
+-                                             EventManagerQueueInterface &miCanEventManagerQueue,
+-                                             MiCanPduControllerInterface &miCanPduController,
+-                                             NodeProxyCollectionInterface &nodeProxyCollection,
+-                                             FactoryConfigInterface &factoryConfig,
+-                                             NodeDomainPropertyAccessor &nodePropertyAccessor,
+-                                             TaskDelayInterface &taskDelay) :
+-      m_miCanEventManager(miCanEventManager),
+-      m_productEventManager(productEventManager),
+-      m_fileSystem(fileSystem),
+-      m_miCanEventManagerQueue(miCanEventManagerQueue),
+-      m_miCanPduController(miCanPduController),
+-      m_nodeProxyCollection(nodeProxyCollection),
+-      m_nodePropertyAccessor(nodePropertyAccessor),
+-      m_taskDelay(taskDelay),
+-      m_internetGatewayNodeShortAddress(NodeProxyCollectionInterface::InvalidShortAddress),
+-      m_targetNodeShortAddress(NodeProxyCollectionInterface::InvalidShortAddress),
+-      m_messageId(0),
+-      m_productEventRegistrar(productEventManager, m_productEventsOfInterest, *this),
+-      m_miCanEventRegistrar(miCanEventManager, m_miCanEventsOfInterest, *this),
+-      m_miCanControllerSenderForIncomingFile(NULL),
+-      m_miCanFileReceiver(NULL),
+-      m_miCanControllerSenderForOutgoingFirmware(NULL),
+-      m_miCanFileSender(NULL)
+-   {
+-      if (!factoryConfig.GetPartNumber(m_partNumber))
+-      {
+-         m_partNumber = "NOPARTNUMBER";
+-      }
+-   }
+-
+-   SystemFirmwarePrimer::~SystemFirmwarePrimer()
+-   {
+-      DeleteFileReceiver();
+-      DeleteMiCanSenderForIncomingFiles();
+-
+-      DeleteFirmwareSender();
+-   }
+-
+-   void SystemFirmwarePrimer::HandleEvent(u16 event, EventArgumentsInterface *args)
+-   {
+-      if ((args != NULL) && (args->GetSourceEventManager() == &m_miCanEventManager))
+-      {
+-         HandleMiCanEvent(event, args);
+-      }
+-      else
+-      {
+-         HandleProductEvent(event, args);
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::HandleMiCanEvent(u16 event, const EventArgumentsInterface *args)
+-   {
+-      switch (event)
+-      {
+-      case MiCanEvent::FileReceiveComplete:
+-         OnFileReceiveComplete(args);
+-         break;
+-      case MiCanEvent::FileSendComplete:
+-         OnFirmwareSendComplete(args);
+-         break;
+-      case MiCanEvent::MiCanPduSendResult:
+-         OnMiCanPduSendResult(args);
+-         break;
+-      case MiCanEvent::EnableTrickling:
+-         m_miCanFileReceiver->EnableTrickling();
+-         break;
+-      case MiCanEvent::DisableTrickling:
+-         m_miCanFileReceiver->DisableTrickling();
+-         break;
+-      default:
+-         break;
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::HandleProductEvent(u16 event, const EventArgumentsInterface *args)
+-   {
+-      switch (event)
+-      {
+-      case MiTimeEvent::FirmwareUpdateAvailable:
+-         OnFirmwareUpdateAvailable(args);
+-         break;
+-      case MiTimeEvent::GatewayHasObtainedTheLatestSystemMatrix:
+-         OnMatrixReadyForTransfer();
+-         break;
+-      default:
+-         break;
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::OnFirmwareUpdateAvailable(const EventArgumentsInterface *args)
+-   {
+-      const FirmwareUpdateAvailableReceivedArguments* firmwareUpdateAvailableArgs = 
+-         static_cast<const FirmwareUpdateAvailableReceivedArguments *>(args);
+-
+-      m_currentTransferFilename = FirmwareUpdateConstants::GetFirmwareUpdatePackName(firmwareUpdateAvailableArgs->PartNumber,
+-                                                                            firmwareUpdateAvailableArgs->Version);
+-      SendRequestFileTransferToInternetGateway(m_currentTransferFilename);
+-   }
+-
+-   void SystemFirmwarePrimer::OnMatrixReadyForTransfer()
+-   {
+-      DPRINTF("Requesting transfer of the matrix from the Gateway");
+-      m_currentTransferFilename = FirmwareUpdateConstants::SystemVersionMatrixFilename;
+-      SendRequestFileTransferToInternetGateway(m_currentTransferFilename);
+-   }
+-
+-   void SystemFirmwarePrimer::OnMatrixTransferComplete()
+-   {
+-      DPRINTF("Matrix has been transferred from the Gateway to the MiTime");
+-      m_productEventManager.RaiseEvent(MiTime::MiTimeEvent::CheckLocalSystemMatrixAndUpdateNodesIfNecessary);
+-   }
+-
+-   void SystemFirmwarePrimer::OnFileReceiveComplete(const EventArgumentsInterface *args)
+-   {
+-      const MiCanFileTransferCompleteReceivedArguments* fileTransferCompleteArgs =
+-         static_cast<const MiCanFileTransferCompleteReceivedArguments *>(args);
+-
+-      const string ReceivedFileName = fileTransferCompleteArgs->FileName;
+-      const bool TransferSuccessful = fileTransferCompleteArgs->TransferSuccessful;
+-      
+-      DeleteFileReceiver();
+-      DeleteMiCanSenderForIncomingFiles();
+-
+-      if (ReceivedFileName == FirmwareUpdateConstants::SystemVersionMatrixFilename)
+-      {
+-         if (TransferSuccessful)
+-         {
+-            FunctionEventDispatcher::Dispatch(FunctionEventDispatcher::Dispatch::ProductEventQueue, boost::bind(&SystemFirmwarePrimer::OnMatrixTransferComplete, this));
+-         }
+-         else
+-         {
+-            DPRINTF("Matrix file transfer was unsuccessful. Re-attempting");
+-            OnMatrixReadyForTransfer();
+-         }
+-         return;
+-      }
+-      
+-      string partNumber, version;
+-      bool hasPartNumber = FirmwareUpdateConstants::GetPartNumberFromFirmwareUpdatePackName(ReceivedFileName, partNumber);
+-      bool hasVersion = FirmwareUpdateConstants::GetVersionFromFirmwareUpdatePackName(ReceivedFileName, version);
+-      bool isFirmwareUpdatePack = hasPartNumber && hasVersion;
+-      
+-      if (!isFirmwareUpdatePack)
+-      {
+-         DPRINTF("File received: %s with status: %s",
+-            ReceivedFileName.c_str(),
+-            TransferSuccessful ? "sucessful" : "failed");
+-            return;
+-      }
+-
+-      DPRINTF("Firmware update pack received for: %s, version: %s with status: %s",
+-         partNumber.c_str(),
+-         version.c_str(),
+-         TransferSuccessful ? "sucessful" : "failed");
+-
+-      if (!TransferSuccessful)
+-         return;
+-
+-      if (partNumber == m_partNumber)
+-      {
+-         // Tim - this is what the FotaUpdateTask should do...
+-         m_nodePropertyAccessor.SetFotaAction(FotaActions::Prime);
+-         return;
+-      }
+-      SendStartTransferToOtherNode(partNumber, ReceivedFileName);
+-   }
+-
+-   void SystemFirmwarePrimer::OnFirmwareSendComplete(const EventArgumentsInterface *args)
+-   {
+-      const MiCanFileTransferCompleteReceivedArguments* firmwareTransferCompleteArgs =
+-         static_cast<const MiCanFileTransferCompleteReceivedArguments *>(args);
+-
+-      DPRINTF("File sent: %s with status: %s (transfer ID: %u)",
+-         firmwareTransferCompleteArgs->FileName.c_str(),
+-         firmwareTransferCompleteArgs->TransferSuccessful ? "sucessful" : "failed",
+-         firmwareTransferCompleteArgs->TransferId);
+-
+-      DeleteFirmwareSender();
+-   }
+-
+-
+-   void SystemFirmwarePrimer::OnMiCanPduSendResult(const EventArgumentsInterface *args)
+-   {
+-      const MiCanPduSendResultArguments *micanPduSendResultArguments = reinterpret_cast<const MiCanPduSendResultArguments *>(args);
+-      if ((m_messageId == micanPduSendResultArguments->MessageId) && 
+-         (micanPduSendResultArguments->Result != MiCanPduSendResult::Success) &&
+-         ((m_miCanControllerSenderForIncomingFile == NULL) && (m_miCanControllerSenderForOutgoingFirmware == NULL)))
+-      {
+-         DPRINTF("Aborting file transfer (packet not sent!)");
+-         u16 nodeAddress = micanPduSendResultArguments->NodeAddress;
+-         if (nodeAddress == m_targetNodeShortAddress)
+-         {
+-            DPRINTF("Error transfering file to target node: %u", nodeAddress);
+-         }
+-         else if (nodeAddress == m_internetGatewayNodeShortAddress)
+-         {
+-            DPRINTF("Error transferring file from Internet Gateway: %u", nodeAddress);
+-         }
+-         else
+-         {
+-            DPRINTF("Error transfering file to unknown node: %u!!", nodeAddress);
+-         }
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::SendRequestFileTransferToInternetGateway(const string &fileName)
+-   {
+-      MiCanRequestFileTransferMessage requestFileTransferMessage;
+-      requestFileTransferMessage.FileName = fileName;
+-      
+-      CreateMiCanSenderForIncomingFiles();
+-
+-      if (m_miCanControllerSenderForIncomingFile != NULL)
+-         m_miCanControllerSenderForIncomingFile->Send(requestFileTransferMessage, m_messageId);
+-   }
+-
+-   void SystemFirmwarePrimer::SendStartTransferToOtherNode(const string &partNumber, const string &fileName)
+-   {
+-      if (!CreateFirmwareSender(partNumber, fileName))
+-         return;
+-
+-      MiCanStartFileTransferMessage startFileTransferMessage;
+-      startFileTransferMessage.FileName = fileName;
+-      startFileTransferMessage.TransferId = m_miCanFileSender->getTransferId();
+-
+-      if (m_miCanControllerSenderForOutgoingFirmware != NULL)
+-      {
+-         DPRINTF("Starting firmware transfer to %s", partNumber.c_str());
+-         m_miCanControllerSenderForOutgoingFirmware->Send(startFileTransferMessage, m_messageId);
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::OnReceive(u16 nodeShortAddress, const vector<u8> &message)
+-   {
+-      if (nodeShortAddress == m_internetGatewayNodeShortAddress)
+-         OnReceiveFromInternetGateway(nodeShortAddress, message);
+-      else
+-         OnReceiveFromOtherNode(nodeShortAddress, message);
+-   }
+-
+-   void SystemFirmwarePrimer::OnReceiveFromInternetGateway(u16 nodeShortAddress, const vector<u8> &message)
+-   {
+-      if (MiCanMessageType::StartFileTransfer == static_cast<MiCanMessageType::Value>(message[0]))
+-      {
+-         OnStartFileTransferWithInternetGateway(message);
+-      }
+-      else
+-      {
+-         if (m_miCanFileReceiver != NULL)
+-            m_miCanFileReceiver->OnReceive(nodeShortAddress, message);
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::OnStartFileTransferWithInternetGateway(const vector<u8> &message)
+-   {
+-      MiCanStartFileTransferMessage startFileTransferMessage;
+-      startFileTransferMessage.Deserialise(message);
+-
+-      if (  (m_nodeProxyCollection.FindNodeWith(FirmwareUpdateConstants::InternetGatewayPartNumber, m_internetGatewayNodeShortAddress))
+-         && (startFileTransferMessage.FileName == m_currentTransferFilename))
+-      {
+-         CreateFileReceiver(startFileTransferMessage.FileName, startFileTransferMessage.TransferId);
+-      }
+-   }
+-
+-
+-   void SystemFirmwarePrimer::OnReceiveFromOtherNode(u16 nodeShortAddress, const vector<u8> &message)
+-   {
+-      if ((m_miCanFileSender != NULL) && (nodeShortAddress == m_targetNodeShortAddress))
+-         m_miCanFileSender->OnReceive(nodeShortAddress, message);
+-   }
+-
+-   void SystemFirmwarePrimer::CreateFileReceiver(const string &fileName, u8 transferId)
+-   {
+-      DeleteFileReceiver();
+-      m_miCanFileReceiver = new MiCanFileReceiver(*m_miCanControllerSenderForIncomingFile,
+-                                                  m_fileSystem,
+-                                                  m_miCanEventManager,
+-                                                  m_miCanEventManagerQueue,
+-                                                  m_crc,
+-                                                  m_taskDelay,
+-                                                  fileName,
+-                                                  transferId);
+-   }
+-
+-   bool SystemFirmwarePrimer::CreateFirmwareSender(const string &partNumber, const string &fileName)
+-   {
+-      DeleteFirmwareSender();
+-
+-      if (!m_nodeProxyCollection.FindNodeWith(partNumber, m_targetNodeShortAddress))
+-      {
+-         DPRINTF("No %s found!", partNumber.c_str());
+-         return false;
+-      }
+-
+-      DPRINTF("%s found at address %d", partNumber.c_str(), m_targetNodeShortAddress);
+-      m_miCanControllerSenderForOutgoingFirmware = new MiCanControllerSender(m_miCanPduController,
+-                                                                             m_targetNodeShortAddress);
+-
+-      m_miCanFileSender = new MiCanFileSender(*m_miCanControllerSenderForOutgoingFirmware,
+-                                              m_fileSystem,
+-                                              m_miCanEventManager,
+-                                              m_miCanEventManagerQueue,
+-                                              m_crc,
+-                                              m_taskDelay,
+-                                              fileName);
+-      return true;
+-   }
+-
+-   void SystemFirmwarePrimer::DeleteFileReceiver()
+-   {
+-      if (m_miCanFileReceiver != NULL)
+-      {
+-         delete(m_miCanFileReceiver);
+-         m_miCanFileReceiver = NULL;
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::DeleteFirmwareSender()
+-   {
+-      if (m_miCanFileSender != NULL)
+-      {
+-         delete(m_miCanFileSender);
+-         m_miCanFileSender = NULL;
+-      }
+-
+-      if (m_miCanControllerSenderForOutgoingFirmware != NULL)
+-      {
+-         delete(m_miCanControllerSenderForOutgoingFirmware);
+-         m_miCanControllerSenderForOutgoingFirmware = NULL;
+-         m_targetNodeShortAddress = NodeProxyCollectionInterface::InvalidShortAddress;
+-      }
+-   }
+-
+-   void SystemFirmwarePrimer::CreateMiCanSenderForIncomingFiles()
+-   {
+-      if (m_miCanControllerSenderForIncomingFile != NULL)
+-         return;
+-
+-      if (!m_nodeProxyCollection.FindNodeWith(FirmwareUpdateConstants::InternetGatewayPartNumber, m_internetGatewayNodeShortAddress))
+-      {
+-         DPRINTF("No Internet Gateway found!");
+-         return;
+-      }
+-
+-      DPRINTF("Internet Gateway found at address %d", m_internetGatewayNodeShortAddress);
+-      m_miCanControllerSenderForIncomingFile = new MiCanControllerSender(m_miCanPduController,
+-                                                                         m_internetGatewayNodeShortAddress);
+-   }
+-
+-   void SystemFirmwarePrimer::DeleteMiCanSenderForIncomingFiles()
+-   {
+-      if (m_miCanControllerSenderForIncomingFile != NULL)
+-      {
+-         delete(m_miCanControllerSenderForIncomingFile);
+-         m_miCanControllerSenderForIncomingFile = NULL;
+-      }
+-   }
+-}
+removed in remote
+  base   100644 b644b90256a65a21b8faf5dfe4c186232337ed9b NG/MiTime/Source/Framework/SystemFirmwarePrimer.h
+  our    100644 b644b90256a65a21b8faf5dfe4c186232337ed9b NG/MiTime/Source/Framework/SystemFirmwarePrimer.h
+@@ -1,104 +0,0 @@
+-#ifndef SYSTEM_FIRMWARE_PRIMER_H
+-#define SYSTEM_FIRMWARE_PRIMER_H
+-
+-#include "EventHandlerInterface.h"
+-#include "MiCanFileReceiver.h"
+-#include "MiCanFileSender.h"
+-#include "EventRegistrar.h"
+-#include "MiCanEvent.h"
+-#include "MiTimeEvent.h"
+-#include "MiCanControllerSender.h"
+-#include "FileSystemInterface.h"
+-#include "EventManagerQueueInterface.h"
+-#include "MiCanPduControllerInterface.h"
+-#include "NodeProxyCollectionInterface.h"
+-#include "FactoryConfigInterface.h"
+-#include "NodeDomainPropertyAccessor.h"
+-#include "Crc/Crc16.h"
+-#include "FirmwareUpdateConstants.h"
+-#include "TaskDelayInterface.h"
+-
+-namespace MiTime
+-{
+-
+-   class SystemFirmwarePrimer : public EventHandlerInterface,
+-                                public MiCanMessageReceiverInterface
+-   {
+-   public:
+-      SystemFirmwarePrimer(EventManagerInterface &productEventManager,
+-                           EventManagerInterface &miCanEventManager,
+-                           FileSystemInterface &fileSystem,
+-                           EventManagerQueueInterface &miCanEventManagerQueue,
+-                           MiCanPduControllerInterface &miCanPduController,
+-                           NodeProxyCollectionInterface &nodeProxyCollection,
+-                           FactoryConfigInterface &factoryConfig,
+-                           NodeDomainPropertyAccessor &nodePropertyAccessor,
+-                           TaskDelayInterface &taskDelay);
+-      ~SystemFirmwarePrimer();
+-
+-      void HandleEvent(u16 event, EventArgumentsInterface *args);
+-
+-      void OnReceive(u16 nodeShortAddress, const vector<u8> &message);
+-   private:
+-      SystemFirmwarePrimer(SystemFirmwarePrimer const &);
+-
+-      EventManagerInterface &m_miCanEventManager;
+-      EventManagerInterface &m_productEventManager;
+-      FileSystemInterface &m_fileSystem;
+-      EventManagerQueueInterface &m_miCanEventManagerQueue;
+-      MiCanPduControllerInterface &m_miCanPduController;
+-      NodeProxyCollectionInterface &m_nodeProxyCollection;
+-      NodeDomainPropertyAccessor &m_nodePropertyAccessor;
+-      TaskDelayInterface &m_taskDelay;
+-
+-      u16 m_internetGatewayNodeShortAddress;
+-      static const char * const InternetGatewayPartNumber;
+-      u16 m_targetNodeShortAddress;
+-      string m_partNumber;
+-      string m_currentTransferFilename;
+-
+-      u8 m_messageId;
+-
+-      Crc16 m_crc;
+-
+-      static const MiTimeEvent::Value m_productEventsOfInterest[];
+-      static const MiCanEvent::Value m_miCanEventsOfInterest[];
+-      EventRegistrar<MiTimeEvent::Value> m_productEventRegistrar;
+-      EventRegistrar<MiCanEvent::Value>  m_miCanEventRegistrar;
+-
+-      MiCanControllerSender *m_miCanControllerSenderForIncomingFile;
+-      MiCanControllerSender *m_miCanControllerSenderForOutgoingFirmware;
+-      MiCanFileReceiver *m_miCanFileReceiver;
+-      MiCanFileSender *m_miCanFileSender;
+-
+-      void HandleMiCanEvent(u16 event, const EventArgumentsInterface *args);
+-      void HandleProductEvent(u16 event, const EventArgumentsInterface *args);
+-
+-      void OnReceiveFromInternetGateway(u16 nodeShortAddress, const vector<u8> &message);
+-      void OnStartFileTransferWithInternetGateway(const vector<u8> &message);
+-
+-      void OnReceiveFromOtherNode(u16 nodeShortAddress, const vector<u8> &message);
+-      void OnMatrixTransferComplete();
+-
+-      void CreateMiCanSenderForIncomingFiles();
+-      void DeleteMiCanSenderForIncomingFiles();
+-
+-      void OnFirmwareUpdateAvailable(const EventArgumentsInterface *args);
+-      void OnMatrixReadyForTransfer();
+-      
+-      void OnFileReceiveComplete(const EventArgumentsInterface *args);
+-      void OnFirmwareSendComplete(const EventArgumentsInterface *args);
+-      void OnMiCanPduSendResult(const EventArgumentsInterface *args);
+-
+-      void SendRequestFileTransferToInternetGateway(const string &fileName);
+-      void SendStartTransferToOtherNode(const string &partNumber, const string &fileName);
+-
+-      void CreateFileReceiver(const string &fileName, u8 transferId);
+-      bool CreateFirmwareSender(const string &partNumber, const string &fileName);
+-
+-      void DeleteFileReceiver();
+-      void DeleteFirmwareSender();
+-   };
+-}
+-
+-#endif

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="CoreQualityMetrics.Views.CoreQualityMetricView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:ViewCommon="clr-namespace:ViewCommon;assembly=ViewCommon"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <ViewCommon:PercentageByDateGraphModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <oxy:PlotView Name="graph" Model="{Binding Model}" Visibility="Hidden" />
+        <Viewbox Grid.Row="1" Grid.Column="1">
+            <TextBlock Name="messageText" Foreground="White">No data</TextBlock>
+        </Viewbox>
+    </Grid>
+</UserControl>

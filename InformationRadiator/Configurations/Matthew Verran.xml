@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<InformationRadiatorConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Items>
+
+    <InformationRadiatorItem ItemType="LeanKitCumlativeFlow" Width="960" Height="465">
+      <Title>Carina Cumlative Flow</Title>
+      <Configuration>
+        <Field ID="HostName">absw</Field>
+        <Field ID="UserName">informationradiator@bluefruit.co.uk</Field>
+        <Field ID="Password">Makinvvis1#</Field>
+        <Field ID="BoardID">74577303</Field>
+        <Field ID="NumberOfDays">28</Field>
+
+        <Field ID="IgnoreLaneID">74603594</Field>
+        <Field ID="IgnoreLaneID">74603595</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <InformationRadiatorItem ItemType="LeanKitCumlativeFlow" Width="960" Height="465">
+      <Title>Cytronex Cumlative Flow</Title>
+      <Configuration>
+        <Field ID="HostName">absw</Field>
+        <Field ID="UserName">informationradiator@bluefruit.co.uk</Field>
+        <Field ID="Password">Makinvvis1#</Field>
+        <Field ID="BoardID">64640109</Field>
+        <Field ID="NumberOfDays">28</Field>
+
+        <!-- Released -->
+        <Field ID="IgnoreLaneID">236898832</Field>
+        <!-- Archive -->
+        <Field ID="IgnoreLaneID">64663850</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <InformationRadiatorItem ItemType="CoreQualityMetrics" Width="600" Height="465">
+      <Title>Core Quality</Title>
+      <Configuration>
+        <Field ID="WebsiteURL">http://192.168.1.230/</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <InformationRadiatorItem ItemType="TeamCity" Width="600" Height="465">
+      <Title>Bob Build Server</Title>
+      <Configuration>
+        <Field ID="HostName">bob:8080</Field>
+        <Field ID="UserName">informationradiator</Field>
+        <Field ID="Password">Cornwall1#</Field>
+        <Field ID="BuildConfiguration">Carina_Master</Field>
+        <Field ID="BuildConfiguration">Carina_Carina2test</Field>
+        <Field ID="BuildConfiguration">CytronexEmbedded_BuildBottleBoard</Field>
+        <Field ID="BuildConfiguration">ElgaFlex_Build</Field>
+        <Field ID="OnlyDefaultBranch">true</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <InformationRadiatorItem ItemType="TeamCity" Width="600" Height="465">
+      <Title>TestPC2 Build Server</Title>
+      <Configuration>
+        <Field ID="HostName">testpc2:8080</Field>
+        <Field ID="UserName">byran</Field>
+        <Field ID="Password">Nevryon.78</Field>
+        <Field ID="BuildConfiguration">bt3</Field>
+        <Field ID="BuildConfiguration">bt23</Field>
+        <Field ID="OnlyDefaultBranch">true</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <InformationRadiatorItem ItemType="LeanKitTicker" Width="1920" Height="150">
+      <Title></Title>
+      <Configuration>
+        <Field ID="HostName">absw</Field>
+        <Field ID="UserName">informationradiator@bluefruit.co.uk</Field>
+        <Field ID="Password">Makinvvis1#</Field>
+        <Field ID="BoardID">170637725</Field>
+        <Field ID="LaneID">170818048</Field>
+        <Field ID="DisplayUpdateInterval">5</Field>
+      </Configuration>
+    </InformationRadiatorItem>
+
+    <InformationRadiatorItem ItemType="Decorations" Top="0" Left="0" />
+
+  </Items>
+</InformationRadiatorConfiguration>
