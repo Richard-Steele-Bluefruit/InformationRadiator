@@ -27,13 +27,6 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Calendar.RenderTransform>
-                <Calendar.SelectedDates>
-                    <System:DateTime>2019-11-18</System:DateTime>
-                    <System:DateTime>2019-11-19</System:DateTime>
-                    <System:DateTime>2019-11-20</System:DateTime>
-                    <System:DateTime>2019-11-21</System:DateTime>
-                    <System:DateTime>2019-11-22</System:DateTime>
-                </Calendar.SelectedDates>
             </Calendar>
             <Rectangle Fill="#FFFF7400" Height="295" Stroke="Black" Canvas.Top="29" Width="775" StrokeThickness="3">
                 <Rectangle.Effect>
@@ -96,31 +89,31 @@
                     <DropShadowEffect/>
                 </WebBrowser.Effect>
             </WebBrowser>
-            <Label x:Name="label1" Content="- Connect&#xD;&#xA;calendar&#xD;&#xA;- Connect&#xD;&#xA;to do/shopping&#xD;&#xA;list" Canvas.Left="530" Canvas.Top="575" Height="444" Width="390" BorderThickness="5" RenderTransformOrigin="0.5,0.5" FontSize="54" Foreground="#FF0C00FF" HorizontalAlignment="Left">
-                <Label.Effect>
+            <TextBox x:Name="ToDoTextBox" Text="" Canvas.Left="530" Canvas.Top="575" Height="444" Width="390" BorderThickness="5" RenderTransformOrigin="0.5,0.5" FontSize="32" Foreground="#FF0C00FF" HorizontalAlignment="Left" AutomationProperties.Name="ToDoTextBox" FontFamily="Comic Sans MS" AcceptsReturn="True" TextWrapping="Wrap">
+                <TextBox.Effect>
                     <DropShadowEffect/>
-                </Label.Effect>
-                <Label.RenderTransform>
+                </TextBox.Effect>
+                <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform/>
                         <RotateTransform Angle="4.539"/>
                         <TranslateTransform/>
                     </TransformGroup>
-                </Label.RenderTransform>
-                <Label.BorderBrush>
+                </TextBox.RenderTransform>
+                <TextBox.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF00F3FF" Offset="1"/>
                         <GradientStop Color="#FF17FF00"/>
                     </LinearGradientBrush>
-                </Label.BorderBrush>
-                <Label.Background>
+                </TextBox.BorderBrush>
+                <TextBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF00FFD1" Offset="0"/>
                         <GradientStop Color="#FF23FF00" Offset="1"/>
                     </LinearGradientBrush>
-                </Label.Background>
-            </Label>
+                </TextBox.Background>
+            </TextBox>
         </Canvas>
     </Grid>
 </Window>

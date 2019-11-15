@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -25,6 +25,8 @@ namespace InformationRadiator
         PresenterCommon.MainWindowPresenter _presenter;
         List<MainWindow> _windows;
 
+        TrelloHandler mTrello;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace InformationRadiator
             _presenter.CreateView += _presenter_CreateView;
 
             _windows = new List<MainWindow>();
+
+            mTrello = new TrelloHandler();
 
             foreach(var screen in System.Windows.Forms.Screen.AllScreens)
             {
@@ -53,13 +57,14 @@ namespace InformationRadiator
                 window.Left = screen.WorkingArea.Left;
                 window.WindowState = System.Windows.WindowState.Maximized;
                 window.Topmost = true;
+
+                window.ToDoTextBox.Text = mTrello.ToDo;
                 break;
             }
 
             CommonConstruction();
 
             _presenter.ParseConfiguration(_presenterResources.Configuration, _presenterResources.PresenterFactory);
-
         }
 
         public MainWindow(PresenterCommon.PresenterResources presenterResources, List<MainWindow> windows)
